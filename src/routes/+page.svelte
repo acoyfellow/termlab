@@ -1,10 +1,14 @@
 <script lang="ts">
   import TerminalCell from '$lib/TerminalCell.svelte';
+  import BenchMatrix from '$lib/BenchMatrix.svelte';
   import { ADAPTERS } from '$lib/adapters';
   import { FakeShell } from '$lib/fake-shell';
+  import { liveMeasurements } from '$lib/live-measurements.svelte';
 
   // Sanity touch so tree-shaker doesn't drop FakeShell from the module graph.
   void FakeShell;
+
+  const live = liveMeasurements();
 </script>
 
 <main>
@@ -29,6 +33,8 @@
       </p>
     </div>
   </header>
+
+  <BenchMatrix liveMeasurements={live} />
 
   <div class="grid">
     {#each ADAPTERS as adapter (adapter.id)}

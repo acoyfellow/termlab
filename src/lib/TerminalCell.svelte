@@ -2,6 +2,7 @@
   import { onMount, onDestroy } from 'svelte';
   import { FakeShell, FIRES } from './fake-shell';
   import type { TerminalAdapter, TerminalHandle } from './terminal-adapter';
+  import { record } from './live-measurements.svelte';
 
   let {
     adapter,
@@ -24,6 +25,19 @@
       handle = await adapter.mount(host, shell);
       mountMs = Math.round(performance.now() - t0);
       status = 'ready';
+      // Publish to the bench matrix. Green below 100ms, yellow under
+      // 500ms, red above.
+      const result = mountMs < 100 ? 'pass' : mountMs < 500 ? 'partial' : 'fail';
+      record(adapter.id, 'mount-ms', {
+        value: `${mountMs}ms`,
+        result,
+      });
+      if (adapter.bundleHint) {
+        record(adapter.id, 'bundle-size', {
+          value: adapter.bundleHint,
+          result: 'partial',
+        });
+      }
     } catch (err) {
       console.error(`[${adapter.id}] mount failed:`, err);
       status = 'error';
@@ -44,6 +58,21 @@
     // Give the renderer a beat to settle, then force a fit for those
     // adapters that expose one.
     setTimeout(() => handle?.fit?.(), 50);
+
+    // Measure write throughput when the user fires the 10k-line button.
+    // Rough — real perf measurement needs many more samples. Good
+    // enough for a side-by-side "is one obviously slower?" check.
+    if (id === 'long-log') {
+      const t = performance.now();
+      queueMicrotask(() => {
+        const elapsed = performance.now() - t;
+        const result = elapsed < 100 ? 'pass' : elapsed < 400 ? 'partial' : 'fail';
+        record(adapter.id, 'throughput', {
+          value: `10k lines in ${Math.round(elapsed)}ms`,
+          result,
+        });
+      });
+    }
   }
 </script>
 
