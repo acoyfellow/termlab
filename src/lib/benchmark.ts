@@ -135,6 +135,19 @@ export type StaticGradeMap = Partial<
 >;
 
 export const STATIC_GRADES: Record<string, StaticGradeMap> = {
+  cloudterm: {
+    'bundle-size': { result: 'pass', note: '~6KB gz (18KB raw)' },
+    'cmd-find': { result: 'pass' },
+    selection: { result: 'pass' },
+    a11y: { result: 'pass' },
+    scroll: { result: 'pass' },
+    'ansi-256': { result: 'pass' },
+    'box-align': { result: 'pass', note: 'pretext-measured monospace' },
+    'emoji-width': { result: 'partial', note: 'inherits pretext segmentation' },
+    'resize-robust': { result: 'pass', note: 'ResizeObserver; pretext layout is pure arithmetic' },
+    maintenance: { result: 'unknown', note: 'v0.0.1, homegrown (acoyfellow/cloudterm)' },
+    license: { result: 'pass', note: 'MIT' },
+  },
   'xterm-dom': {
     'bundle-size': { result: 'partial', note: '~200KB gz' },
     'cmd-find': { result: 'pass' },

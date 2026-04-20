@@ -9,8 +9,10 @@ import { xtermWebgl } from './xterm-webgl';
 import { xtermDom } from './xterm-dom';
 import { wtermAdapter } from './wterm';
 import { htermAdapter } from './hterm';
+import { cloudterm } from './cloudterm';
 
 export const ADAPTERS: readonly TerminalAdapter[] = [
+  cloudterm,
   xtermDom,
   xtermCanvas,
   xtermWebgl,
