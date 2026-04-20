@@ -1,0 +1,24 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "termlab",
+  // SvelteKit's adapter-cloudflare emits a _worker.js entrypoint here.
+  "main": ".svelte-kit/cloudflare/_worker.js",
+  // Keep this fresh per Workers best-practices guide.
+  "compatibility_date": "2026-04-20",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": ".svelte-kit/cloudflare",
+    "binding": "ASSETS"
+  },
+  "routes": [
+    {
+      "pattern": "termlab.coey.dev",
+      "custom_domain": true
+    }
+  ],
+  "observability": {
+    "logs": {
+      "enabled": true
+    }
+  }
+}
