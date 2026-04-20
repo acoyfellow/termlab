@@ -1,6 +1,7 @@
 <script lang="ts">
   import TerminalCell from '$lib/TerminalCell.svelte';
   import BenchMatrix from '$lib/BenchMatrix.svelte';
+  import GlobalControls from '$lib/GlobalControls.svelte';
   import { ADAPTERS } from '$lib/adapters';
   import { FakeShell } from '$lib/fake-shell';
   import { liveMeasurements } from '$lib/live-measurements.svelte';
@@ -33,6 +34,8 @@
       </p>
     </div>
   </header>
+
+  <GlobalControls />
 
   <BenchMatrix liveMeasurements={live} />
 

@@ -51,6 +51,9 @@
     } catch (err) {
       console.warn(`[${adapter.id}] destroy:`, err);
     }
+    // Unhook the shell's broadcast listener so we don't leak between
+    // hot-reloads in dev and nav events in prod.
+    shell?.dispose();
   });
 
   function onFireClick(id: string) {

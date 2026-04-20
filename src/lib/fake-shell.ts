@@ -61,14 +61,56 @@ export const FIRES: readonly FireCatalog[] = [
   },
 ] as const;
 
+/**
+ * Event name for global "fire into every FakeShell on the page" events.
+ * The page-level mass-control buttons dispatch these on `window`; every
+ * FakeShell subscribes and calls its own `fire` method. This keeps the
+ * page from needing to track references to each shell instance.
+ */
+export const BROADCAST_FIRE_EVENT = 'termlab:broadcast-fire';
+
+/**
+ * Payload shape for broadcast-fire events. Intentionally minimal so
+ * a page-level shell (tests, bookmarklets, external instrumentation)
+ * can dispatch without a dependency on this module.
+ */
+export interface BroadcastFireDetail {
+  readonly id: string;
+}
+
 export class FakeShell {
   private listeners = new Set<OutputListener>();
   private inputBuffer = '';
+  private broadcastHandler: ((e: Event) => void) | null = null;
 
   constructor() {
     // First impression banner on construct — emitted async so whoever
     // just attached has time to subscribe first.
     queueMicrotask(() => this.banner());
+
+    // Subscribe to global broadcast events if we're in the browser.
+    // SSR-safe: the `typeof window` check guards against node execution.
+    if (typeof window !== 'undefined') {
+      this.broadcastHandler = (e: Event) => {
+        const detail = (e as CustomEvent<BroadcastFireDetail>).detail;
+        if (detail && typeof detail.id === 'string') {
+          this.fire(detail.id);
+        }
+      };
+      window.addEventListener(BROADCAST_FIRE_EVENT, this.broadcastHandler);
+    }
+  }
+
+  /**
+   * Clean up the broadcast subscription. Called by TerminalCell's
+   * onDestroy via the adapter handle.
+   */
+  dispose() {
+    if (this.broadcastHandler && typeof window !== 'undefined') {
+      window.removeEventListener(BROADCAST_FIRE_EVENT, this.broadcastHandler);
+      this.broadcastHandler = null;
+    }
+    this.listeners.clear();
   }
 
   onOutput(listener: OutputListener) {
