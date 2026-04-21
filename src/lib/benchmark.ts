@@ -201,11 +201,11 @@ export const STATIC_GRADES: Record<string, StaticGradeMap> = {
     'emoji-width': { result: 'unknown' },
     'resize-robust': {
       result: 'fail',
-      note: 'measured char-width breaks under CSS cascade races; caused weeks of pain in cloudshell',
+      note: 'measured char-width drifts under CSS cascade races during rapid resize',
     },
     maintenance: {
-      result: 'fail',
-      note: 'v0.1.x, 1 maintainer, vercel-labs',
+      result: 'partial',
+      note: 'v0.1.x, single maintainer, vercel-labs',
     },
     license: { result: 'pass', note: 'MIT' },
   },

@@ -1,15 +1,13 @@
 /**
  * xterm.js with its built-in DOM renderer (the default in v6+).
  *
- * This is the option I argued for during the cloudshell spike but
- * didn't actually try. Same battle-tested measurement code as the
- * canvas/WebGL modes, but DOM rendering means:
- *   - Cmd+F works (real text nodes)
+ * Uses the same measurement code as the canvas/WebGL modes.
+ * DOM rendering means:
+ *   - Cmd+F finds real text nodes
  *   - Native selection works
  *   - Accessibility tree is real
  *
- * The tradeoff is rendering perf on very long continuous output.
- * Let's see.
+ * Tradeoff: rendering cost scales with visible line count, not fps.
  */
 
 import type { TerminalAdapter } from '../terminal-adapter';
