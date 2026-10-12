@@ -209,7 +209,7 @@ const routes: Record<string, unknown> = {};
 for (const a of adapters) routes[`/${a.id}`] = (await import(join(out, `page-${a.id}.html`))).default;
 const server = Bun.serve({ port: 0, hostname: "127.0.0.1", development: false, routes: routes as any });
 
-async function sample(adapter: Adapter, workload: string, port: number) {
+async function sample(adapter: Adapter, workload: string, port: number, traced: boolean) {
   const chrome = spawn(binary, [`--remote-debugging-port=${port}`, "--enable-precise-memory-info", "--js-flags=--expose-gc", ...gpuFlags, "--window-size=1200,900", "about:blank"], { stdio: "ignore" });
   try {
     let ws = "";
@@ -243,12 +243,16 @@ async function sample(adapter: Adapter, workload: string, port: number) {
       if (!ready) await Bun.sleep(100);
     }
     if (!ready) { sock.close(); return { ok: false, ms: NaN, error: "page never became ready", errors }; }
-    await send("Tracing.start", { categories: "devtools.timeline,disabled-by-default-devtools.timeline,blink.user_timing", transferMode: "ReportEvents" });
+    if (traced) await send("Tracing.start", { categories: "devtools.timeline,disabled-by-default-devtools.timeline,blink.user_timing", transferMode: "ReportEvents" });
     const r = await send("Runtime.evaluate", { expression: `run(${JSON.stringify(workload)})`, awaitPromise: true, returnByValue: true, timeout: 60000 });
+    const value = r.result?.result?.value ?? { ok: false, ms: NaN, error: JSON.stringify(r.result?.exceptionDetails ?? r).slice(0, 300) };
+    if (!traced) {
+      sock.close();
+      return { ...value, errors };
+    }
     const complete = new Promise<void>((resolve) => { traceComplete = resolve; });
     await send("Tracing.end");
     await complete;
-    const value = r.result?.result?.value ?? { ok: false, ms: NaN, error: JSON.stringify(r.result?.exceptionDetails ?? r).slice(0, 300) };
     const metrics = traceMetrics(trace);
     if (value.ok && (metrics.cpuMs <= 0 || metrics.cpuMs > value.ms + 5)) {
       value.ok = false;
@@ -284,17 +288,23 @@ const rounds = Number(process.argv[2] ?? 5);
 const onlyIds = process.argv.slice(3);
 if (onlyIds.length) adapters.splice(0, adapters.length, ...adapters.filter((a) => onlyIds.includes(a.id)));
 const results: Record<string, Record<string, any[]>> = {};
+const tracedResults: Record<string, Record<string, any[]>> = {};
+const traceEnabled = process.env.BENCH_TRACE !== "0";
 let port = 9400;
-for (let round = 0; round < rounds; round++) {
-  const order = round % 2 === 0 ? adapters : [...adapters].reverse();
-  for (const workload of Object.keys(workloads)) {
-    for (const adapter of order) {
-      const s = await sample(adapter, workload, port++);
-      ((results[adapter.id] ??= {})[workload] ??= []).push(s);
-      process.stderr.write(`${round} ${workload} ${adapter.id} ${s.ok ? s.ms.toFixed(0) + "ms" : "FAIL " + (s.error ?? s.errors?.[0] ?? "")}\n`);
+async function runRounds(destination: Record<string, Record<string, any[]>>, traced: boolean) {
+  for (let round = 0; round < rounds; round++) {
+    const order = round % 2 === 0 ? adapters : [...adapters].reverse();
+    for (const workload of Object.keys(workloads)) {
+      for (const adapter of order) {
+        const s = await sample(adapter, workload, port++, traced);
+        ((destination[adapter.id] ??= {})[workload] ??= []).push(s);
+        process.stderr.write(`${traced ? "trace " : ""}${round} ${workload} ${adapter.id} ${s.ok ? s.ms.toFixed(0) + "ms" : "FAIL " + (s.error ?? s.errors?.[0] ?? "")}\n`);
+      }
     }
   }
 }
+await runRounds(results, false);
+if (traceEnabled) await runRounds(tracedResults, true);
 server.stop(true);
 
 async function gzipSize(adapter: Adapter) {
@@ -313,19 +323,26 @@ const terminals = [];
 for (const a of adapters) {
   const all = Object.values(results[a.id]).flat();
   const timings: Record<string, any> = {};
+  const traceOverheadPct: Record<string, number | null> = {};
   for (const w of Object.keys(workloads)) {
     const ss = results[a.id][w];
+    const traceSamples = tracedResults[a.id]?.[w] ?? [];
     const good = ss.filter((s) => s.ok);
+    const tracedGood = traceSamples.filter((s) => s.ok);
     const summary = (key: string) => {
-      const values = good.map((s) => s[key]);
-      return { medianMs: good.length === ss.length ? Math.round(median(values) * 100) / 100 : null, minMs: values.length ? Math.round(Math.min(...values) * 100) / 100 : null, maxMs: values.length ? Math.round(Math.max(...values) * 100) / 100 : null };
+      const values = tracedGood.map((s) => s[key]);
+      return { medianMs: tracedGood.length === traceSamples.length && values.length ? Math.round(median(values) * 100) / 100 : null, minMs: values.length ? Math.round(Math.min(...values) * 100) / 100 : null, maxMs: values.length ? Math.round(Math.max(...values) * 100) / 100 : null };
     };
-    timings[w] = { medianMs: good.length === ss.length ? Math.round(median(good.map((s) => s.ms))) : null, samplesMs: ss.map((s) => (s.ok ? Math.round(s.ms) : -1)), failures: ss.length - good.length, cpuMs: summary("cpuMs"), scriptMs: summary("scriptMs"), styleLayoutMs: summary("styleLayoutMs"), paintMs: summary("paintMs"), frames: summary("frames"), longestTaskMs: summary("longestTaskMs") };
+    const wallMedian = good.length === ss.length ? median(good.map((s) => s.ms)) : NaN;
+    const tracedWallMedian = tracedGood.length === traceSamples.length && traceSamples.length ? median(tracedGood.map((s) => s.ms)) : NaN;
+    traceOverheadPct[w] = Number.isFinite(wallMedian) && Number.isFinite(tracedWallMedian) ? Math.round((tracedWallMedian / wallMedian - 1) * 1000) / 10 : null;
+    timings[w] = { medianMs: Number.isFinite(wallMedian) ? Math.round(wallMedian) : null, samplesMs: ss.map((s) => (s.ok ? Math.round(s.ms) : -1)), failures: ss.length - good.length, cpuMs: summary("cpuMs"), scriptMs: summary("scriptMs"), styleLayoutMs: summary("styleLayoutMs"), paintMs: summary("paintMs"), frames: summary("frames"), longestTaskMs: summary("longestTaskMs") };
   }
   terminals.push({
     id: a.id,
     version: a.version,
     timings,
+    traceOverheadPct,
     mountMs: Math.round(median(all.filter((s) => s.ok).map((s) => s.mountMs))),
     heapMB: Math.round(median(results[a.id]["scroll-flood"].filter((s) => s.ok && s.heap).map((s) => s.heap))),
     gzipBytes: await gzipSize(a),
@@ -340,3 +357,4 @@ const gpuName = "hardware GPU, ANGLE Metal (" + ((await Bun.$`system_profiler SP
 const published = { generatedAt: new Date().toISOString(), rounds, browser: browserVersion, gpu: gpuMode === "software" ? "SwiftShader (software WebGL)" : gpuName, machine: `${cpu}, ${process.platform}`, grid: `${cols}x${rows}`, workloads: workloadInfo, terminals };
 writeFileSync(join(onlyIds.length ? out : join(root, "src/lib"), "bench-results.json"), JSON.stringify(published, null, 2) + "\n");
 console.table(terminals.map((t) => ({ id: t.id, version: t.version, ...Object.fromEntries(Object.entries(t.timings).map(([k, v]) => [k, v.medianMs])), mountMs: t.mountMs, heapMB: t.heapMB, gzipKB: +(t.gzipBytes / 1024).toFixed(1), textInDom: t.textInDom, canvas: t.canvas })));
+console.table(terminals.map((t) => ({ id: t.id, ...Object.fromEntries(Object.entries(t.traceOverheadPct).map(([workload, overhead]) => [workload, overhead == null ? "n/a" : `${overhead}%`])) })));

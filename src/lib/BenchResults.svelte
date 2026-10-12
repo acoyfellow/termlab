@@ -115,7 +115,7 @@
     <li>Bundle includes WASM, whether inlined or loaded as a separate file (ferroterm's 128 KB .wasm is counted).</li>
     <li>Heap is JS heap after a forced GC, measured after the scroll-flood run with the terminal still mounted.</li>
     <li>Wall time is end-marker visibility, sampled once per animation frame. Bundle size is esbuild minified + gzip -9 of the import, including WASM.</li>
-    <li>CPU is median renderer-main-thread task time from first write through marker visibility; script, layout and paint split that trace, and longest is the largest task. Frames counts animation-frame callbacks. CPU excludes worker and GPU work.</li>
+    <li>CPU columns come from separate traced runs, so tracing never changes the wall-time, mount or heap samples. CPU is median renderer-main-thread task time from first write through marker visibility; script, layout and paint split that trace, and longest is the largest task. Frames counts animation-frame callbacks. CPU excludes worker and GPU work.</li>
     <li>Reproduce: <code>bun run bench 5</code> in <a href="https://github.com/acoyfellow/termlab/tree/main/bench">the repo</a>. Raw samples are in <code>src/lib/bench-results.json</code>.</li>
   </ul>
   <div class="excluded">

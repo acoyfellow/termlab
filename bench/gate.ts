@@ -53,6 +53,7 @@ for (const [name, pick] of metrics) {
     } => x.v != null).sort((a, b) => a.v - b.v)[0]!;
     const pass = mine != null && mine <= best.v + tieMs;
     ok &&= pass;
-    console.log(`  ${pass ? "PASS" : "FAIL"} ${name.padEnd(13)} ${String(mine).padStart(5)} ms vs best ${best.id} ${best.v} ms (gap ${mine == null ? "n/a" : mine - best.v})`);
+    const rounded = (value: number | null) => value == null ? "n/a" : value.toFixed(1);
+    console.log(`  ${pass ? "PASS" : "FAIL"} ${name.padEnd(13)} ${rounded(mine).padStart(5)} ms vs best ${best.id} ${rounded(best.v)} ms (gap ${mine == null ? "n/a" : (mine - best.v).toFixed(1)})`);
 }
 process.exit(ok ? 0 : 1);
