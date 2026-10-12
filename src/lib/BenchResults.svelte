@@ -1,4 +1,5 @@
 <script lang="ts">
+  import AxResults from './AxResults.svelte';
   import results from './bench-results.json';
 
   type Workload = keyof typeof results.workloads;
@@ -125,6 +126,8 @@
     </ul>
   </div>
 </section>
+
+<AxResults />
 
 <style>
   .results { background: #0a0a0a; border: 1px solid #222; border-radius: 8px; overflow: hidden; }
