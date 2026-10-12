@@ -15,7 +15,7 @@
         "@xterm/xterm-beta": "npm:@xterm/xterm@6.1.0-beta.304",
         "auterm": "file:./vendor/auterm",
         "cloudterm": "github:acoyfellow/cloudterm#v0.0.11",
-        "cloudterm-perf": "github:acoyfellow/cloudterm#30ebacb",
+        "cloudterm-perf": "github:acoyfellow/cloudterm#3182f59",
         "ferroterm": "file:./vendor/ferroterm",
         "ghostty-web": "^0.4.0",
         "hterm-umdjs": "^1.4.1",
@@ -269,7 +269,7 @@
 
     "cloudterm": ["cloudterm@github:acoyfellow/cloudterm#11c768f", { "dependencies": { "@chenglou/pretext": "^0.0.5" } }, "acoyfellow-cloudterm-11c768f", "sha512-/Kv91eFeNGVyvg+rjNHd8nMtXqm7SuYExISPw6MHQiMpsKcxEOt+EAMtlPfABDmxrMYoJZeuzR5M2WIdkHY4ew=="],
 
-    "cloudterm-perf": ["cloudterm@github:acoyfellow/cloudterm#30ebacb", { "dependencies": { "@chenglou/pretext": "^0.0.5" } }, "acoyfellow-cloudterm-30ebacb", "sha512-uBnrcWxlA5GPQe5th4+o1NkNT2N1s8jQlHL8n4ERu3SrCQEGqOaCv803gv+kx3nVkfg64BRnKiNVw1s5+xkZlw=="],
+    "cloudterm-perf": ["cloudterm@github:acoyfellow/cloudterm#3182f59", { "dependencies": { "@chenglou/pretext": "^0.0.5" } }, "acoyfellow-cloudterm-3182f59", "sha512-XC1UTU7LVYYF8mg/F/xAZxNVuTpTrGuMD+rRNKANxieZwA+AXEfHPnQl/mCkufxPET1VrpH9LlJLWbCTH65bfA=="],
 
     "clsx": ["clsx@2.1.1", "", {}, "sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA=="],
 

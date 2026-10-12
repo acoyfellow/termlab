@@ -3,6 +3,7 @@
   import { FakeShell, FIRES } from './fake-shell';
   import type { TerminalAdapter, TerminalHandle } from './terminal-adapter';
   import { record } from './live-measurements.svelte';
+  import { holdPagePosition } from './hold-page-position';
 
   let {
     adapter,
@@ -17,12 +18,21 @@
   let errorMessage = $state('');
   let mountMs = $state<number | null>(null);
 
+  async function mountWithoutStealingPage(target: HTMLDivElement, fakeShell: FakeShell): Promise<TerminalHandle> {
+    const release = holdPagePosition();
+    try {
+      return await adapter.mount(target, fakeShell);
+    } finally {
+      requestAnimationFrame(release);
+    }
+  }
+
   onMount(async () => {
     if (!host) return;
     shell = new FakeShell();
     const t0 = performance.now();
     try {
-      handle = await adapter.mount(host, shell);
+      handle = await mountWithoutStealingPage(host, shell);
       mountMs = Math.round(performance.now() - t0);
       status = 'ready';
       // Publish to the bench matrix. Green below 100ms, yellow under
