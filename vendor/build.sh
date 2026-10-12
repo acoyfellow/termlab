@@ -22,6 +22,8 @@ fetch https://github.com/zkmio/auterm auterm b79bcb9d515bbd93afd837b764e5e8f6c7b
 rm -rf "$here/auterm" && mkdir -p "$here/auterm"
 cp -R "$work/auterm/dist" "$work/auterm/package.json" "$work/auterm/LICENSE" "$here/auterm/"
 rm -rf "$here/auterm/dist/test"
+find "$here/auterm/dist" -name "*.map" -delete
+for pkg in ferroterm auterm; do node -e "const f=process.argv[1],p=require(f);for(const k of ['scripts','devDependencies','files'])delete p[k];if(p.name==='auterm')p.types='dist/index.d.ts';require('fs').writeFileSync(f,JSON.stringify(p,null,2)+'\\n')" "$here/$pkg/package.json"; done
 
 fetch https://chromium.googlesource.com/apps/libapps libapps f3b11d7e07d93b172883a6bbdfae42a3d8179008
 (cd "$work/libapps" && npm install --ignore-scripts --no-audit --no-fund >>"$log" 2>&1 && (cd libdot && ../node_modules/.bin/rollup -c >>"$log" 2>&1) && (cd hterm && ../node_modules/.bin/rollup -c >>"$log" 2>&1))
