@@ -14,7 +14,7 @@
         "@xterm/xterm": "^6.0.0",
         "@xterm/xterm-beta": "npm:@xterm/xterm@6.1.0-beta.304",
         "auterm": "file:./vendor/auterm",
-        "cloudterm": "github:acoyfellow/cloudterm#v0.0.11",
+        "cloudterm": "^0.0.13",
         "cloudterm-perf": "github:acoyfellow/cloudterm#3182f59",
         "ferroterm": "file:./vendor/ferroterm",
         "ghostty-web": "^0.4.0",
@@ -267,7 +267,7 @@
 
     "blake3-wasm": ["blake3-wasm@2.1.5", "", {}, "sha512-F1+K8EbfOZE49dtoPtmxUQrpXaBIl3ICvasLh+nJta0xkz+9kF/7uet9fLnwKqhDrmj6g+6K3Tw9yQPUg2ka5g=="],
 
-    "cloudterm": ["cloudterm@github:acoyfellow/cloudterm#11c768f", { "dependencies": { "@chenglou/pretext": "^0.0.5" } }, "acoyfellow-cloudterm-11c768f", "sha512-/Kv91eFeNGVyvg+rjNHd8nMtXqm7SuYExISPw6MHQiMpsKcxEOt+EAMtlPfABDmxrMYoJZeuzR5M2WIdkHY4ew=="],
+    "cloudterm": ["cloudterm@0.0.13", "", { "dependencies": { "@chenglou/pretext": "^0.0.5" } }, "sha512-KTnn5Va5GP95l5aea8L6qPPT35mEbUSAo84lOnsccXgsV8abkmAYmIOvO2i1n39qpE40sz5SltPHGrFv9c5Q7Q=="],
 
     "cloudterm-perf": ["cloudterm@github:acoyfellow/cloudterm#3182f59", { "dependencies": { "@chenglou/pretext": "^0.0.5" } }, "acoyfellow-cloudterm-3182f59", "sha512-XC1UTU7LVYYF8mg/F/xAZxNVuTpTrGuMD+rRNKANxieZwA+AXEfHPnQl/mCkufxPET1VrpH9LlJLWbCTH65bfA=="],
 
