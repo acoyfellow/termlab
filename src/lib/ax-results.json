@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-12T19:54:58.973Z",
+  "generatedAt": "2026-10-12T20:42:23.440Z",
   "screen": {
     "input": [
       "\u001b[1;32muser@box\u001b[0m:\u001b[1;34m~/proj\u001b[0m$ ls -la",
@@ -70,8 +70,8 @@
       "domNodes": 114,
       "htmlChars": 15483,
       "innerTextSample": "\"scrollback line 0                                                                                                                        \\nscrollback line 1                                                                                                                        \\nscrollback line 2       \"",
-      "readableDomMs": 11.6,
-      "readableApiMs": 11.6,
+      "readableDomMs": 24.1,
+      "readableApiMs": 24.2,
       "reads": {
         "innerText": {
           "matched": 11,
@@ -148,20 +148,20 @@
     },
     {
       "id": "cloudterm-perf",
-      "version": "main 3182f59",
+      "version": "main 893830d",
       "canvas": false,
-      "domNodes": 114,
-      "htmlChars": 15483,
-      "innerTextSample": "\"scrollback line 0                                                                                                                        \\nscrollback line 1                                                                                                                        \\nscrollback line 2       \"",
-      "readableDomMs": 23.2,
-      "readableApiMs": 23.3,
+      "domNodes": 109,
+      "htmlChars": 10280,
+      "innerTextSample": "\"scrollback line 0\\nscrollback line 1\\nscrollback line 2\\nscrollback line 3\\nscrollback line 4\\nscrollback line 5\\nscrollback line 6\\nscrollback line 7\\nscrollback line 8\\nscrollback line 9\\nscrollback line 10\\nscrollback line 11\\nscrollback line 12\\nscrollback line 13\\nscrollback line 14\\nscrollback line 15\\nscroll\"",
+      "readableDomMs": 12.8,
+      "readableApiMs": 12.8,
       "reads": {
         "innerText": {
           "matched": 11,
           "total": 11,
           "missing": [],
-          "tokens": 1416,
-          "chars": 5650
+          "tokens": 231,
+          "chars": 907
         },
         "accessibility": {
           "matched": 10,
@@ -169,15 +169,15 @@
           "missing": [
             "wide: 日本語テキスト and emoji: ok"
           ],
-          "tokens": 1418,
-          "chars": 5657
+          "tokens": 232,
+          "chars": 914
         },
         "api": {
           "matched": 11,
           "total": 11,
           "missing": [],
-          "tokens": 1416,
-          "chars": 5650
+          "tokens": 231,
+          "chars": 907
         }
       },
       "focusTarget": "textarea.cloudterm-input@1,1",
@@ -236,8 +236,8 @@
       "domNodes": 117,
       "htmlChars": 62553,
       "innerTextSample": "\"scrollback line 1\\nscrollback line 2\\nscrollback line 3\\nscrollback line 4\\nscrollback line 5\\nscrollback line 6\\nscrollback line 7\\nscrollback line 8\\nscrollback line 9\\nscrollback line 10\\nscrollback line 11\\nscrollback line 12\\nscrollback line 13\\nscrollback line 14\\nscrollback line 15\\nscrollback line 16\\nscrol\"",
-      "readableDomMs": 26.9,
-      "readableApiMs": 1.9,
+      "readableDomMs": 27.5,
+      "readableApiMs": 1.8,
       "reads": {
         "innerText": {
           "matched": 11,
@@ -434,8 +434,8 @@
       "domNodes": 118,
       "htmlChars": 10941,
       "innerTextSample": "\"scrollback line 0\\nscrollback line 1\\nscrollback line 2\\nscrollback line 3\\nscrollback line 4\\nscrollback line 5\\nscrollback line 6\\nscrollback line 7\\nscrollback line 8\\nscrollback line 9\\nscrollback line 10\\nscrollback line 11\\nscrollback line 12\\nscrollback line 13\\nscrollback line 14\\nscrollback line 15\\nscroll\"",
-      "readableDomMs": 35.6,
-      "readableApiMs": 35.7,
+      "readableDomMs": 29.8,
+      "readableApiMs": 29.8,
       "reads": {
         "innerText": {
           "matched": 10,
@@ -522,7 +522,7 @@
       "htmlChars": 496,
       "innerTextSample": "\"\"",
       "readableDomMs": null,
-      "readableApiMs": 20.6,
+      "readableApiMs": 30.4,
       "reads": {
         "innerText": {
           "matched": 0,
@@ -628,7 +628,7 @@
       "domNodes": 116,
       "htmlChars": 62942,
       "innerTextSample": "\"scrollback line 1\\nscrollback line 2\\nscrollback line 3\\nscrollback line 4\\nscrollback line 5\\nscrollback line 6\\nscrollback line 7\\nscrollback line 8\\nscrollback line 9\\nscrollback line 10\\nscrollback line 11\\nscrollback line 12\\nscrollback line 13\\nscrollback line 14\\nscrollback line 15\\nscrollback line 16\\nscrol\"",
-      "readableDomMs": 24.2,
+      "readableDomMs": 27.1,
       "readableApiMs": 2,
       "reads": {
         "innerText": {
@@ -839,7 +839,7 @@
       "htmlChars": 671,
       "innerTextSample": "\"\"",
       "readableDomMs": null,
-      "readableApiMs": 1,
+      "readableApiMs": 0.9,
       "reads": {
         "innerText": {
           "matched": 0,
@@ -1049,7 +1049,7 @@
       "htmlChars": 319,
       "innerTextSample": "\"\"",
       "readableDomMs": null,
-      "readableApiMs": 6.4,
+      "readableApiMs": 6.5,
       "reads": {
         "innerText": {
           "matched": 0,
@@ -1154,7 +1154,7 @@
       "htmlChars": 244,
       "innerTextSample": "\"\"",
       "readableDomMs": null,
-      "readableApiMs": 1.6,
+      "readableApiMs": 1.8,
       "reads": {
         "innerText": {
           "matched": 0,

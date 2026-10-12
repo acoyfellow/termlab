@@ -31,7 +31,7 @@
     "@xterm/xterm-beta": "npm:@xterm/xterm@6.1.0-beta.304",
     "auterm": "file:./vendor/auterm",
     "cloudterm": "^0.0.13",
-    "cloudterm-perf": "github:acoyfellow/cloudterm#3182f59",
+    "cloudterm-perf": "github:acoyfellow/cloudterm#893830d",
     "ferroterm": "file:./vendor/ferroterm",
     "ghostty-web": "^0.4.0",
     "hterm-umdjs": "^1.4.1",
