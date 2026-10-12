@@ -1,0 +1,285 @@
+{
+  "generatedAt": "2026-10-12T09:24:24.852Z",
+  "rounds": 5,
+  "browser": "Google Chrome for Testing 153.0.8010.12",
+  "gpu": "SwiftShader (software WebGL)",
+  "machine": "Apple M4 Pro, darwin",
+  "grid": "120x40",
+  "workloads": {
+    "scroll-flood": "100,000 lines of 88 chars",
+    "full-redraw": "1,500 full-screen frames, colored, cursor home each frame",
+    "sgr-tokens": "100,000 short green SGR runs"
+  },
+  "terminals": [
+    {
+      "id": "cloudterm",
+      "version": "v0.0.10",
+      "timings": {
+        "scroll-flood": {
+          "medianMs": 150,
+          "samplesMs": [
+            150,
+            150,
+            150,
+            151,
+            150
+          ],
+          "failures": 0
+        },
+        "full-redraw": {
+          "medianMs": 116,
+          "samplesMs": [
+            117,
+            116,
+            99,
+            116,
+            117
+          ],
+          "failures": 0
+        },
+        "sgr-tokens": {
+          "medianMs": 76,
+          "samplesMs": [
+            72,
+            73,
+            78,
+            76,
+            80
+          ],
+          "failures": 0
+        }
+      },
+      "mountMs": 33,
+      "heapMB": 42,
+      "gzipBytes": 27363,
+      "textInDom": true,
+      "canvas": false,
+      "renderer": null
+    },
+    {
+      "id": "xterm-dom",
+      "version": "6.0.0",
+      "timings": {
+        "scroll-flood": {
+          "medianMs": 282,
+          "samplesMs": [
+            265,
+            282,
+            283,
+            282,
+            282
+          ],
+          "failures": 0
+        },
+        "full-redraw": {
+          "medianMs": 299,
+          "samplesMs": [
+            282,
+            299,
+            289,
+            299,
+            300
+          ],
+          "failures": 0
+        },
+        "sgr-tokens": {
+          "medianMs": 155,
+          "samplesMs": [
+            155,
+            155,
+            156,
+            162,
+            49
+          ],
+          "failures": 0
+        }
+      },
+      "mountMs": 17,
+      "heapMB": 56,
+      "gzipBytes": 87643,
+      "textInDom": true,
+      "canvas": false,
+      "renderer": null
+    },
+    {
+      "id": "xterm-webgl",
+      "version": "6.0.0 + webgl 0.19.0",
+      "timings": {
+        "scroll-flood": {
+          "medianMs": 534,
+          "samplesMs": [
+            525,
+            534,
+            538,
+            579,
+            526
+          ],
+          "failures": 0
+        },
+        "full-redraw": {
+          "medianMs": 538,
+          "samplesMs": [
+            557,
+            523,
+            573,
+            538,
+            521
+          ],
+          "failures": 0
+        },
+        "sgr-tokens": {
+          "medianMs": 420,
+          "samplesMs": [
+            190,
+            190,
+            435,
+            435,
+            420
+          ],
+          "failures": 0
+        }
+      },
+      "mountMs": 27,
+      "heapMB": 57,
+      "gzipBytes": 122768,
+      "textInDom": false,
+      "canvas": true,
+      "renderer": "webgl"
+    },
+    {
+      "id": "wterm",
+      "version": "0.5.4",
+      "timings": {
+        "scroll-flood": {
+          "medianMs": 183,
+          "samplesMs": [
+            182,
+            183,
+            183,
+            183,
+            184
+          ],
+          "failures": 0
+        },
+        "full-redraw": {
+          "medianMs": 100,
+          "samplesMs": [
+            100,
+            99,
+            100,
+            99,
+            101
+          ],
+          "failures": 0
+        },
+        "sgr-tokens": {
+          "medianMs": 71,
+          "samplesMs": [
+            68,
+            72,
+            78,
+            71,
+            71
+          ],
+          "failures": 0
+        }
+      },
+      "mountMs": 16,
+      "heapMB": 63,
+      "gzipBytes": 45855,
+      "textInDom": true,
+      "canvas": false,
+      "renderer": null
+    },
+    {
+      "id": "ghostty-web",
+      "version": "0.4.0",
+      "timings": {
+        "scroll-flood": {
+          "medianMs": 148,
+          "samplesMs": [
+            133,
+            151,
+            150,
+            148,
+            135
+          ],
+          "failures": 0
+        },
+        "full-redraw": {
+          "medianMs": 151,
+          "samplesMs": [
+            150,
+            151,
+            151,
+            150,
+            151
+          ],
+          "failures": 0
+        },
+        "sgr-tokens": {
+          "medianMs": 83,
+          "samplesMs": [
+            84,
+            83,
+            83,
+            84,
+            83
+          ],
+          "failures": 0
+        }
+      },
+      "mountMs": 16,
+      "heapMB": 40,
+      "gzipBytes": 184510,
+      "textInDom": false,
+      "canvas": true,
+      "renderer": null
+    },
+    {
+      "id": "hterm",
+      "version": "1.4.1",
+      "timings": {
+        "scroll-flood": {
+          "medianMs": 328,
+          "samplesMs": [
+            325,
+            324,
+            328,
+            337,
+            330
+          ],
+          "failures": 0
+        },
+        "full-redraw": {
+          "medianMs": 315,
+          "samplesMs": [
+            280,
+            315,
+            321,
+            314,
+            327
+          ],
+          "failures": 0
+        },
+        "sgr-tokens": {
+          "medianMs": 402,
+          "samplesMs": [
+            371,
+            402,
+            428,
+            399,
+            408
+          ],
+          "failures": 0
+        }
+      },
+      "mountMs": 185,
+      "heapMB": 51,
+      "gzipBytes": 143079,
+      "textInDom": false,
+      "canvas": false,
+      "renderer": null
+    }
+  ]
+}

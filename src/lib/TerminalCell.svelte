@@ -62,20 +62,6 @@
     // adapters that expose one.
     setTimeout(() => handle?.fit?.(), 50);
 
-    // Measure write throughput when the user fires the 10k-line button.
-    // Rough — real perf measurement needs many more samples. Good
-    // enough for a side-by-side "is one obviously slower?" check.
-    if (id === 'long-log') {
-      const t = performance.now();
-      queueMicrotask(() => {
-        const elapsed = performance.now() - t;
-        const result = elapsed < 100 ? 'pass' : elapsed < 400 ? 'partial' : 'fail';
-        record(adapter.id, 'throughput', {
-          value: `10k lines in ${Math.round(elapsed)}ms`,
-          result,
-        });
-      });
-    }
   }
 </script>
 

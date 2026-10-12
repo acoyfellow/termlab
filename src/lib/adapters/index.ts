@@ -10,6 +10,7 @@ import { xtermDom } from './xterm-dom';
 import { wtermAdapter } from './wterm';
 import { htermAdapter } from './hterm';
 import { cloudterm } from './cloudterm';
+import { ghosttyWeb } from './ghostty-web';
 
 export const ADAPTERS: readonly TerminalAdapter[] = [
   cloudterm,
@@ -17,5 +18,6 @@ export const ADAPTERS: readonly TerminalAdapter[] = [
   xtermCanvas,
   xtermWebgl,
   wtermAdapter,
+  ghosttyWeb,
   htermAdapter,
 ];

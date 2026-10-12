@@ -1,6 +1,7 @@
 <script lang="ts">
   import TerminalCell from '$lib/TerminalCell.svelte';
   import BenchMatrix from '$lib/BenchMatrix.svelte';
+  import BenchResults from '$lib/BenchResults.svelte';
   import GlobalControls from '$lib/GlobalControls.svelte';
   import { ADAPTERS } from '$lib/adapters';
   import { FakeShell } from '$lib/fake-shell';
@@ -17,9 +18,10 @@
     <div>
       <h1>termlab</h1>
       <p class="sub">
-        Side-by-side benchmark of web terminal emulators. Type in any terminal
-        below, or click a "fire" button to push a canned payload. A fake shell
-        runs in-browser — no network, no backend.
+        Side-by-side benchmark of web terminal emulators: cloudterm, xterm.js (DOM and WebGL),
+        wterm, ghostty-web and hterm, each at its latest release. The table below is a reproducible
+        throughput run. The live terminals underneath share one in-browser fake shell — no network,
+        no backend.
       </p>
       <p class="sub">
         Things to test: <strong>Cmd+F</strong> to search output, <strong>drag-select</strong>
@@ -29,13 +31,13 @@
       </p>
       <p class="sub">
         Public repo: <a href="https://github.com/acoyfellow/termlab">github.com/acoyfellow/termlab</a>
-        &nbsp;·&nbsp; Built by <a href="https://coey.dev">@acoyfellow</a> during the AX
-        cloudshell spike (Apr 2026).
       </p>
     </div>
   </header>
 
   <GlobalControls />
+
+  <BenchResults />
 
   <BenchMatrix liveMeasurements={live} />
 

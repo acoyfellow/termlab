@@ -13,8 +13,8 @@ export const xtermWebgl: TerminalAdapter = {
   id: 'xterm-webgl',
   label: 'xterm.js + WebGL',
   description:
-    'WebGL renderer addon. The fastest option — the paint happens on the GPU. Still pixel-based, so no browser find/select.',
-  bundleHint: '~220KB gz',
+    'WebGL renderer addon. Paints on the GPU. Pixel-based, so no browser find or native select.',
+  bundleHint: '~120KB gz',
   async mount(element, shell) {
     const [{ Terminal }, { FitAddon }, { WebglAddon }] = await Promise.all([
       import('@xterm/xterm'),

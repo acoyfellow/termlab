@@ -102,13 +102,6 @@ export const BENCH_ROWS: readonly BenchRow[] = [
     measured: false,
   },
   {
-    key: 'throughput',
-    label: 'Write throughput',
-    description:
-      'How many bytes/sec the terminal accepts before dropping frames. We fire a 10k-line burst and measure.',
-    measured: true,
-  },
-  {
     key: 'maintenance',
     label: 'Maintenance',
     description:
@@ -136,20 +129,20 @@ export type StaticGradeMap = Partial<
 
 export const STATIC_GRADES: Record<string, StaticGradeMap> = {
   cloudterm: {
-    'bundle-size': { result: 'pass', note: '~6KB gz (18KB raw)' },
+    'bundle-size': { result: 'pass', note: '27KB gz incl. pretext' },
     'cmd-find': { result: 'pass' },
     selection: { result: 'pass' },
     a11y: { result: 'pass' },
     scroll: { result: 'pass' },
     'ansi-256': { result: 'pass' },
     'box-align': { result: 'pass', note: 'pretext-measured monospace' },
-    'emoji-width': { result: 'partial', note: 'inherits pretext segmentation' },
+    'emoji-width': { result: 'pass', note: 'wcwidth tables, grapheme clusters' },
     'resize-robust': { result: 'pass', note: 'ResizeObserver; pretext layout is pure arithmetic' },
-    maintenance: { result: 'unknown', note: 'v0.0.1, homegrown (acoyfellow/cloudterm)' },
+    maintenance: { result: 'partial', note: 'v0.0.10, single maintainer (acoyfellow/cloudterm)' },
     license: { result: 'pass', note: 'MIT' },
   },
   'xterm-dom': {
-    'bundle-size': { result: 'partial', note: '~200KB gz' },
+    'bundle-size': { result: 'partial', note: '86KB gz' },
     'cmd-find': { result: 'pass' },
     selection: { result: 'pass' },
     a11y: { result: 'pass' },
@@ -165,7 +158,7 @@ export const STATIC_GRADES: Record<string, StaticGradeMap> = {
     license: { result: 'pass', note: 'MIT' },
   },
   'xterm-canvas': {
-    'bundle-size': { result: 'partial', note: '~200KB gz' },
+    'bundle-size': { result: 'partial', note: '~100KB gz' },
     'cmd-find': { result: 'fail', note: 'canvas pixels — browser sees nothing' },
     selection: { result: 'partial', note: 'custom selection, no Cmd+C to OS clipboard out of the box' },
     a11y: { result: 'fail', note: 'canvas is opaque to screen readers' },
@@ -174,11 +167,11 @@ export const STATIC_GRADES: Record<string, StaticGradeMap> = {
     'box-align': { result: 'pass' },
     'emoji-width': { result: 'partial' },
     'resize-robust': { result: 'pass' },
-    maintenance: { result: 'pass' },
+    maintenance: { result: 'fail', note: 'addon-canvas 0.7.0 (2024), peer dep xterm ^5' },
     license: { result: 'pass', note: 'MIT' },
   },
   'xterm-webgl': {
-    'bundle-size': { result: 'partial', note: '~220KB gz (includes WebGL shaders)' },
+    'bundle-size': { result: 'partial', note: '120KB gz' },
     'cmd-find': { result: 'fail' },
     selection: { result: 'partial' },
     a11y: { result: 'fail' },
@@ -191,7 +184,7 @@ export const STATIC_GRADES: Record<string, StaticGradeMap> = {
     license: { result: 'pass', note: 'MIT' },
   },
   wterm: {
-    'bundle-size': { result: 'pass', note: '~30KB gz incl. 13KB WASM' },
+    'bundle-size': { result: 'pass', note: '45KB gz incl. WASM' },
     'cmd-find': { result: 'pass' },
     selection: { result: 'pass' },
     a11y: { result: 'pass' },
@@ -199,18 +192,12 @@ export const STATIC_GRADES: Record<string, StaticGradeMap> = {
     'ansi-256': { result: 'partial', note: 'unknown — verify visually' },
     'box-align': { result: 'partial' },
     'emoji-width': { result: 'unknown' },
-    'resize-robust': {
-      result: 'fail',
-      note: 'measured char-width drifts under CSS cascade races during rapid resize',
-    },
-    maintenance: {
-      result: 'partial',
-      note: 'v0.1.x, single maintainer, vercel-labs',
-    },
-    license: { result: 'pass', note: 'MIT' },
+    'resize-robust': { result: 'unknown', note: 'v0.1 drifted under rapid resize; re-test on 0.5' },
+    maintenance: { result: 'pass', note: 'v0.5.x, active, vercel-labs' },
+    license: { result: 'pass', note: 'Apache-2.0' },
   },
   hterm: {
-    'bundle-size': { result: 'partial', note: '~180KB gz' },
+    'bundle-size': { result: 'partial', note: '140KB gz' },
     'cmd-find': { result: 'fail', note: 'iframe-canvas internal' },
     selection: { result: 'partial' },
     a11y: { result: 'fail' },
@@ -221,8 +208,21 @@ export const STATIC_GRADES: Record<string, StaticGradeMap> = {
     'resize-robust': { result: 'pass', note: 'Chromium-grade measurement' },
     maintenance: {
       result: 'pass',
-      note: 'Chromium OS / Chrome Remote Desktop user, BSD-3',
+      note: 'upstream active; hterm-umdjs npm build last published 2022',
     },
     license: { result: 'pass', note: 'BSD-3-Clause' },
+  },
+  'ghostty-web': {
+    'bundle-size': { result: 'fail', note: '180KB gz incl. WASM' },
+    'cmd-find': { result: 'fail', note: 'canvas' },
+    selection: { result: 'partial', note: 'custom selection' },
+    a11y: { result: 'fail', note: 'canvas' },
+    scroll: { result: 'pass' },
+    'ansi-256': { result: 'pass' },
+    'box-align': { result: 'pass' },
+    'emoji-width': { result: 'pass', note: 'Ghostty VT width tables' },
+    'resize-robust': { result: 'unknown' },
+    maintenance: { result: 'partial', note: 'v0.4.x, coder' },
+    license: { result: 'pass', note: 'MIT' },
   },
 };

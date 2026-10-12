@@ -17,7 +17,7 @@ export const xtermCanvas: TerminalAdapter = {
   id: 'xterm-canvas',
   label: 'xterm.js + canvas',
   description:
-    'Canvas renderer addon. Fastest xterm mode for heavy output, but Cmd+F sees nothing and accessibility is limited.',
+    'Canvas renderer addon 0.7 (peer dependency is xterm 5; unmaintained since 2024). Cmd+F sees nothing and accessibility is limited.',
   bundleHint: '~200KB gz',
   async mount(element, shell) {
     const [{ Terminal }, { FitAddon }, { CanvasAddon }] = await Promise.all([

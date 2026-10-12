@@ -17,7 +17,7 @@ export const xtermDom: TerminalAdapter = {
   label: 'xterm.js + DOM (default)',
   description:
     'xterm.js with the DOM renderer (v6 default). Real text nodes — Cmd+F, selection, a11y all work. Measurement code is shared with canvas/WebGL modes.',
-  bundleHint: '~200KB gz',
+  bundleHint: '~86KB gz',
   async mount(element, shell) {
     const [{ Terminal }, { FitAddon }] = await Promise.all([
       import('@xterm/xterm'),

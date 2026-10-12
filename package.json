@@ -6,26 +6,28 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "bench": "bun bench/run.ts"
   },
   "devDependencies": {
     "@sveltejs/adapter-cloudflare": "^7.2.8",
-    "@sveltejs/kit": "^2.57.1",
-    "@sveltejs/vite-plugin-svelte": "^7.0.0",
-    "@types/node": "^25.6.0",
-    "svelte": "^5.55.4",
+    "@sveltejs/kit": "^2.59.1",
+    "@sveltejs/vite-plugin-svelte": "^7.1.2",
+    "@types/node": "^25.7.0",
+    "svelte": "^5.55.5",
     "typescript": "^6.0.3",
-    "vite": "^8.0.9",
-    "wrangler": "^4.83.0"
+    "vite": "^8.0.12",
+    "wrangler": "^4.90.1"
   },
   "dependencies": {
-    "@wterm/core": "^0.1.9",
-    "@wterm/dom": "^0.1.9",
+    "@wterm/core": "^0.5.4",
+    "@wterm/dom": "^0.5.4",
     "@xterm/addon-canvas": "^0.7.0",
     "@xterm/addon-fit": "^0.11.0",
     "@xterm/addon-webgl": "^0.19.0",
     "@xterm/xterm": "^6.0.0",
-    "cloudterm": "github:acoyfellow/cloudterm#v0.0.9",
+    "cloudterm": "github:acoyfellow/cloudterm#v0.0.10",
+    "ghostty-web": "^0.4.0",
     "hterm-umdjs": "^1.4.1"
   }
 }

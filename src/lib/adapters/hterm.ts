@@ -17,7 +17,7 @@ export const htermAdapter: TerminalAdapter = {
   label: 'hterm (Chromium)',
   description:
     'Chromium OS terminal, powers Chrome Remote Desktop + crosh. Mature, unusual packaging (UMD). Uses <iframe> canvas internally.',
-  bundleHint: '~180KB gz',
+  bundleHint: '~140KB gz',
   async mount(element, shell) {
     // hterm-umdjs attaches to globalThis when imported; pull the
     // namespaces off that.

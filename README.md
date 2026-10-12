@@ -4,14 +4,16 @@ Side-by-side benchmark of web terminal emulators.
 
 Live: **[termlab.coey.dev](https://termlab.coey.dev)**
 
-Runs five implementations in one page, each backed by the same in-browser fake shell:
+Runs six implementations in one page, each backed by the same in-browser fake shell:
 
 | Adapter | Renderer | Selection / Find | Notes |
 |---|---|---|---|
 | **xterm.js + DOM** (v6 default) | Real `<span>`s | ✅ Cmd+F, native select | Mature measurement code |
 | **xterm.js + canvas** | `<canvas>` | ❌ | Historically fastest |
 | **xterm.js + WebGL** | GPU `<canvas>` | ❌ | Fastest for heavy output |
-| **wterm** | Zig/WASM core + DOM | ✅ | `vercel-labs/wterm`, v0.1.x |
+| **cloudterm** | DOM spans | ✅ Cmd+F, native select | `acoyfellow/cloudterm`, v0.0.10 |
+| **wterm** | Zig/WASM core + DOM | ✅ | `vercel-labs/wterm`, v0.5.x |
+| **ghostty-web** | Ghostty VT (WASM) + canvas | ❌ | `coder/ghostty-web`, v0.4.x |
 | **hterm** | iframe + canvas | ❌ | Chromium OS terminal, powers Chrome Remote Desktop |
 
 ## Why
@@ -31,6 +33,10 @@ This is that bench. No WebSockets, no backend, no auth. Type in any terminal, or
 - **10k-line button.** Scrollback + find performance.
 - **Emoji + CJK button.** Are wide characters the right width?
 - **Mount time.** Noted in each header — how long each adapter took to initialize.
+
+## Throughput benchmark
+
+`bun run bench 5` runs three workloads (100k-line scroll flood, 1,500 full-screen redraws, 100k SGR runs) against every terminal in fresh headless Chromium processes, alternating order each round. It writes `src/lib/bench-results.json`, which the page renders. It needs Playwright's `chromium_headless_shell` in `~/Library/Caches/ms-playwright` (`bunx playwright install chromium-headless-shell`). WebGL runs on SwiftShader there, so the WebGL row understates a real GPU.
 
 ## Local dev
 
