@@ -18,8 +18,9 @@
     <div>
       <h1>termlab</h1>
       <p class="sub">
-        Side-by-side benchmark of web terminal emulators: cloudterm, xterm.js (DOM and WebGL),
-        wterm, ghostty-web and hterm, each at its latest release. The table below is a reproducible
+        Side-by-side benchmark of web terminal emulators: cloudterm, xterm.js (6.0 stable, 6.1 beta,
+        WebGL), wterm, ghostty-web, restty, ferroterm, auterm and hterm (npm build and upstream), each at
+        its latest release or upstream head. The table below is a reproducible
         throughput run. The live terminals underneath share one in-browser fake shell — no network,
         no backend.
       </p>

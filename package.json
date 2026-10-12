@@ -7,7 +7,8 @@
     "dev": "vite dev",
     "build": "vite build",
     "preview": "vite preview",
-    "bench": "bun bench/run.ts"
+    "bench": "bun bench/run.ts",
+    "vendor": "bash vendor/build.sh"
   },
   "devDependencies": {
     "@sveltejs/adapter-cloudflare": "^7.2.8",
@@ -20,14 +21,21 @@
     "wrangler": "^4.90.1"
   },
   "dependencies": {
+    "@beamterm/renderer": "1.0.0",
     "@wterm/core": "^0.5.4",
     "@wterm/dom": "^0.5.4",
     "@xterm/addon-canvas": "^0.7.0",
     "@xterm/addon-fit": "^0.11.0",
     "@xterm/addon-webgl": "^0.19.0",
     "@xterm/xterm": "^6.0.0",
-    "cloudterm": "github:acoyfellow/cloudterm#v0.0.10",
+    "@xterm/xterm-beta": "npm:@xterm/xterm@6.1.0-beta.304",
+    "auterm": "file:./vendor/auterm",
+    "cloudterm": "github:acoyfellow/cloudterm#v0.0.11",
+    "cloudterm-perf": "github:acoyfellow/cloudterm#1566554",
+    "ferroterm": "file:./vendor/ferroterm",
     "ghostty-web": "^0.4.0",
-    "hterm-umdjs": "^1.4.1"
+    "hterm-umdjs": "^1.4.1",
+    "hterm-upstream": "file:./vendor/hterm-upstream",
+    "restty": "0.3.0"
   }
 }

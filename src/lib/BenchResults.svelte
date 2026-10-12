@@ -9,14 +9,26 @@
     'sgr-tokens': 'SGR tokens',
   };
 
-  const best = (pick: (t: (typeof results.terminals)[number]) => number | null) =>
-    Math.min(...results.terminals.map(pick).filter((v): v is number => v != null));
-  const fastest = Object.fromEntries(workloads.map((w) => [w, best((t) => t.timings[w].medianMs)])) as Record<Workload, number>;
+  type Row = (typeof results.terminals)[number];
+  const verified = (t: Row) => !t.unverifiedTiming;
+  const best = (pick: (t: Row) => number | null, rows: Row[] = results.terminals) =>
+    Math.min(...rows.map(pick).filter((v): v is number => v != null));
+  const fastest = Object.fromEntries(workloads.map((w) => [w, best((t) => t.timings[w].medianMs, results.terminals.filter(verified))])) as Record<Workload, number>;
   const smallest = best((t) => t.gzipBytes);
+  const quickestMount = best((t) => t.mountMs, results.terminals.filter(verified));
+  const leanestHeap = best((t) => t.heapMB);
 
   const ratio = (value: number | null, min: number) => (value == null ? '' : value === min ? 'best' : `${(value / min).toFixed(1)}×`);
   const kb = (bytes: number) => `${(bytes / 1024).toFixed(1)} KB`;
   const date = new Date(results.generatedAt).toISOString().slice(0, 10);
+  const excluded = [
+    { name: 'xterm.js + canvas', url: 'https://www.npmjs.com/package/@xterm/addon-canvas', reason: 'addon-canvas 0.7.0 (2024) declares a peer dependency on xterm 5. It still loads in the live grid below, but a timing next to xterm 6 would not be like-for-like.' },
+    { name: 'beamterm', url: 'https://github.com/junkdog/beamterm', reason: 'a WebGL2 cell renderer with no VT/ANSI parser. It cannot accept terminal output, so these workloads do not apply.' },
+    { name: 'SwiftTerm (WASM)', url: 'https://github.com/migueldeicaza/SwiftTerm', reason: 'browser engine needs the pinned swift-6.4.0 Swift.org toolchain and WASM SDK; not built yet.' },
+    { name: 'frankenterm', url: 'https://github.com/Dicklesworthstone/frankenterm', reason: 'a Rust terminal hypervisor for WezTerm agent fleets with an HTTP/SSE API. It has no browser renderer.' },
+    { name: 'browstty', url: 'https://github.com/Snoupix/browstty', reason: 'a libghostty WASM playground, no terminal component yet.' },
+    { name: 'jquery.terminal', url: 'https://github.com/jcubic/jquery.terminal', reason: 'a command-line widget for web apps, not a VT emulator.' },
+  ];
 </script>
 
 <section class="results" aria-labelledby="results-title">
@@ -48,14 +60,18 @@
             <td class="mono">{t.version}</td>
             {#each workloads as w (w)}
               {@const m = t.timings[w].medianMs}
-              <td class:best={m === fastest[w]}>
-                {m == null ? `${t.timings[w].failures} failed` : `${m} ms`}
-                <span class="ratio">{ratio(m, fastest[w])}</span>
-              </td>
+              {#if t.unverifiedTiming}
+                <td class="unverified" title={t.unverifiedTiming}>{m} ms <span class="ratio">unverified</span></td>
+              {:else}
+                <td class:best={m === fastest[w]}>
+                  {m == null ? `${t.timings[w].failures} failed` : `${m} ms`}
+                  <span class="ratio">{ratio(m, fastest[w])}</span>
+                </td>
+              {/if}
             {/each}
-            <td>{t.mountMs} ms</td>
-            <td>{t.heapMB} MB</td>
-            <td class:best={t.gzipBytes === smallest}>{kb(t.gzipBytes)}</td>
+            <td class:best={verified(t) && t.mountMs === quickestMount}>{t.mountMs} ms <span class="ratio">{ratio(t.mountMs, quickestMount)}</span></td>
+            <td class:best={t.heapMB === leanestHeap}>{t.heapMB} MB <span class="ratio">{ratio(t.heapMB, leanestHeap)}</span></td>
+            <td class:best={t.gzipBytes === smallest}>{kb(t.gzipBytes)} <span class="ratio">{ratio(t.gzipBytes, smallest)}</span></td>
             <td class={t.textInDom ? 'yes' : 'no'}>{t.textInDom ? 'yes' : t.canvas ? 'no (canvas)' : 'no'}</td>
           </tr>
         {/each}
@@ -64,10 +80,22 @@
   </div>
   <ul class="notes">
     {#each workloads as w (w)}<li><strong>{labels[w]}:</strong> {results.workloads[w]}, {results.grid} grid, written in 16 KB chunks.</li>{/each}
-    <li>Run {date} on {results.machine}, {results.browser}. WebGL runs on {results.gpu}, so the xterm.js WebGL row understates a real GPU.</li>
+    <li>Run {date} on {results.machine}, {results.browser}, GPU: {results.gpu}.</li>
+    <li>"Text in DOM" means the end marker is readable as page text, so browser find, native selection and screen readers can see it.</li>
+    <li>restty's mount time includes downloading its fonts from a CDN. ferroterm, auterm and hterm upstream have no npm release; they are built from source at the commits in <a href="https://github.com/acoyfellow/termlab/blob/main/vendor/SOURCES.md">vendor/SOURCES.md</a>.</li>
+    <li><strong>cloudterm-perf</strong> is the unreleased optimization branch, pinned to a commit, benchmarked beside released cloudterm so each step is visible. Gate it is chasing: every workload and mount within one frame (17 ms) of the best verified rival. Current gaps are computed by <code>bench/gate.ts</code>.</li>
+    {#each results.terminals.filter((t) => t.unverifiedTiming) as t (t.id)}<li><strong>{t.id} timings unverified:</strong> {t.unverifiedTiming}</li>{/each}
+    <li>Bundle includes WASM, whether inlined or loaded as a separate file (ferroterm's 128 KB .wasm is counted).</li>
+    <li>Heap is JS heap after a forced GC, measured after the scroll-flood run with the terminal still mounted.</li>
     <li>Timings are frame-quantized (~16.7 ms), so values within one frame are a tie. Bundle size is esbuild minified + gzip -9 of the import, including WASM.</li>
     <li>Reproduce: <code>bun run bench 5</code> in <a href="https://github.com/acoyfellow/termlab/tree/main/bench">the repo</a>. Raw samples are in <code>src/lib/bench-results.json</code>.</li>
   </ul>
+  <div class="excluded">
+    <h3>Looked at, not benchmarked</h3>
+    <ul>
+      {#each excluded as e (e.name)}<li><a href={e.url}>{e.name}</a>: {e.reason}</li>{/each}
+    </ul>
+  </div>
 </section>
 
 <style>
@@ -84,9 +112,13 @@
   .ratio { margin-left: 6px; color: #71717a; font-size: 11px; }
   td.best { color: #a3e635; }
   td.best .ratio { color: #a3e635; }
+  td.unverified { color: #71717a; font-style: italic; }
   td.yes { color: #a3e635; }
   td.no { color: #f87171; }
   .notes { margin: 0; padding: 10px 14px 12px 30px; color: #a1a1aa; font-size: 11px; line-height: 1.6; border-top: 1px solid #1f1f1f; }
-  .notes a { color: #d4d4d4; }
+  .notes a, .excluded a { color: #d4d4d4; }
+  .excluded { border-top: 1px solid #1f1f1f; padding: 10px 14px 12px; }
+  h3 { margin: 0 0 4px; font-size: 12px; color: #f2efe8; font-weight: 600; }
+  .excluded ul { margin: 0; padding-left: 16px; color: #a1a1aa; font-size: 11px; line-height: 1.6; }
   code { font-family: 'IBM Plex Mono', monospace; color: #d4d4d4; }
 </style>

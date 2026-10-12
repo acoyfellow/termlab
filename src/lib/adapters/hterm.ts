@@ -14,7 +14,7 @@ import type { TerminalAdapter } from '../terminal-adapter';
 
 export const htermAdapter: TerminalAdapter = {
   id: 'hterm',
-  label: 'hterm (Chromium)',
+  label: 'hterm-umdjs (2022 npm build)',
   description:
     'Chromium OS terminal, powers Chrome Remote Desktop + crosh. Mature, unusual packaging (UMD). Uses <iframe> canvas internally.',
   bundleHint: '~140KB gz',

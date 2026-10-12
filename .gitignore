@@ -7,3 +7,7 @@ node_modules
 .DS_Store
 dist
 bench/.out
+vendor/ferroterm/
+vendor/auterm/
+vendor/hterm-upstream/
+vendor/.work/

@@ -1,0 +1,50 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+type Timing = {
+    medianMs: number | null;
+};
+type Row = {
+    id: string;
+    timings: Record<string, Timing>;
+    mountMs: number;
+    textInDom: boolean;
+    unverifiedTiming: string | null;
+};
+const tieMs = 17;
+const subject = process.argv[2] ?? "cloudterm-perf";
+const ownFamily = (id: string) => id === "cloudterm" || id.startsWith("cloudterm-");
+const results = JSON.parse(readFileSync(join(import.meta.dir, "../src/lib/bench-results.json"), "utf8")) as {
+    generatedAt: string;
+    terminals: Row[];
+};
+const me = results.terminals.find((t) => t.id === subject);
+if (!me) {
+    console.log(`gate: no row for ${subject}`);
+    process.exit(2);
+}
+const rivals = results.terminals.filter((t) => !ownFamily(t.id) && !t.unverifiedTiming);
+const metrics: Array<[
+    string,
+    (t: Row) => number | null
+]> = [
+    ...Object.keys(me.timings).map((w) => [w, (t: Row) => t.timings[w]?.medianMs ?? null] as [
+        string,
+        (t: Row) => number | null
+    ]),
+    ["mount", (t: Row) => t.mountMs],
+];
+let ok = me.textInDom;
+console.log(`gate ${subject} @ ${results.generatedAt} (tie band ${tieMs} ms, ${rivals.length} verified rivals)`);
+if (!me.textInDom)
+    console.log("  FAIL textInDom=false");
+for (const [name, pick] of metrics) {
+    const mine = pick(me);
+    const best = rivals.map((t) => ({ id: t.id, v: pick(t) })).filter((x): x is {
+        id: string;
+        v: number;
+    } => x.v != null).sort((a, b) => a.v - b.v)[0]!;
+    const pass = mine != null && mine <= best.v + tieMs;
+    ok &&= pass;
+    console.log(`  ${pass ? "PASS" : "FAIL"} ${name.padEnd(13)} ${String(mine).padStart(5)} ms vs best ${best.id} ${best.v} ms (gap ${mine == null ? "n/a" : mine - best.v})`);
+}
+process.exit(ok ? 0 : 1);

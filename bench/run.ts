@@ -3,20 +3,31 @@ import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
 
-type Adapter = { id: string; version: string; sizeEntry: string; setup: string };
+type Adapter = { id: string; version: string; sizeEntry: string; setup: string; extraAssets?: string[]; unverifiedTiming?: string };
 
 const root = join(import.meta.dir, "..");
 const out = join(import.meta.dir, ".out");
 mkdirSync(out, { recursive: true });
 const pkg = (name: string) => JSON.parse(readFileSync(join(root, "node_modules", name, "package.json"), "utf8")).version as string;
 
+const cloudtermTag = JSON.parse(readFileSync(join(root, "package.json"), "utf8")).dependencies.cloudterm.split("#")[1] ?? pkg("cloudterm");
+
 const adapters: Adapter[] = [
   {
     id: "cloudterm",
-    version: pkg("cloudterm") === "0.0.1" ? "v0.0.10" : pkg("cloudterm"),
+    version: cloudtermTag,
     sizeEntry: "import { mount } from 'cloudterm'; console.log(mount);",
     setup: `
       const { mount } = await import('cloudterm');
+      const t = await mount(host, { onData() {}, predictionMode: 'off' });
+      return { write: (s) => t.write(s), text: () => [...host.querySelectorAll('.cloudterm-line')].map((l) => l.textContent).join('\\n'), destroy: () => t.destroy() };`,
+  },
+  {
+    id: "cloudterm-perf",
+    version: "spike/perf " + (JSON.parse(readFileSync(join(root, "package.json"), "utf8")).dependencies["cloudterm-perf"].split("#")[1] ?? "?"),
+    sizeEntry: "import { mount } from 'cloudterm-perf'; console.log(mount);",
+    setup: `
+      const { mount } = await import('cloudterm-perf');
       const t = await mount(host, { onData() {}, predictionMode: 'off' });
       return { write: (s) => t.write(s), text: () => [...host.querySelectorAll('.cloudterm-line')].map((l) => l.textContent).join('\\n'), destroy: () => t.destroy() };`,
   },
@@ -65,6 +76,64 @@ const adapters: Adapter[] = [
       return { write: (s) => new Promise((r) => t.write(s, r)), text: () => bufferText(t), destroy: () => t.dispose() };`,
   },
   {
+    id: "xterm-dom-beta",
+    version: pkg("@xterm/xterm-beta"),
+    sizeEntry: "import { Terminal } from '@xterm/xterm-beta'; console.log(Terminal);",
+    setup: `
+      const { Terminal } = await import('@xterm/xterm-beta');
+      const t = new Terminal({ cols: 120, rows: 40, scrollback: 10000 });
+      t.open(host);
+      return { write: (s) => new Promise((r) => t.write(s, r)), text: () => bufferText(t), destroy: () => t.dispose() };`,
+  },
+  {
+    id: "restty",
+    version: pkg("restty"),
+    unverifiedTiming: "restty exposes no screen text, so completion is detected through its search API. All three workloads report the same ~67 ms, which suggests search resolves before output is painted. Timings are not comparable until a pixel-based check exists.",
+    sizeEntry: "import { Terminal } from 'restty/xterm'; console.log(Terminal);",
+    setup: `
+      const { Terminal } = await import('restty/xterm');
+      const t = new Terminal({ cols: 120, rows: 40 });
+      t.open(host);
+      const readyBy = performance.now() + 20000;
+      while (performance.now() < readyBy && (t.restty?.getBackend?.() ?? 'none') === 'none') await new Promise((r) => setTimeout(r, 50));
+      (window as any).__renderer = () => t.restty?.getBackend?.() ?? null;
+      const marker = { seen: '' };
+      return { write: (s) => new Promise((r) => { const m = s.match(/END-[A-Z]+/); if (m) marker.seen = m[0]; t.write(s, r); }), text: () => { const r = t.restty; if (!r || !marker.seen) return ''; if (r.getSearchState().query !== marker.seen) r.setSearchQuery(marker.seen); const st = r.getSearchState(); return st.complete && st.total > 0 ? marker.seen : ''; }, destroy: () => t.dispose() };`,
+  },
+  {
+    id: "ferroterm",
+    version: pkg("ferroterm"),
+    extraAssets: ["ferroterm/pkg/ferroterm_wasm_bg.wasm"],
+    sizeEntry: "import { Ferroterm } from 'ferroterm'; console.log(Ferroterm);",
+    setup: `
+      const [{ Ferroterm }, { default: wasmUrl }] = await Promise.all([import('ferroterm'), import('ferroterm/pkg/ferroterm_wasm_bg.wasm')]);
+      const t = await Ferroterm.create(host, { cols: 120, rows: 40, scrollback: 10000, autoFit: false, wasmUrl });
+      (window as any).__renderer = () => t.rendererName;
+      return { write: (s) => t.write(s), text: () => { const n = t.totalLines(); let out = ''; for (let i = Math.max(0, n - 45); i < n; i++) out += t.lineText(i) + '\\n'; return out; }, destroy: () => t.dispose() };`,
+  },
+  {
+    id: "auterm",
+    version: pkg("auterm"),
+    sizeEntry: "import { Terminal } from 'auterm'; console.log(Terminal);",
+    setup: `
+      const { Terminal } = await import('auterm');
+      const t = new Terminal(host, { scrollback: 10000 });
+      t.resize(120, 40);
+      return { write: (s) => t.write(s), text: () => { const n = t.totalRows; let out = ''; for (let i = Math.max(0, n - 45); i < n; i++) out += t.getLine(i).map((c) => c.char).join('') + '\\n'; return out; }, destroy: () => t.dispose() };`,
+  },
+  {
+    id: "hterm-upstream",
+    version: pkg("hterm-upstream") + " (libapps HEAD)",
+    sizeEntry: "import { hterm } from 'hterm-upstream'; console.log(hterm);",
+    setup: `
+      const { hterm } = await import('hterm-upstream');
+      await hterm.initPromise;
+      const t = new hterm.Terminal();
+      await new Promise((r) => { t.onTerminalReady = r; t.decorate(host); });
+      const io = t.io.push();
+      return { write: (s) => io.print(s), text: () => { const out = []; const n = t.getRowCount(); for (let i = Math.max(0, n - 45); i < n; i++) out.push(t.getRowText(i)); return out.join('\\n'); }, destroy: () => {} };`,
+  },
+  {
     id: "hterm",
     version: pkg("hterm-umdjs"),
     sizeEntry: "import * as h from 'hterm-umdjs'; console.log(h);",
@@ -109,20 +178,26 @@ async function settle(t, marker, deadline) {
   const mountMs = performance.now() - m0;
   const t0 = performance.now();
   const pending = []; for (let i = 0; i < w.input.length; i += 16384) pending.push(t.write(w.input.slice(i, i + 16384))); await Promise.all(pending);
-  const ok = await settle(t, w.marker, t0 + 30000);
+  let ok = false;
+  let failure = '';
+  try { ok = await settle(t, w.marker, t0 + 30000); if (!ok) failure = 'end marker not found within 30s; tail: ' + JSON.stringify(String(t.text()).slice(-160)); } catch (e) { failure = 'text probe threw: ' + String(e); }
   await nextFrame();
   await nextFrame();
   const ms = performance.now() - t0;
+  (window as any).gc?.();
+  await nextFrame();
   const mem = (performance as any).memory;
   const heap = mem ? mem.usedJSHeapSize / 1048576 : null;
   const textInDom = String(host.innerText).includes(w.marker);
   const canvas = host.querySelector('canvas') !== null;
   try { t.destroy(); } catch {}
-  return { ok, ms, mountMs, heap, textInDom, canvas, renderer: (window as any).__renderer ?? null };
+  return { ok, error: failure || undefined, ms, mountMs, heap, textInDom, canvas, renderer: typeof (window as any).__renderer === 'function' ? (window as any).__renderer() : (window as any).__renderer ?? null };
 };
 (window as any).ready = true;
 `;
 
+const gpuMode = process.env.BENCH_GPU === "software" ? "software" : "hardware";
+const gpuFlags = gpuMode === "software" ? ["--use-angle=swiftshader", "--enable-unsafe-swiftshader"] : ["--use-angle=metal", "--enable-gpu", "--ignore-gpu-blocklist", "--enable-unsafe-webgpu"];
 const cacheDir = join(homedir(), "Library/Caches/ms-playwright");
 const shellDir = readdirSync(cacheDir).filter((d) => d.startsWith("chromium_headless_shell")).sort().pop()!;
 const binary = join(cacheDir, shellDir, readdirSync(join(cacheDir, shellDir)).find((d) => d.startsWith("chrome-headless-shell"))!, "chrome-headless-shell");
@@ -133,7 +208,7 @@ for (const a of adapters) routes[`/${a.id}`] = (await import(join(out, `page-${a
 const server = Bun.serve({ port: 0, hostname: "127.0.0.1", development: false, routes: routes as any });
 
 async function sample(adapter: Adapter, workload: string, port: number) {
-  const chrome = spawn(binary, [`--remote-debugging-port=${port}`, "--enable-precise-memory-info", "--use-angle=swiftshader", "--enable-unsafe-swiftshader", "--window-size=1200,900", "about:blank"], { stdio: "ignore" });
+  const chrome = spawn(binary, [`--remote-debugging-port=${port}`, "--enable-precise-memory-info", "--js-flags=--expose-gc", ...gpuFlags, "--window-size=1200,900", "about:blank"], { stdio: "ignore" });
   try {
     let ws = "";
     for (let i = 0; i < 80 && !ws; i++) {
@@ -147,6 +222,7 @@ async function sample(adapter: Adapter, workload: string, port: number) {
     const errors: string[] = [];
     sock.addEventListener("message", (e) => {
       const m = JSON.parse(String(e.data));
+      if (m.method === "Runtime.consoleAPICalled" && m.params.type === "error") errors.push(m.params.args.map((a: any) => a.value ?? a.description).join(" ").slice(0, 300));
       if (m.id) waiting.get(m.id)?.(m);
       if (m.method === "Runtime.exceptionThrown") errors.push(m.params.exceptionDetails.exception?.description ?? m.params.exceptionDetails.text);
     });
@@ -154,11 +230,13 @@ async function sample(adapter: Adapter, workload: string, port: number) {
     await send("Runtime.enable");
     await send("Page.enable");
     await send("Page.navigate", { url: `http://127.0.0.1:${server.port}/${adapter.id}` });
-    for (let i = 0; i < 100; i++) {
+    let ready = false;
+    for (let i = 0; i < 150 && !ready; i++) {
       const r = await send("Runtime.evaluate", { expression: "window.ready === true", returnByValue: true });
-      if (r.result?.result?.value) break;
-      await Bun.sleep(100);
+      ready = r.result?.result?.value === true;
+      if (!ready) await Bun.sleep(100);
     }
+    if (!ready) { sock.close(); return { ok: false, ms: NaN, error: "page never became ready", errors }; }
     const r = await send("Runtime.evaluate", { expression: `run(${JSON.stringify(workload)})`, awaitPromise: true, returnByValue: true, timeout: 60000 });
     sock.close();
     return { ...(r.result?.result?.value ?? { ok: false, ms: NaN, error: JSON.stringify(r.result?.exceptionDetails ?? r).slice(0, 300) }), errors };
@@ -168,6 +246,8 @@ async function sample(adapter: Adapter, workload: string, port: number) {
 }
 
 const rounds = Number(process.argv[2] ?? 5);
+const onlyIds = process.argv.slice(3);
+if (onlyIds.length) adapters.splice(0, adapters.length, ...adapters.filter((a) => onlyIds.includes(a.id)));
 const results: Record<string, Record<string, any[]>> = {};
 let port = 9400;
 for (let round = 0; round < rounds; round++) {
@@ -186,7 +266,9 @@ async function gzipSize(adapter: Adapter) {
   const entry = join(out, `size-${adapter.id}.js`);
   writeFileSync(entry, adapter.sizeEntry);
   const bundle = await Bun.$`bunx esbuild ${entry} --bundle --minify --format=esm --loader:.wasm=binary --log-level=error`.cwd(root).arrayBuffer();
-  return Bun.gzipSync(new Uint8Array(bundle), { level: 9 }).length;
+  let bytes = Bun.gzipSync(new Uint8Array(bundle), { level: 9 }).length;
+  for (const asset of adapter.extraAssets ?? []) bytes += Bun.gzipSync(new Uint8Array(readFileSync(join(root, "node_modules", asset))), { level: 9 }).length;
+  return bytes;
 }
 
 const median = (xs: number[]) => { const s = [...xs].sort((a, b) => a - b); return s.length ? s[Math.floor(s.length / 2)] : NaN; };
@@ -211,9 +293,11 @@ for (const a of adapters) {
     textInDom: all.every((s) => s.textInDom),
     canvas: all.some((s) => s.canvas),
     renderer: results[a.id]["full-redraw"].find((s) => s.renderer)?.renderer ?? null,
+    unverifiedTiming: a.unverifiedTiming ?? null,
   });
 }
 const cpu = (await Bun.$`sysctl -n machdep.cpu.brand_string`.nothrow().text()).trim() || process.arch;
-const published = { generatedAt: new Date().toISOString(), rounds, browser: browserVersion, gpu: "SwiftShader (software WebGL)", machine: `${cpu}, ${process.platform}`, grid: `${cols}x${rows}`, workloads: workloadInfo, terminals };
-writeFileSync(join(root, "src/lib/bench-results.json"), JSON.stringify(published, null, 2) + "\n");
+const gpuName = "hardware GPU, ANGLE Metal (" + ((await Bun.$`system_profiler SPDisplaysDataType`.nothrow().text()).match(/Chipset Model: (.*)/)?.[1]?.trim() ?? "unknown") + ")";
+const published = { generatedAt: new Date().toISOString(), rounds, browser: browserVersion, gpu: gpuMode === "software" ? "SwiftShader (software WebGL)" : gpuName, machine: `${cpu}, ${process.platform}`, grid: `${cols}x${rows}`, workloads: workloadInfo, terminals };
+writeFileSync(join(onlyIds.length ? out : join(root, "src/lib"), "bench-results.json"), JSON.stringify(published, null, 2) + "\n");
 console.table(terminals.map((t) => ({ id: t.id, version: t.version, ...Object.fromEntries(Object.entries(t.timings).map(([k, v]) => [k, v.medianMs])), mountMs: t.mountMs, heapMB: t.heapMB, gzipKB: +(t.gzipBytes / 1024).toFixed(1), textInDom: t.textInDom, canvas: t.canvas })));
