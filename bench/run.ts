@@ -24,7 +24,7 @@ const adapters: Adapter[] = [
   },
   {
     id: "cloudterm-perf",
-    version: "spike/perf " + (JSON.parse(readFileSync(join(root, "package.json"), "utf8")).dependencies["cloudterm-perf"].split("#")[1] ?? "?"),
+    version: "main " + (JSON.parse(readFileSync(join(root, "package.json"), "utf8")).dependencies["cloudterm-perf"].split("#")[1] ?? "?"),
     sizeEntry: "import { mount } from 'cloudterm-perf'; console.log(mount);",
     setup: `
       const { mount } = await import('cloudterm-perf');

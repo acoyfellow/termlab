@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-12T12:43:25.738Z",
+  "generatedAt": "2026-10-12T13:11:03.529Z",
   "rounds": 5,
   "browser": "Google Chrome for Testing 153.0.8010.12",
   "gpu": "hardware GPU, ANGLE Metal (Apple M4 Pro)",
@@ -16,23 +16,23 @@
       "version": "v0.0.11",
       "timings": {
         "scroll-flood": {
-          "medianMs": 150,
+          "medianMs": 151,
           "samplesMs": [
-            150,
-            150,
-            141,
-            150,
-            150
+            146,
+            151,
+            151,
+            151,
+            167
           ],
           "failures": 0
         },
         "full-redraw": {
           "medianMs": 117,
           "samplesMs": [
-            118,
-            100,
             117,
             117,
+            117,
+            116,
             117
           ],
           "failures": 0
@@ -41,9 +41,9 @@
           "medianMs": 67,
           "samplesMs": [
             67,
-            67,
-            67,
-            67,
+            68,
+            57,
+            66,
             67
           ],
           "failures": 0
@@ -59,45 +59,45 @@
     },
     {
       "id": "cloudterm-perf",
-      "version": "spike/perf 1566554",
+      "version": "main 30ebacb",
       "timings": {
         "scroll-flood": {
-          "medianMs": 92,
+          "medianMs": 91,
           "samplesMs": [
             100,
+            91,
+            90,
             92,
-            92,
-            93,
-            92
+            91
           ],
           "failures": 0
         },
         "full-redraw": {
-          "medianMs": 61,
+          "medianMs": 72,
           "samplesMs": [
-            61,
-            59,
-            59,
+            58,
+            73,
+            75,
             72,
-            61
+            64
           ],
           "failures": 0
         },
         "sgr-tokens": {
-          "medianMs": 58,
+          "medianMs": 61,
           "samplesMs": [
-            50,
-            58,
-            58,
-            59,
-            58
+            62,
+            60,
+            61,
+            66,
+            59
           ],
           "failures": 0
         }
       },
       "mountMs": 13,
       "heapMB": 42,
-      "gzipBytes": 27645,
+      "gzipBytes": 27561,
       "textInDom": true,
       "canvas": false,
       "renderer": null,
@@ -108,40 +108,40 @@
       "version": "6.0.0",
       "timings": {
         "scroll-flood": {
-          "medianMs": 165,
+          "medianMs": 166,
           "samplesMs": [
-            165,
-            166,
+            149,
             143,
             166,
-            141
+            166,
+            166
           ],
           "failures": 0
         },
         "full-redraw": {
-          "medianMs": 91,
+          "medianMs": 99,
           "samplesMs": [
-            95,
             91,
-            90,
-            103,
-            91
+            100,
+            99,
+            99,
+            99
           ],
           "failures": 0
         },
         "sgr-tokens": {
-          "medianMs": 74,
+          "medianMs": 73,
           "samplesMs": [
-            66,
             74,
-            89,
-            75,
-            66
+            73,
+            73,
+            67,
+            92
           ],
           "failures": 0
         }
       },
-      "mountMs": 15,
+      "mountMs": 19,
       "heapMB": 54,
       "gzipBytes": 87643,
       "textInDom": true,
@@ -154,35 +154,35 @@
       "version": "6.0.0 + webgl 0.19.0",
       "timings": {
         "scroll-flood": {
-          "medianMs": 145,
+          "medianMs": 146,
           "samplesMs": [
-            167,
-            173,
+            148,
             145,
-            145,
-            143
+            143,
+            146,
+            168
           ],
           "failures": 0
         },
         "full-redraw": {
-          "medianMs": 110,
+          "medianMs": 111,
           "samplesMs": [
-            110,
+            107,
             95,
             111,
-            110,
-            103
+            112,
+            123
           ],
           "failures": 0
         },
         "sgr-tokens": {
-          "medianMs": 71,
+          "medianMs": 65,
           "samplesMs": [
-            45,
-            71,
-            61,
             77,
-            78
+            60,
+            44,
+            65,
+            70
           ],
           "failures": 0
         }
@@ -200,35 +200,35 @@
       "version": "0.5.4",
       "timings": {
         "scroll-flood": {
-          "medianMs": 180,
+          "medianMs": 181,
           "samplesMs": [
-            184,
+            183,
             179,
-            179,
-            180,
-            180
+            183,
+            181,
+            181
           ],
           "failures": 0
         },
         "full-redraw": {
-          "medianMs": 96,
+          "medianMs": 95,
           "samplesMs": [
+            100,
             96,
             95,
-            96,
-            97,
-            97
+            94,
+            92
           ],
           "failures": 0
         },
         "sgr-tokens": {
-          "medianMs": 47,
+          "medianMs": 46,
           "samplesMs": [
+            50,
+            45,
             46,
             49,
-            46,
-            50,
-            47
+            45
           ],
           "failures": 0
         }
@@ -246,40 +246,40 @@
       "version": "0.4.0",
       "timings": {
         "scroll-flood": {
-          "medianMs": 144,
+          "medianMs": 150,
           "samplesMs": [
-            153,
-            144,
-            140,
-            138,
-            150
+            151,
+            133,
+            150,
+            150,
+            138
           ],
           "failures": 0
         },
         "full-redraw": {
-          "medianMs": 154,
+          "medianMs": 150,
           "samplesMs": [
             150,
             150,
+            151,
             159,
-            157,
-            154
+            150
           ],
           "failures": 0
         },
         "sgr-tokens": {
-          "medianMs": 74,
+          "medianMs": 83,
           "samplesMs": [
-            74,
-            80,
-            74,
-            74,
+            83,
+            83,
+            84,
+            76,
             74
           ],
           "failures": 0
         }
       },
-      "mountMs": 14,
+      "mountMs": 16,
       "heapMB": 39,
       "gzipBytes": 184510,
       "textInDom": false,
@@ -292,40 +292,40 @@
       "version": "6.1.0-beta.304",
       "timings": {
         "scroll-flood": {
-          "medianMs": 160,
+          "medianMs": 166,
           "samplesMs": [
+            149,
             166,
-            160,
-            161,
             159,
-            157
+            167,
+            224
           ],
           "failures": 0
         },
         "full-redraw": {
-          "medianMs": 93,
+          "medianMs": 92,
           "samplesMs": [
             92,
-            100,
+            92,
+            98,
             91,
-            93,
-            99
+            94
           ],
           "failures": 0
         },
         "sgr-tokens": {
-          "medianMs": 75,
+          "medianMs": 66,
           "samplesMs": [
-            75,
-            73,
-            89,
+            65,
+            57,
             76,
-            75
+            66,
+            66
           ],
           "failures": 0
         }
       },
-      "mountMs": 13,
+      "mountMs": 16,
       "heapMB": 54,
       "gzipBytes": 83425,
       "textInDom": true,
@@ -341,10 +341,10 @@
           "medianMs": 67,
           "samplesMs": [
             67,
+            83,
             67,
-            68,
-            67,
-            68
+            64,
+            67
           ],
           "failures": 0
         },
@@ -363,15 +363,15 @@
           "medianMs": 67,
           "samplesMs": [
             67,
+            68,
             67,
             67,
-            62,
-            68
+            67
           ],
           "failures": 0
         }
       },
-      "mountMs": 3111,
+      "mountMs": 4071,
       "heapMB": 96,
       "gzipBytes": 720927,
       "textInDom": false,
@@ -384,23 +384,23 @@
       "version": "0.8.0",
       "timings": {
         "scroll-flood": {
-          "medianMs": 104,
+          "medianMs": 105,
           "samplesMs": [
-            115,
+            114,
+            104,
             105,
             104,
-            103,
-            104
+            115
           ],
           "failures": 0
         },
         "full-redraw": {
-          "medianMs": 71,
+          "medianMs": 73,
           "samplesMs": [
-            72,
-            71,
-            71,
-            82,
+            84,
+            76,
+            73,
+            73,
             70
           ],
           "failures": 0
@@ -409,10 +409,10 @@
           "medianMs": 38,
           "samplesMs": [
             38,
+            38,
             36,
-            40,
-            39,
-            36
+            36,
+            47
           ],
           "failures": 0
         }
@@ -430,35 +430,35 @@
       "version": "0.1.0",
       "timings": {
         "scroll-flood": {
-          "medianMs": 748,
+          "medianMs": 746,
           "samplesMs": [
-            774,
-            747,
-            747,
-            777,
-            748
+            746,
+            745,
+            742,
+            763,
+            797
           ],
           "failures": 0
         },
         "full-redraw": {
-          "medianMs": 179,
+          "medianMs": 166,
           "samplesMs": [
             164,
-            180,
-            180,
             179,
-            164
+            164,
+            166,
+            188
           ],
           "failures": 0
         },
         "sgr-tokens": {
-          "medianMs": 113,
+          "medianMs": 110,
           "samplesMs": [
-            96,
+            98,
             114,
-            113,
-            113,
-            113
+            110,
+            114,
+            107
           ],
           "failures": 0
         }
@@ -476,42 +476,42 @@
       "version": "1.92.1 (libapps HEAD)",
       "timings": {
         "scroll-flood": {
-          "medianMs": 250,
+          "medianMs": 266,
           "samplesMs": [
             267,
+            266,
             250,
-            249,
-            250,
-            251
+            266,
+            265
           ],
           "failures": 0
         },
         "full-redraw": {
           "medianMs": 250,
           "samplesMs": [
-            250,
             251,
             250,
+            249,
             250,
-            268
+            266
           ],
           "failures": 0
         },
         "sgr-tokens": {
-          "medianMs": 399,
+          "medianMs": 400,
           "samplesMs": [
-            384,
-            399,
+            383,
             383,
             400,
-            401
+            416,
+            417
           ],
           "failures": 0
         }
       },
       "mountMs": 38,
       "heapMB": 42,
-      "gzipBytes": 81307,
+      "gzipBytes": 81308,
       "textInDom": false,
       "canvas": false,
       "renderer": null,
@@ -522,41 +522,41 @@
       "version": "1.4.1",
       "timings": {
         "scroll-flood": {
-          "medianMs": 333,
+          "medianMs": 331,
           "samplesMs": [
-            333,
-            333,
-            332,
+            313,
+            331,
             316,
-            333
+            347,
+            349
           ],
           "failures": 0
         },
         "full-redraw": {
           "medianMs": 315,
           "samplesMs": [
+            316,
+            297,
             317,
-            300,
-            300,
             315,
-            317
+            314
           ],
           "failures": 0
         },
         "sgr-tokens": {
-          "medianMs": 399,
+          "medianMs": 400,
           "samplesMs": [
-            383,
+            411,
             399,
-            383,
+            400,
             399,
-            414
+            417
           ],
           "failures": 0
         }
       },
-      "mountMs": 39,
-      "heapMB": 42,
+      "mountMs": 41,
+      "heapMB": 43,
       "gzipBytes": 143079,
       "textInDom": false,
       "canvas": false,
