@@ -177,10 +177,12 @@ async function settle(t, marker, deadline) {
   await nextFrame();
   const mountMs = performance.now() - m0;
   const t0 = performance.now();
+  performance.mark('termlab-bench-start');
   const pending = []; for (let i = 0; i < w.input.length; i += 16384) pending.push(t.write(w.input.slice(i, i + 16384))); await Promise.all(pending);
   let ok = false;
   let failure = '';
   try { ok = await settle(t, w.marker, t0 + 30000); if (!ok) failure = 'end marker not found within 30s; tail: ' + JSON.stringify(String(t.text()).slice(-160)); } catch (e) { failure = 'text probe threw: ' + String(e); }
+  performance.mark('termlab-bench-end');
   await nextFrame();
   await nextFrame();
   const ms = performance.now() - t0;
@@ -220,11 +222,15 @@ async function sample(adapter: Adapter, workload: string, port: number) {
     let id = 0;
     const waiting = new Map<number, (v: any) => void>();
     const errors: string[] = [];
+    const trace: any[] = [];
+    let traceComplete: (() => void) | undefined;
     sock.addEventListener("message", (e) => {
       const m = JSON.parse(String(e.data));
       if (m.method === "Runtime.consoleAPICalled" && m.params.type === "error") errors.push(m.params.args.map((a: any) => a.value ?? a.description).join(" ").slice(0, 300));
       if (m.id) waiting.get(m.id)?.(m);
       if (m.method === "Runtime.exceptionThrown") errors.push(m.params.exceptionDetails.exception?.description ?? m.params.exceptionDetails.text);
+      if (m.method === "Tracing.dataCollected") trace.push(...m.params.value);
+      if (m.method === "Tracing.tracingComplete") traceComplete?.();
     });
     const send = (method: string, params: object = {}) => new Promise<any>((r) => { const i = ++id; waiting.set(i, r); sock.send(JSON.stringify({ id: i, method, params })); });
     await send("Runtime.enable");
@@ -237,13 +243,42 @@ async function sample(adapter: Adapter, workload: string, port: number) {
       if (!ready) await Bun.sleep(100);
     }
     if (!ready) { sock.close(); return { ok: false, ms: NaN, error: "page never became ready", errors }; }
+    await send("Tracing.start", { categories: "devtools.timeline,disabled-by-default-devtools.timeline,blink.user_timing", transferMode: "ReportEvents" });
     const r = await send("Runtime.evaluate", { expression: `run(${JSON.stringify(workload)})`, awaitPromise: true, returnByValue: true, timeout: 60000 });
+    const complete = new Promise<void>((resolve) => { traceComplete = resolve; });
+    await send("Tracing.end");
+    await complete;
+    const value = r.result?.result?.value ?? { ok: false, ms: NaN, error: JSON.stringify(r.result?.exceptionDetails ?? r).slice(0, 300) };
+    const metrics = traceMetrics(trace);
+    if (value.ok && (metrics.cpuMs <= 0 || metrics.cpuMs > value.ms + 5)) {
+      value.ok = false;
+      value.error = `trace self-check failed: cpuMs ${metrics.cpuMs}ms, wall ${value.ms.toFixed(1)}ms`;
+    }
     sock.close();
-    return { ...(r.result?.result?.value ?? { ok: false, ms: NaN, error: JSON.stringify(r.result?.exceptionDetails ?? r).slice(0, 300) }), errors };
+    return { ...value, ...metrics, errors };
   } finally {
     chrome.kill("SIGKILL");
   }
 }
+
+const traceMetrics = (events: any[]) => {
+  const mainThread = new Set(events.filter((e) => e.name === "thread_name" && e.args?.name === "CrRendererMain").map((e) => `${e.pid}:${e.tid}`));
+  const mark = (name: string) => events.find((e) => e.name === name)?.ts;
+  const start = mark("termlab-bench-start");
+  const end = mark("termlab-bench-end");
+  const inWindow = (e: any) => typeof start === "number" && typeof end === "number" && e.ts < end && e.ts + (e.dur ?? 0) > start;
+  const clippedMs = (e: any) => (Math.min(e.ts + e.dur, end) - Math.max(e.ts, start)) / 1000;
+  const duration = (names: string[]) => events.filter((e) => mainThread.has(`${e.pid}:${e.tid}`) && e.ph === "X" && names.includes(e.name) && inWindow(e)).reduce((sum, e) => sum + clippedMs(e), 0);
+  const tasks = events.filter((e) => mainThread.has(`${e.pid}:${e.tid}`) && e.ph === "X" && ["RunTask", "ThreadControllerImpl::RunTask"].includes(e.name) && inWindow(e));
+  return {
+    cpuMs: Math.round(tasks.reduce((sum, e) => sum + clippedMs(e), 0) * 100) / 100,
+    scriptMs: Math.round(duration(["FunctionCall", "EvaluateScript", "RunMicrotasks"]) * 100) / 100,
+    styleLayoutMs: Math.round(duration(["UpdateLayoutTree", "Layout", "RecalculateStyles"]) * 100) / 100,
+    paintMs: Math.round(duration(["Paint", "PrePaint", "Layerize", "Commit"]) * 100) / 100,
+    frames: events.filter((e) => mainThread.has(`${e.pid}:${e.tid}`) && e.name === "FireAnimationFrame" && inWindow(e)).length,
+    longestTaskMs: Math.round(Math.max(0, ...tasks.map(clippedMs)) * 100) / 100,
+  };
+};
 
 const rounds = Number(process.argv[2] ?? 5);
 const onlyIds = process.argv.slice(3);
@@ -277,11 +312,15 @@ const workloadInfo = { "scroll-flood": "100,000 lines of 88 chars", "full-redraw
 const terminals = [];
 for (const a of adapters) {
   const all = Object.values(results[a.id]).flat();
-  const timings: Record<string, { medianMs: number | null; samplesMs: number[]; failures: number }> = {};
+  const timings: Record<string, any> = {};
   for (const w of Object.keys(workloads)) {
     const ss = results[a.id][w];
     const good = ss.filter((s) => s.ok);
-    timings[w] = { medianMs: good.length === ss.length ? Math.round(median(good.map((s) => s.ms))) : null, samplesMs: ss.map((s) => (s.ok ? Math.round(s.ms) : -1)), failures: ss.length - good.length };
+    const summary = (key: string) => {
+      const values = good.map((s) => s[key]);
+      return { medianMs: good.length === ss.length ? Math.round(median(values) * 100) / 100 : null, minMs: values.length ? Math.round(Math.min(...values) * 100) / 100 : null, maxMs: values.length ? Math.round(Math.max(...values) * 100) / 100 : null };
+    };
+    timings[w] = { medianMs: good.length === ss.length ? Math.round(median(good.map((s) => s.ms))) : null, samplesMs: ss.map((s) => (s.ok ? Math.round(s.ms) : -1)), failures: ss.length - good.length, cpuMs: summary("cpuMs"), scriptMs: summary("scriptMs"), styleLayoutMs: summary("styleLayoutMs"), paintMs: summary("paintMs"), frames: summary("frames"), longestTaskMs: summary("longestTaskMs") };
   }
   terminals.push({
     id: a.id,

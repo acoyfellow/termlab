@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-12T13:11:03.529Z",
+  "generatedAt": "2026-10-12T13:20:02.113Z",
   "rounds": 5,
   "browser": "Google Chrome for Testing 153.0.8010.12",
   "gpu": "hardware GPU, ANGLE Metal (Apple M4 Pro)",
@@ -16,41 +16,131 @@
       "version": "v0.0.11",
       "timings": {
         "scroll-flood": {
-          "medianMs": 151,
+          "medianMs": 153,
           "samplesMs": [
-            146,
-            151,
-            151,
-            151,
-            167
+            145,
+            155,
+            153,
+            157,
+            142
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 127.36,
+            "minMs": 123.08,
+            "maxMs": 129.14
+          },
+          "scriptMs": {
+            "medianMs": 0.95,
+            "minMs": 0.95,
+            "maxMs": 1
+          },
+          "styleLayoutMs": {
+            "medianMs": 0.17,
+            "minMs": 0.17,
+            "maxMs": 0.17
+          },
+          "paintMs": {
+            "medianMs": 0.04,
+            "minMs": 0.04,
+            "maxMs": 0.05
+          },
+          "frames": {
+            "medianMs": 3,
+            "minMs": 3,
+            "maxMs": 3
+          },
+          "longestTaskMs": {
+            "medianMs": 126.25,
+            "minMs": 121.98,
+            "maxMs": 128.01
+          }
         },
         "full-redraw": {
-          "medianMs": 117,
+          "medianMs": 116,
           "samplesMs": [
-            117,
-            117,
-            117,
+            105,
             116,
-            117
+            102,
+            116,
+            118
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 86.48,
+            "minMs": 85.65,
+            "maxMs": 88.81
+          },
+          "scriptMs": {
+            "medianMs": 0.53,
+            "minMs": 0.5,
+            "maxMs": 0.65
+          },
+          "styleLayoutMs": {
+            "medianMs": 0,
+            "minMs": 0,
+            "maxMs": 0
+          },
+          "paintMs": {
+            "medianMs": 0.04,
+            "minMs": 0.04,
+            "maxMs": 0.05
+          },
+          "frames": {
+            "medianMs": 3,
+            "minMs": 3,
+            "maxMs": 3
+          },
+          "longestTaskMs": {
+            "medianMs": 85.85,
+            "minMs": 85,
+            "maxMs": 88.01
+          }
         },
         "sgr-tokens": {
-          "medianMs": 67,
+          "medianMs": 68,
           "samplesMs": [
-            67,
             68,
-            57,
-            66,
-            67
+            68,
+            56,
+            65,
+            74
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 42.84,
+            "minMs": 41.13,
+            "maxMs": 45.19
+          },
+          "scriptMs": {
+            "medianMs": 6.77,
+            "minMs": 6.42,
+            "maxMs": 8.26
+          },
+          "styleLayoutMs": {
+            "medianMs": 0.16,
+            "minMs": 0.15,
+            "maxMs": 0.17
+          },
+          "paintMs": {
+            "medianMs": 0.04,
+            "minMs": 0.04,
+            "maxMs": 0.05
+          },
+          "frames": {
+            "medianMs": 3,
+            "minMs": 3,
+            "maxMs": 3
+          },
+          "longestTaskMs": {
+            "medianMs": 35.84,
+            "minMs": 34.52,
+            "maxMs": 36.68
+          }
         }
       },
-      "mountMs": 21,
-      "heapMB": 42,
+      "mountMs": 23,
+      "heapMB": 43,
       "gzipBytes": 27356,
       "textInDom": true,
       "canvas": false,
@@ -62,41 +152,131 @@
       "version": "main 30ebacb",
       "timings": {
         "scroll-flood": {
-          "medianMs": 91,
+          "medianMs": 92,
           "samplesMs": [
-            100,
-            91,
+            103,
             90,
+            102,
             92,
-            91
+            89
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 72.37,
+            "minMs": 70.27,
+            "maxMs": 72.93
+          },
+          "scriptMs": {
+            "medianMs": 1.1,
+            "minMs": 1.01,
+            "maxMs": 1.17
+          },
+          "styleLayoutMs": {
+            "medianMs": 0.79,
+            "minMs": 0.75,
+            "maxMs": 0.86
+          },
+          "paintMs": {
+            "medianMs": 1.06,
+            "minMs": 1,
+            "maxMs": 1.1
+          },
+          "frames": {
+            "medianMs": 3,
+            "minMs": 3,
+            "maxMs": 3
+          },
+          "longestTaskMs": {
+            "medianMs": 72.11,
+            "minMs": 70,
+            "maxMs": 72.66
+          }
         },
         "full-redraw": {
-          "medianMs": 72,
+          "medianMs": 70,
           "samplesMs": [
-            58,
-            73,
+            70,
             75,
             72,
-            64
+            69,
+            63
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 41.59,
+            "minMs": 40.97,
+            "maxMs": 41.91
+          },
+          "scriptMs": {
+            "medianMs": 0.49,
+            "minMs": 0.45,
+            "maxMs": 0.51
+          },
+          "styleLayoutMs": {
+            "medianMs": 0.38,
+            "minMs": 0.34,
+            "maxMs": 0.4
+          },
+          "paintMs": {
+            "medianMs": 0.72,
+            "minMs": 0.72,
+            "maxMs": 0.76
+          },
+          "frames": {
+            "medianMs": 3,
+            "minMs": 3,
+            "maxMs": 3
+          },
+          "longestTaskMs": {
+            "medianMs": 41.44,
+            "minMs": 40.85,
+            "maxMs": 41.77
+          }
         },
         "sgr-tokens": {
           "medianMs": 61,
           "samplesMs": [
-            62,
+            65,
+            59,
+            63,
             60,
-            61,
-            66,
-            59
+            61
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 35.65,
+            "minMs": 35.3,
+            "maxMs": 35.79
+          },
+          "scriptMs": {
+            "medianMs": 7.28,
+            "minMs": 7.12,
+            "maxMs": 7.59
+          },
+          "styleLayoutMs": {
+            "medianMs": 5.21,
+            "minMs": 5.09,
+            "maxMs": 5.32
+          },
+          "paintMs": {
+            "medianMs": 5.59,
+            "minMs": 5.35,
+            "maxMs": 6
+          },
+          "frames": {
+            "medianMs": 3,
+            "minMs": 3,
+            "maxMs": 3
+          },
+          "longestTaskMs": {
+            "medianMs": 35.25,
+            "minMs": 34.89,
+            "maxMs": 35.38
+          }
         }
       },
-      "mountMs": 13,
-      "heapMB": 42,
+      "mountMs": 22,
+      "heapMB": 43,
       "gzipBytes": 27561,
       "textInDom": true,
       "canvas": false,
@@ -108,41 +288,131 @@
       "version": "6.0.0",
       "timings": {
         "scroll-flood": {
-          "medianMs": 166,
+          "medianMs": 175,
           "samplesMs": [
-            149,
-            143,
-            166,
-            166,
-            166
+            165,
+            188,
+            182,
+            175,
+            158
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 127.65,
+            "minMs": 124.84,
+            "maxMs": 134.87
+          },
+          "scriptMs": {
+            "medianMs": 118.89,
+            "minMs": 116.66,
+            "maxMs": 123.91
+          },
+          "styleLayoutMs": {
+            "medianMs": 4.35,
+            "minMs": 3.98,
+            "maxMs": 4.88
+          },
+          "paintMs": {
+            "medianMs": 3,
+            "minMs": 2.67,
+            "maxMs": 3.58
+          },
+          "frames": {
+            "medianMs": 20,
+            "minMs": 18,
+            "maxMs": 22
+          },
+          "longestTaskMs": {
+            "medianMs": 12.72,
+            "minMs": 12.57,
+            "maxMs": 13.28
+          }
         },
         "full-redraw": {
-          "medianMs": 99,
+          "medianMs": 98,
           "samplesMs": [
-            91,
-            100,
-            99,
-            99,
-            99
+            92,
+            105,
+            98,
+            105,
+            88
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 64.21,
+            "minMs": 60.77,
+            "maxMs": 65.92
+          },
+          "scriptMs": {
+            "medianMs": 58.92,
+            "minMs": 56.41,
+            "maxMs": 60.92
+          },
+          "styleLayoutMs": {
+            "medianMs": 2.36,
+            "minMs": 2.16,
+            "maxMs": 2.9
+          },
+          "paintMs": {
+            "medianMs": 1.59,
+            "minMs": 1.46,
+            "maxMs": 1.98
+          },
+          "frames": {
+            "medianMs": 6,
+            "minMs": 6,
+            "maxMs": 7
+          },
+          "longestTaskMs": {
+            "medianMs": 12.15,
+            "minMs": 12.02,
+            "maxMs": 13
+          }
         },
         "sgr-tokens": {
-          "medianMs": 73,
+          "medianMs": 87,
           "samplesMs": [
-            74,
-            73,
-            73,
-            67,
-            92
+            91,
+            81,
+            87,
+            69,
+            88
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 66.58,
+            "minMs": 54.49,
+            "maxMs": 69.91
+          },
+          "scriptMs": {
+            "medianMs": 48.25,
+            "minMs": 44.79,
+            "maxMs": 51.4
+          },
+          "styleLayoutMs": {
+            "medianMs": 17.18,
+            "minMs": 11.49,
+            "maxMs": 19.07
+          },
+          "paintMs": {
+            "medianMs": 9.39,
+            "minMs": 4.73,
+            "maxMs": 12.05
+          },
+          "frames": {
+            "medianMs": 8,
+            "minMs": 6,
+            "maxMs": 8
+          },
+          "longestTaskMs": {
+            "medianMs": 13.7,
+            "minMs": 12.33,
+            "maxMs": 14.28
+          }
         }
       },
-      "mountMs": 19,
-      "heapMB": 54,
+      "mountMs": 23,
+      "heapMB": 55,
       "gzipBytes": 87643,
       "textInDom": true,
       "canvas": false,
@@ -154,40 +424,130 @@
       "version": "6.0.0 + webgl 0.19.0",
       "timings": {
         "scroll-flood": {
-          "medianMs": 146,
+          "medianMs": 187,
           "samplesMs": [
-            148,
-            145,
-            143,
-            146,
-            168
+            177,
+            192,
+            185,
+            193,
+            187
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 135.54,
+            "minMs": 128.92,
+            "maxMs": 136.56
+          },
+          "scriptMs": {
+            "medianMs": 129.65,
+            "minMs": 123.28,
+            "maxMs": 130.14
+          },
+          "styleLayoutMs": {
+            "medianMs": 1.34,
+            "minMs": 1.22,
+            "maxMs": 1.39
+          },
+          "paintMs": {
+            "medianMs": 1.63,
+            "minMs": 1.48,
+            "maxMs": 1.69
+          },
+          "frames": {
+            "medianMs": 22,
+            "minMs": 21,
+            "maxMs": 23
+          },
+          "longestTaskMs": {
+            "medianMs": 12.52,
+            "minMs": 12.36,
+            "maxMs": 12.75
+          }
         },
         "full-redraw": {
-          "medianMs": 111,
+          "medianMs": 107,
           "samplesMs": [
+            104,
+            108,
+            98,
             107,
-            95,
-            111,
-            112,
-            123
+            108
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 70.78,
+            "minMs": 69.08,
+            "maxMs": 72.33
+          },
+          "scriptMs": {
+            "medianMs": 67.73,
+            "minMs": 65.95,
+            "maxMs": 68.57
+          },
+          "styleLayoutMs": {
+            "medianMs": 0.61,
+            "minMs": 0.51,
+            "maxMs": 0.67
+          },
+          "paintMs": {
+            "medianMs": 0.77,
+            "minMs": 0.68,
+            "maxMs": 0.88
+          },
+          "frames": {
+            "medianMs": 7,
+            "minMs": 6,
+            "maxMs": 7
+          },
+          "longestTaskMs": {
+            "medianMs": 12.08,
+            "minMs": 12.04,
+            "maxMs": 12.1
+          }
         },
         "sgr-tokens": {
           "medianMs": 65,
           "samplesMs": [
-            77,
-            60,
-            44,
-            65,
-            70
+            57,
+            70,
+            63,
+            71,
+            65
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 41.25,
+            "minMs": 41.04,
+            "maxMs": 41.78
+          },
+          "scriptMs": {
+            "medianMs": 39.12,
+            "minMs": 38.83,
+            "maxMs": 39.61
+          },
+          "styleLayoutMs": {
+            "medianMs": 0.53,
+            "minMs": 0.51,
+            "maxMs": 0.56
+          },
+          "paintMs": {
+            "medianMs": 0.63,
+            "minMs": 0.6,
+            "maxMs": 0.66
+          },
+          "frames": {
+            "medianMs": 8,
+            "minMs": 8,
+            "maxMs": 8
+          },
+          "longestTaskMs": {
+            "medianMs": 12.2,
+            "minMs": 12.12,
+            "maxMs": 12.27
+          }
         }
       },
-      "mountMs": 27,
+      "mountMs": 37,
       "heapMB": 56,
       "gzipBytes": 122768,
       "textInDom": false,
@@ -200,41 +560,131 @@
       "version": "0.5.4",
       "timings": {
         "scroll-flood": {
-          "medianMs": 181,
+          "medianMs": 180,
           "samplesMs": [
-            183,
-            179,
-            183,
-            181,
-            181
+            188,
+            180,
+            175,
+            193,
+            179
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 158.38,
+            "minMs": 156.13,
+            "maxMs": 160.81
+          },
+          "scriptMs": {
+            "medianMs": 2.66,
+            "minMs": 2.53,
+            "maxMs": 2.76
+          },
+          "styleLayoutMs": {
+            "medianMs": 0.49,
+            "minMs": 0.41,
+            "maxMs": 0.53
+          },
+          "paintMs": {
+            "medianMs": 0.34,
+            "minMs": 0.32,
+            "maxMs": 0.42
+          },
+          "frames": {
+            "medianMs": 3,
+            "minMs": 3,
+            "maxMs": 3
+          },
+          "longestTaskMs": {
+            "medianMs": 155.75,
+            "minMs": 153.75,
+            "maxMs": 158.31
+          }
         },
         "full-redraw": {
-          "medianMs": 95,
+          "medianMs": 98,
           "samplesMs": [
-            100,
+            102,
+            93,
+            98,
             96,
-            95,
-            94,
-            92
+            104
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 73.17,
+            "minMs": 71.43,
+            "maxMs": 73.8
+          },
+          "scriptMs": {
+            "medianMs": 2.44,
+            "minMs": 2.33,
+            "maxMs": 2.59
+          },
+          "styleLayoutMs": {
+            "medianMs": 0.46,
+            "minMs": 0.41,
+            "maxMs": 0.49
+          },
+          "paintMs": {
+            "medianMs": 0.33,
+            "minMs": 0.32,
+            "maxMs": 0.39
+          },
+          "frames": {
+            "medianMs": 3,
+            "minMs": 3,
+            "maxMs": 3
+          },
+          "longestTaskMs": {
+            "medianMs": 70.77,
+            "minMs": 69.22,
+            "maxMs": 71.48
+          }
         },
         "sgr-tokens": {
-          "medianMs": 46,
+          "medianMs": 43,
           "samplesMs": [
-            50,
-            45,
-            46,
-            49,
-            45
+            43,
+            40,
+            43,
+            48,
+            47
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 24.06,
+            "minMs": 23.19,
+            "maxMs": 24.13
+          },
+          "scriptMs": {
+            "medianMs": 8.38,
+            "minMs": 7.95,
+            "maxMs": 8.53
+          },
+          "styleLayoutMs": {
+            "medianMs": 3.14,
+            "minMs": 3.04,
+            "maxMs": 3.17
+          },
+          "paintMs": {
+            "medianMs": 0.36,
+            "minMs": 0.31,
+            "maxMs": 0.41
+          },
+          "frames": {
+            "medianMs": 3,
+            "minMs": 3,
+            "maxMs": 3
+          },
+          "longestTaskMs": {
+            "medianMs": 15.34,
+            "minMs": 14.96,
+            "maxMs": 15.52
+          }
         }
       },
-      "mountMs": 9,
-      "heapMB": 37,
+      "mountMs": 18,
+      "heapMB": 38,
       "gzipBytes": 45855,
       "textInDom": true,
       "canvas": false,
@@ -246,41 +696,131 @@
       "version": "0.4.0",
       "timings": {
         "scroll-flood": {
-          "medianMs": 150,
+          "medianMs": 142,
           "samplesMs": [
-            151,
-            133,
-            150,
-            150,
-            138
+            142,
+            143,
+            142,
+            140,
+            140
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 114.28,
+            "minMs": 113.81,
+            "maxMs": 116.47
+          },
+          "scriptMs": {
+            "medianMs": 6.05,
+            "minMs": 5.8,
+            "maxMs": 6.3
+          },
+          "styleLayoutMs": {
+            "medianMs": 0,
+            "minMs": 0,
+            "maxMs": 0
+          },
+          "paintMs": {
+            "medianMs": 2.5,
+            "minMs": 2.4,
+            "maxMs": 2.6
+          },
+          "frames": {
+            "medianMs": 571,
+            "minMs": 571,
+            "maxMs": 571
+          },
+          "longestTaskMs": {
+            "medianMs": 102.25,
+            "minMs": 101.61,
+            "maxMs": 104.52
+          }
         },
         "full-redraw": {
-          "medianMs": 150,
+          "medianMs": 153,
           "samplesMs": [
-            150,
-            150,
+            156,
+            155,
+            153,
             151,
-            159,
             150
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 123.65,
+            "minMs": 122.6,
+            "maxMs": 125.47
+          },
+          "scriptMs": {
+            "medianMs": 5.35,
+            "minMs": 5.12,
+            "maxMs": 5.49
+          },
+          "styleLayoutMs": {
+            "medianMs": 0,
+            "minMs": 0,
+            "maxMs": 0
+          },
+          "paintMs": {
+            "medianMs": 3.25,
+            "minMs": 3.02,
+            "maxMs": 3.51
+          },
+          "frames": {
+            "medianMs": 469,
+            "minMs": 469,
+            "maxMs": 469
+          },
+          "longestTaskMs": {
+            "medianMs": 110.42,
+            "minMs": 109.8,
+            "maxMs": 112.05
+          }
         },
         "sgr-tokens": {
-          "medianMs": 83,
+          "medianMs": 82,
           "samplesMs": [
-            83,
-            83,
             84,
-            76,
-            74
+            82,
+            74,
+            83,
+            72
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 45.92,
+            "minMs": 45.61,
+            "maxMs": 46.84
+          },
+          "scriptMs": {
+            "medianMs": 4.65,
+            "minMs": 4.61,
+            "maxMs": 4.82
+          },
+          "styleLayoutMs": {
+            "medianMs": 0,
+            "minMs": 0,
+            "maxMs": 0
+          },
+          "paintMs": {
+            "medianMs": 2.37,
+            "minMs": 2.35,
+            "maxMs": 2.69
+          },
+          "frames": {
+            "medianMs": 84,
+            "minMs": 84,
+            "maxMs": 84
+          },
+          "longestTaskMs": {
+            "medianMs": 35.98,
+            "minMs": 35.36,
+            "maxMs": 36.38
+          }
         }
       },
-      "mountMs": 16,
-      "heapMB": 39,
+      "mountMs": 23,
+      "heapMB": 40,
       "gzipBytes": 184510,
       "textInDom": false,
       "canvas": true,
@@ -292,41 +832,131 @@
       "version": "6.1.0-beta.304",
       "timings": {
         "scroll-flood": {
-          "medianMs": 166,
+          "medianMs": 176,
           "samplesMs": [
-            149,
-            166,
-            159,
-            167,
-            224
+            177,
+            176,
+            175,
+            175,
+            185
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 129.36,
+            "minMs": 128.01,
+            "maxMs": 131.89
+          },
+          "scriptMs": {
+            "medianMs": 119.98,
+            "minMs": 118.6,
+            "maxMs": 122.17
+          },
+          "styleLayoutMs": {
+            "medianMs": 3.95,
+            "minMs": 3.93,
+            "maxMs": 4.14
+          },
+          "paintMs": {
+            "medianMs": 2.95,
+            "minMs": 2.8,
+            "maxMs": 2.99
+          },
+          "frames": {
+            "medianMs": 20,
+            "minMs": 20,
+            "maxMs": 20
+          },
+          "longestTaskMs": {
+            "medianMs": 12.89,
+            "minMs": 12.56,
+            "maxMs": 13.64
+          }
         },
         "full-redraw": {
-          "medianMs": 92,
+          "medianMs": 99,
           "samplesMs": [
-            92,
-            92,
-            98,
-            91,
-            94
+            106,
+            99,
+            99,
+            107,
+            98
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 66.07,
+            "minMs": 65.61,
+            "maxMs": 69.95
+          },
+          "scriptMs": {
+            "medianMs": 60.58,
+            "minMs": 60.15,
+            "maxMs": 63.36
+          },
+          "styleLayoutMs": {
+            "medianMs": 1.92,
+            "minMs": 1.86,
+            "maxMs": 2.7
+          },
+          "paintMs": {
+            "medianMs": 1.34,
+            "minMs": 1.25,
+            "maxMs": 1.71
+          },
+          "frames": {
+            "medianMs": 6,
+            "minMs": 6,
+            "maxMs": 7
+          },
+          "longestTaskMs": {
+            "medianMs": 12.18,
+            "minMs": 12.08,
+            "maxMs": 12.91
+          }
         },
         "sgr-tokens": {
-          "medianMs": 66,
+          "medianMs": 78,
           "samplesMs": [
-            65,
-            57,
-            76,
-            66,
-            66
+            87,
+            75,
+            79,
+            68,
+            78
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 59.43,
+            "minMs": 46.82,
+            "maxMs": 60.52
+          },
+          "scriptMs": {
+            "medianMs": 39.09,
+            "minMs": 36.61,
+            "maxMs": 40.52
+          },
+          "styleLayoutMs": {
+            "medianMs": 12.3,
+            "minMs": 6.14,
+            "maxMs": 13.24
+          },
+          "paintMs": {
+            "medianMs": 9.99,
+            "minMs": 4.75,
+            "maxMs": 11.75
+          },
+          "frames": {
+            "medianMs": 8,
+            "minMs": 6,
+            "maxMs": 8
+          },
+          "longestTaskMs": {
+            "medianMs": 12.89,
+            "minMs": 12.19,
+            "maxMs": 13.38
+          }
         }
       },
-      "mountMs": 16,
-      "heapMB": 54,
+      "mountMs": 23,
+      "heapMB": 55,
       "gzipBytes": 83425,
       "textInDom": true,
       "canvas": false,
@@ -340,38 +970,128 @@
         "scroll-flood": {
           "medianMs": 67,
           "samplesMs": [
-            67,
             83,
+            84,
             67,
-            64,
-            67
+            67,
+            66
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 42.06,
+            "minMs": 40.85,
+            "maxMs": 45.61
+          },
+          "scriptMs": {
+            "medianMs": 19.41,
+            "minMs": 18.12,
+            "maxMs": 20.81
+          },
+          "styleLayoutMs": {
+            "medianMs": 0.19,
+            "minMs": 0.18,
+            "maxMs": 0.24
+          },
+          "paintMs": {
+            "medianMs": 0.26,
+            "minMs": 0.22,
+            "maxMs": 0.28
+          },
+          "frames": {
+            "medianMs": 6,
+            "minMs": 6,
+            "maxMs": 6
+          },
+          "longestTaskMs": {
+            "medianMs": 22.42,
+            "minMs": 21.82,
+            "maxMs": 24.6
+          }
         },
         "full-redraw": {
           "medianMs": 67,
           "samplesMs": [
-            67,
+            68,
             67,
             67,
             67,
             67
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 39.24,
+            "minMs": 38.04,
+            "maxMs": 40.32
+          },
+          "scriptMs": {
+            "medianMs": 16.53,
+            "minMs": 16.3,
+            "maxMs": 17.17
+          },
+          "styleLayoutMs": {
+            "medianMs": 0.11,
+            "minMs": 0.1,
+            "maxMs": 0.11
+          },
+          "paintMs": {
+            "medianMs": 0.15,
+            "minMs": 0.14,
+            "maxMs": 0.2
+          },
+          "frames": {
+            "medianMs": 6,
+            "minMs": 6,
+            "maxMs": 6
+          },
+          "longestTaskMs": {
+            "medianMs": 22.3,
+            "minMs": 21.34,
+            "maxMs": 22.96
+          }
         },
         "sgr-tokens": {
           "medianMs": 67,
           "samplesMs": [
+            61,
             67,
-            68,
             67,
             67,
             67
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 37.13,
+            "minMs": 35.48,
+            "maxMs": 38.51
+          },
+          "scriptMs": {
+            "medianMs": 18.83,
+            "minMs": 17.66,
+            "maxMs": 19
+          },
+          "styleLayoutMs": {
+            "medianMs": 0.22,
+            "minMs": 0.17,
+            "maxMs": 0.26
+          },
+          "paintMs": {
+            "medianMs": 0.26,
+            "minMs": 0.24,
+            "maxMs": 0.3
+          },
+          "frames": {
+            "medianMs": 6,
+            "minMs": 6,
+            "maxMs": 6
+          },
+          "longestTaskMs": {
+            "medianMs": 17.84,
+            "minMs": 17.22,
+            "maxMs": 18.79
+          }
         }
       },
-      "mountMs": 4071,
+      "mountMs": 4027,
       "heapMB": 96,
       "gzipBytes": 720927,
       "textInDom": false,
@@ -384,40 +1104,130 @@
       "version": "0.8.0",
       "timings": {
         "scroll-flood": {
-          "medianMs": 105,
+          "medianMs": 110,
           "samplesMs": [
-            114,
-            104,
-            105,
-            104,
-            115
+            102,
+            117,
+            102,
+            111,
+            110
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 84.82,
+            "minMs": 82.33,
+            "maxMs": 87.06
+          },
+          "scriptMs": {
+            "medianMs": 1.78,
+            "minMs": 1.77,
+            "maxMs": 2.21
+          },
+          "styleLayoutMs": {
+            "medianMs": 0,
+            "minMs": 0,
+            "maxMs": 0
+          },
+          "paintMs": {
+            "medianMs": 0.29,
+            "minMs": 0.29,
+            "maxMs": 0.34
+          },
+          "frames": {
+            "medianMs": 3,
+            "minMs": 3,
+            "maxMs": 3
+          },
+          "longestTaskMs": {
+            "medianMs": 82.37,
+            "minMs": 80.28,
+            "maxMs": 84.5
+          }
         },
         "full-redraw": {
-          "medianMs": 73,
+          "medianMs": 79,
           "samplesMs": [
+            72,
             84,
-            76,
-            73,
-            73,
-            70
+            79,
+            69,
+            80
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 53.28,
+            "minMs": 52.35,
+            "maxMs": 54.46
+          },
+          "scriptMs": {
+            "medianMs": 1.77,
+            "minMs": 1.69,
+            "maxMs": 1.89
+          },
+          "styleLayoutMs": {
+            "medianMs": 0,
+            "minMs": 0,
+            "maxMs": 0
+          },
+          "paintMs": {
+            "medianMs": 0.33,
+            "minMs": 0.31,
+            "maxMs": 0.34
+          },
+          "frames": {
+            "medianMs": 3,
+            "minMs": 3,
+            "maxMs": 3
+          },
+          "longestTaskMs": {
+            "medianMs": 50.99,
+            "minMs": 50.25,
+            "maxMs": 52.27
+          }
         },
         "sgr-tokens": {
-          "medianMs": 38,
+          "medianMs": 40,
           "samplesMs": [
-            38,
-            38,
-            36,
-            36,
-            47
+            39,
+            46,
+            42,
+            40,
+            40
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 19.15,
+            "minMs": 18.45,
+            "maxMs": 19.27
+          },
+          "scriptMs": {
+            "medianMs": 1.63,
+            "minMs": 1.55,
+            "maxMs": 1.64
+          },
+          "styleLayoutMs": {
+            "medianMs": 0,
+            "minMs": 0,
+            "maxMs": 0
+          },
+          "paintMs": {
+            "medianMs": 0.33,
+            "minMs": 0.3,
+            "maxMs": 0.34
+          },
+          "frames": {
+            "medianMs": 3,
+            "minMs": 3,
+            "maxMs": 3
+          },
+          "longestTaskMs": {
+            "medianMs": 17.27,
+            "minMs": 16.68,
+            "maxMs": 17.39
+          }
         }
       },
-      "mountMs": 17,
+      "mountMs": 18,
       "heapMB": 38,
       "gzipBytes": 67387,
       "textInDom": false,
@@ -430,41 +1240,131 @@
       "version": "0.1.0",
       "timings": {
         "scroll-flood": {
-          "medianMs": 746,
+          "medianMs": 739,
           "samplesMs": [
-            746,
-            745,
-            742,
-            763,
-            797
+            736,
+            760,
+            739,
+            759,
+            736
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 724.54,
+            "minMs": 719.24,
+            "maxMs": 736.48
+          },
+          "scriptMs": {
+            "medianMs": 41.56,
+            "minMs": 40.88,
+            "maxMs": 44.55
+          },
+          "styleLayoutMs": {
+            "medianMs": 0.22,
+            "minMs": 0.22,
+            "maxMs": 0.24
+          },
+          "paintMs": {
+            "medianMs": 0.32,
+            "minMs": 0.31,
+            "maxMs": 0.36
+          },
+          "frames": {
+            "medianMs": 3,
+            "minMs": 3,
+            "maxMs": 3
+          },
+          "longestTaskMs": {
+            "medianMs": 720.64,
+            "minMs": 715.49,
+            "maxMs": 732.74
+          }
         },
         "full-redraw": {
-          "medianMs": 166,
+          "medianMs": 174,
           "samplesMs": [
-            164,
-            179,
-            164,
-            166,
-            188
+            172,
+            181,
+            174,
+            167,
+            179
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 152.74,
+            "minMs": 147.6,
+            "maxMs": 153.74
+          },
+          "scriptMs": {
+            "medianMs": 3.45,
+            "minMs": 3.25,
+            "maxMs": 3.57
+          },
+          "styleLayoutMs": {
+            "medianMs": 0.22,
+            "minMs": 0.21,
+            "maxMs": 0.24
+          },
+          "paintMs": {
+            "medianMs": 0.31,
+            "minMs": 0.31,
+            "maxMs": 0.32
+          },
+          "frames": {
+            "medianMs": 3,
+            "minMs": 3,
+            "maxMs": 3
+          },
+          "longestTaskMs": {
+            "medianMs": 149.3,
+            "minMs": 144.35,
+            "maxMs": 150.44
+          }
         },
         "sgr-tokens": {
-          "medianMs": 110,
+          "medianMs": 111,
           "samplesMs": [
-            98,
-            114,
-            110,
-            114,
-            107
+            121,
+            108,
+            121,
+            111,
+            106
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 92.12,
+            "minMs": 88.08,
+            "maxMs": 94.14
+          },
+          "scriptMs": {
+            "medianMs": 38.63,
+            "minMs": 35.35,
+            "maxMs": 40.3
+          },
+          "styleLayoutMs": {
+            "medianMs": 0.22,
+            "minMs": 0.2,
+            "maxMs": 0.25
+          },
+          "paintMs": {
+            "medianMs": 0.29,
+            "minMs": 0.28,
+            "maxMs": 0.39
+          },
+          "frames": {
+            "medianMs": 3,
+            "minMs": 3,
+            "maxMs": 3
+          },
+          "longestTaskMs": {
+            "medianMs": 84.78,
+            "minMs": 83.95,
+            "maxMs": 90.29
+          }
         }
       },
-      "mountMs": 8,
-      "heapMB": 95,
+      "mountMs": 17,
+      "heapMB": 96,
       "gzipBytes": 16414,
       "textInDom": false,
       "canvas": true,
@@ -476,40 +1376,130 @@
       "version": "1.92.1 (libapps HEAD)",
       "timings": {
         "scroll-flood": {
-          "medianMs": 266,
+          "medianMs": 267,
           "samplesMs": [
+            250,
             267,
-            266,
-            250,
-            266,
-            265
-          ],
-          "failures": 0
-        },
-        "full-redraw": {
-          "medianMs": 250,
-          "samplesMs": [
-            251,
-            250,
-            249,
-            250,
+            267,
+            267,
             266
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 238.13,
+            "minMs": 231.41,
+            "maxMs": 241.06
+          },
+          "scriptMs": {
+            "medianMs": 0.04,
+            "minMs": 0.04,
+            "maxMs": 0.04
+          },
+          "styleLayoutMs": {
+            "medianMs": 0.49,
+            "minMs": 0.44,
+            "maxMs": 0.54
+          },
+          "paintMs": {
+            "medianMs": 0.59,
+            "minMs": 0.53,
+            "maxMs": 0.62
+          },
+          "frames": {
+            "medianMs": 2,
+            "minMs": 2,
+            "maxMs": 2
+          },
+          "longestTaskMs": {
+            "medianMs": 237.77,
+            "minMs": 230.99,
+            "maxMs": 240.68
+          }
+        },
+        "full-redraw": {
+          "medianMs": 263,
+          "samplesMs": [
+            250,
+            264,
+            267,
+            263,
+            250
+          ],
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 234.15,
+            "minMs": 232.41,
+            "maxMs": 237.19
+          },
+          "scriptMs": {
+            "medianMs": 0.35,
+            "minMs": 0.32,
+            "maxMs": 0.44
+          },
+          "styleLayoutMs": {
+            "medianMs": 0.65,
+            "minMs": 0.61,
+            "maxMs": 0.66
+          },
+          "paintMs": {
+            "medianMs": 0.56,
+            "minMs": 0.54,
+            "maxMs": 0.58
+          },
+          "frames": {
+            "medianMs": 2,
+            "minMs": 2,
+            "maxMs": 2
+          },
+          "longestTaskMs": {
+            "medianMs": 233.34,
+            "minMs": 231.76,
+            "maxMs": 236.39
+          }
         },
         "sgr-tokens": {
           "medianMs": 400,
           "samplesMs": [
-            383,
-            383,
             400,
             416,
-            417
+            400,
+            397,
+            383
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 368.35,
+            "minMs": 363.11,
+            "maxMs": 389.6
+          },
+          "scriptMs": {
+            "medianMs": 0.04,
+            "minMs": 0.04,
+            "maxMs": 0.27
+          },
+          "styleLayoutMs": {
+            "medianMs": 3.54,
+            "minMs": 3.42,
+            "maxMs": 3.66
+          },
+          "paintMs": {
+            "medianMs": 4.5,
+            "minMs": 4.32,
+            "maxMs": 4.66
+          },
+          "frames": {
+            "medianMs": 2,
+            "minMs": 2,
+            "maxMs": 2
+          },
+          "longestTaskMs": {
+            "medianMs": 367.93,
+            "minMs": 362.38,
+            "maxMs": 389.08
+          }
         }
       },
-      "mountMs": 38,
+      "mountMs": 35,
       "heapMB": 42,
       "gzipBytes": 81308,
       "textInDom": false,
@@ -522,41 +1512,131 @@
       "version": "1.4.1",
       "timings": {
         "scroll-flood": {
-          "medianMs": 331,
+          "medianMs": 333,
           "samplesMs": [
-            313,
-            331,
-            316,
-            347,
-            349
+            332,
+            334,
+            333,
+            334,
+            331
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 303.23,
+            "minMs": 302.31,
+            "maxMs": 314.75
+          },
+          "scriptMs": {
+            "medianMs": 0.05,
+            "minMs": 0.05,
+            "maxMs": 0.8
+          },
+          "styleLayoutMs": {
+            "medianMs": 0.46,
+            "minMs": 0.45,
+            "maxMs": 0.75
+          },
+          "paintMs": {
+            "medianMs": 0.58,
+            "minMs": 0.56,
+            "maxMs": 0.59
+          },
+          "frames": {
+            "medianMs": 2,
+            "minMs": 2,
+            "maxMs": 2
+          },
+          "longestTaskMs": {
+            "medianMs": 302.68,
+            "minMs": 301.29,
+            "maxMs": 314.35
+          }
         },
         "full-redraw": {
-          "medianMs": 315,
+          "medianMs": 317,
           "samplesMs": [
-            316,
-            297,
             317,
-            315,
-            314
+            333,
+            317,
+            317,
+            318
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 292.12,
+            "minMs": 285.66,
+            "maxMs": 301.59
+          },
+          "scriptMs": {
+            "medianMs": 0.24,
+            "minMs": 0.22,
+            "maxMs": 0.3
+          },
+          "styleLayoutMs": {
+            "medianMs": 0.46,
+            "minMs": 0.45,
+            "maxMs": 0.49
+          },
+          "paintMs": {
+            "medianMs": 0.63,
+            "minMs": 0.6,
+            "maxMs": 0.68
+          },
+          "frames": {
+            "medianMs": 2,
+            "minMs": 2,
+            "maxMs": 2
+          },
+          "longestTaskMs": {
+            "medianMs": 291.68,
+            "minMs": 285.2,
+            "maxMs": 300.91
+          }
         },
         "sgr-tokens": {
-          "medianMs": 400,
+          "medianMs": 384,
           "samplesMs": [
-            411,
-            399,
+            379,
             400,
-            399,
-            417
+            397,
+            384,
+            383
           ],
-          "failures": 0
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 366.02,
+            "minMs": 364.08,
+            "maxMs": 381.5
+          },
+          "scriptMs": {
+            "medianMs": 0.08,
+            "minMs": 0.05,
+            "maxMs": 4.42
+          },
+          "styleLayoutMs": {
+            "medianMs": 4.2,
+            "minMs": 3.69,
+            "maxMs": 6.51
+          },
+          "paintMs": {
+            "medianMs": 3.84,
+            "minMs": 3.49,
+            "maxMs": 3.95
+          },
+          "frames": {
+            "medianMs": 2,
+            "minMs": 2,
+            "maxMs": 2
+          },
+          "longestTaskMs": {
+            "medianMs": 364.71,
+            "minMs": 359.14,
+            "maxMs": 376.6
+          }
         }
       },
-      "mountMs": 41,
-      "heapMB": 43,
+      "mountMs": 42,
+      "heapMB": 42,
       "gzipBytes": 143079,
       "textInDom": false,
       "canvas": false,

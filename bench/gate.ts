@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 type Timing = {
     medianMs: number | null;
+    cpuMs?: { medianMs: number | null };
 };
 type Row = {
     id: string;
@@ -11,7 +12,14 @@ type Row = {
     unverifiedTiming: string | null;
 };
 const tieMs = 17;
-const subject = process.argv[2] ?? "cloudterm-perf";
+const args = process.argv.slice(2);
+const metricIndex = args.indexOf("--metric");
+const metric = metricIndex === -1 ? "wall" : args[metricIndex + 1];
+if (metric !== "wall" && metric !== "cpuMs") {
+    console.log(`gate: unsupported metric ${metric ?? ""}`);
+    process.exit(2);
+}
+const subject = args.find((arg, index) => index !== metricIndex && index !== metricIndex + 1 && !arg.startsWith("--")) ?? "cloudterm-perf";
 const ownFamily = (id: string) => id === "cloudterm" || id.startsWith("cloudterm-");
 const results = JSON.parse(readFileSync(join(import.meta.dir, "../src/lib/bench-results.json"), "utf8")) as {
     generatedAt: string;
@@ -27,14 +35,14 @@ const metrics: Array<[
     string,
     (t: Row) => number | null
 ]> = [
-    ...Object.keys(me.timings).map((w) => [w, (t: Row) => t.timings[w]?.medianMs ?? null] as [
+    ...Object.keys(me.timings).map((w) => [w, (t: Row) => metric === "cpuMs" ? t.timings[w]?.cpuMs?.medianMs ?? null : t.timings[w]?.medianMs ?? null] as [
         string,
         (t: Row) => number | null
     ]),
     ["mount", (t: Row) => t.mountMs],
 ];
 let ok = me.textInDom;
-console.log(`gate ${subject} @ ${results.generatedAt} (tie band ${tieMs} ms, ${rivals.length} verified rivals)`);
+console.log(`gate ${subject} ${metric} @ ${results.generatedAt} (tie band ${tieMs} ms, ${rivals.length} verified rivals)`);
 if (!me.textInDom)
     console.log("  FAIL textInDom=false");
 for (const [name, pick] of metrics) {

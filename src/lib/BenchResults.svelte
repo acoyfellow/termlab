@@ -78,6 +78,33 @@
       </tbody>
     </table>
   </div>
+  <div class="cpu-breakdown">
+    <h3>CPU breakdown</h3>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Terminal</th>
+            {#each workloads as w (w)}<th>{labels[w]}</th>{/each}
+          </tr>
+        </thead>
+        <tbody>
+          {#each results.terminals as t (t.id)}
+            <tr>
+              <th>{t.id}</th>
+              {#each workloads as w (w)}
+                {@const timing = t.timings[w]}
+                <td class:unverified={t.unverifiedTiming}>
+                  {timing.cpuMs.medianMs} ms
+                  <span class="ratio">script {timing.scriptMs.medianMs} · layout {timing.styleLayoutMs.medianMs} · paint {timing.paintMs.medianMs} · longest {timing.longestTaskMs.medianMs}</span>
+                </td>
+              {/each}
+            </tr>
+          {/each}
+        </tbody>
+      </table>
+    </div>
+  </div>
   <ul class="notes">
     {#each workloads as w (w)}<li><strong>{labels[w]}:</strong> {results.workloads[w]}, {results.grid} grid, written in 16 KB chunks.</li>{/each}
     <li>Run {date} on {results.machine}, {results.browser}, GPU: {results.gpu}.</li>
@@ -87,7 +114,8 @@
     {#each results.terminals.filter((t) => t.unverifiedTiming) as t (t.id)}<li><strong>{t.id} timings unverified:</strong> {t.unverifiedTiming}</li>{/each}
     <li>Bundle includes WASM, whether inlined or loaded as a separate file (ferroterm's 128 KB .wasm is counted).</li>
     <li>Heap is JS heap after a forced GC, measured after the scroll-flood run with the terminal still mounted.</li>
-    <li>Timings are frame-quantized (~16.7 ms), so values within one frame are a tie. Bundle size is esbuild minified + gzip -9 of the import, including WASM.</li>
+    <li>Wall time is end-marker visibility, sampled once per animation frame. Bundle size is esbuild minified + gzip -9 of the import, including WASM.</li>
+    <li>CPU is median renderer-main-thread task time from first write through marker visibility; script, layout and paint split that trace, and longest is the largest task. Frames counts animation-frame callbacks. CPU excludes worker and GPU work.</li>
     <li>Reproduce: <code>bun run bench 5</code> in <a href="https://github.com/acoyfellow/termlab/tree/main/bench">the repo</a>. Raw samples are in <code>src/lib/bench-results.json</code>.</li>
   </ul>
   <div class="excluded">
@@ -115,6 +143,10 @@
   td.unverified { color: #71717a; font-style: italic; }
   td.yes { color: #a3e635; }
   td.no { color: #f87171; }
+  .cpu-breakdown { border-top: 1px solid #1f1f1f; }
+  .cpu-breakdown h3 { padding: 10px 14px 0; }
+  .cpu-breakdown td { vertical-align: top; }
+  .cpu-breakdown .ratio { display: block; margin: 3px 0 0; }
   .notes { margin: 0; padding: 10px 14px 12px 30px; color: #a1a1aa; font-size: 11px; line-height: 1.6; border-top: 1px solid #1f1f1f; }
   .notes a, .excluded a { color: #d4d4d4; }
   .excluded { border-top: 1px solid #1f1f1f; padding: 10px 14px 12px; }
