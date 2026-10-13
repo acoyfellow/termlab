@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-12T20:42:23.440Z",
+  "generatedAt": "2026-10-13T14:19:04.024Z",
   "screen": {
     "input": [
       "\u001b[1;32muser@box\u001b[0m:\u001b[1;34m~/proj\u001b[0m$ ls -la",
@@ -65,96 +65,13 @@
   "terminals": [
     {
       "id": "cloudterm",
-      "version": "0.0.13",
-      "canvas": false,
-      "domNodes": 114,
-      "htmlChars": 15483,
-      "innerTextSample": "\"scrollback line 0                                                                                                                        \\nscrollback line 1                                                                                                                        \\nscrollback line 2       \"",
-      "readableDomMs": 24.1,
-      "readableApiMs": 24.2,
-      "reads": {
-        "innerText": {
-          "matched": 11,
-          "total": 11,
-          "missing": [],
-          "tokens": 1416,
-          "chars": 5650
-        },
-        "accessibility": {
-          "matched": 10,
-          "total": 11,
-          "missing": [
-            "wide: 日本語テキスト and emoji: ok"
-          ],
-          "tokens": 1418,
-          "chars": 5657
-        },
-        "api": {
-          "matched": 11,
-          "total": 11,
-          "missing": [],
-          "tokens": 1416,
-          "chars": 5650
-        }
-      },
-      "focusTarget": "textarea.cloudterm-input@1,1",
-      "input": {
-        "passed": 8,
-        "total": 8,
-        "cases": [
-          {
-            "name": "ascii typing",
-            "ok": true,
-            "got": "\"ls -la\""
-          },
-          {
-            "name": "enter",
-            "ok": true,
-            "got": "\"\\r\""
-          },
-          {
-            "name": "ctrl-c",
-            "ok": true,
-            "got": "\"\\u0003\""
-          },
-          {
-            "name": "arrow up",
-            "ok": true,
-            "got": "\"\\u001b[A\""
-          },
-          {
-            "name": "tab",
-            "ok": true,
-            "got": "\"\\t\""
-          },
-          {
-            "name": "backspace",
-            "ok": true,
-            "got": "\"\""
-          },
-          {
-            "name": "unicode typing",
-            "ok": true,
-            "got": "\"héllo 日本\""
-          },
-          {
-            "name": "paste",
-            "ok": true,
-            "got": "\"echo pasted\""
-          }
-        ]
-      },
-      "errors": []
-    },
-    {
-      "id": "cloudterm-perf",
-      "version": "main 893830d",
+      "version": "v0.0.14",
       "canvas": false,
       "domNodes": 109,
       "htmlChars": 10280,
       "innerTextSample": "\"scrollback line 0\\nscrollback line 1\\nscrollback line 2\\nscrollback line 3\\nscrollback line 4\\nscrollback line 5\\nscrollback line 6\\nscrollback line 7\\nscrollback line 8\\nscrollback line 9\\nscrollback line 10\\nscrollback line 11\\nscrollback line 12\\nscrollback line 13\\nscrollback line 14\\nscrollback line 15\\nscroll\"",
-      "readableDomMs": 12.8,
-      "readableApiMs": 12.8,
+      "readableDomMs": 19.8,
+      "readableApiMs": 19.8,
       "reads": {
         "innerText": {
           "matched": 11,
@@ -230,14 +147,97 @@
       "errors": []
     },
     {
+      "id": "cloudterm-perf",
+      "version": "main 893830d",
+      "canvas": false,
+      "domNodes": 109,
+      "htmlChars": 10300,
+      "innerTextSample": "\"scrollback line 1\\nscrollback line 2\\nscrollback line 3\\nscrollback line 4\\nscrollback line 5\\nscrollback line 6\\nscrollback line 7\\nscrollback line 8\\nscrollback line 9\\nscrollback line 10\\nscrollback line 11\\nscrollback line 12\\nscrollback line 13\\nscrollback line 14\\nscrollback line 15\\nscrollback line 16\\nscrol\"",
+      "readableDomMs": 24.3,
+      "readableApiMs": 24.3,
+      "reads": {
+        "innerText": {
+          "matched": 11,
+          "total": 11,
+          "missing": [],
+          "tokens": 226,
+          "chars": 889
+        },
+        "accessibility": {
+          "matched": 10,
+          "total": 11,
+          "missing": [
+            "wide: 日本語テキスト and emoji: ok"
+          ],
+          "tokens": 228,
+          "chars": 896
+        },
+        "api": {
+          "matched": 11,
+          "total": 11,
+          "missing": [],
+          "tokens": 231,
+          "chars": 907
+        }
+      },
+      "focusTarget": "textarea.cloudterm-input@1,1",
+      "input": {
+        "passed": 8,
+        "total": 8,
+        "cases": [
+          {
+            "name": "ascii typing",
+            "ok": true,
+            "got": "\"ls -la\""
+          },
+          {
+            "name": "enter",
+            "ok": true,
+            "got": "\"\\r\""
+          },
+          {
+            "name": "ctrl-c",
+            "ok": true,
+            "got": "\"\\u0003\""
+          },
+          {
+            "name": "arrow up",
+            "ok": true,
+            "got": "\"\\u001b[A\""
+          },
+          {
+            "name": "tab",
+            "ok": true,
+            "got": "\"\\t\""
+          },
+          {
+            "name": "backspace",
+            "ok": true,
+            "got": "\"\""
+          },
+          {
+            "name": "unicode typing",
+            "ok": true,
+            "got": "\"héllo 日本\""
+          },
+          {
+            "name": "paste",
+            "ok": true,
+            "got": "\"echo pasted\""
+          }
+        ]
+      },
+      "errors": []
+    },
+    {
       "id": "xterm-dom",
       "version": "6.0.0",
       "canvas": false,
       "domNodes": 117,
-      "htmlChars": 62553,
+      "htmlChars": 62560,
       "innerTextSample": "\"scrollback line 1\\nscrollback line 2\\nscrollback line 3\\nscrollback line 4\\nscrollback line 5\\nscrollback line 6\\nscrollback line 7\\nscrollback line 8\\nscrollback line 9\\nscrollback line 10\\nscrollback line 11\\nscrollback line 12\\nscrollback line 13\\nscrollback line 14\\nscrollback line 15\\nscrollback line 16\\nscrol\"",
-      "readableDomMs": 27.5,
-      "readableApiMs": 1.8,
+      "readableDomMs": 24,
+      "readableApiMs": 2.2,
       "reads": {
         "innerText": {
           "matched": 11,
@@ -330,7 +330,7 @@
       "htmlChars": 1852,
       "innerTextSample": "\"\"",
       "readableDomMs": null,
-      "readableApiMs": 1.9,
+      "readableApiMs": 1.8,
       "reads": {
         "innerText": {
           "matched": 0,
@@ -434,8 +434,8 @@
       "domNodes": 118,
       "htmlChars": 10941,
       "innerTextSample": "\"scrollback line 0\\nscrollback line 1\\nscrollback line 2\\nscrollback line 3\\nscrollback line 4\\nscrollback line 5\\nscrollback line 6\\nscrollback line 7\\nscrollback line 8\\nscrollback line 9\\nscrollback line 10\\nscrollback line 11\\nscrollback line 12\\nscrollback line 13\\nscrollback line 14\\nscrollback line 15\\nscroll\"",
-      "readableDomMs": 29.8,
-      "readableApiMs": 29.8,
+      "readableDomMs": 34.7,
+      "readableApiMs": 34.7,
       "reads": {
         "innerText": {
           "matched": 10,
@@ -522,7 +522,7 @@
       "htmlChars": 496,
       "innerTextSample": "\"\"",
       "readableDomMs": null,
-      "readableApiMs": 30.4,
+      "readableApiMs": 32.6,
       "reads": {
         "innerText": {
           "matched": 0,
@@ -628,8 +628,8 @@
       "domNodes": 116,
       "htmlChars": 62942,
       "innerTextSample": "\"scrollback line 1\\nscrollback line 2\\nscrollback line 3\\nscrollback line 4\\nscrollback line 5\\nscrollback line 6\\nscrollback line 7\\nscrollback line 8\\nscrollback line 9\\nscrollback line 10\\nscrollback line 11\\nscrollback line 12\\nscrollback line 13\\nscrollback line 14\\nscrollback line 15\\nscrollback line 16\\nscrol\"",
-      "readableDomMs": 27.1,
-      "readableApiMs": 2,
+      "readableDomMs": 21,
+      "readableApiMs": 2.1,
       "reads": {
         "innerText": {
           "matched": 11,
@@ -839,7 +839,7 @@
       "htmlChars": 671,
       "innerTextSample": "\"\"",
       "readableDomMs": null,
-      "readableApiMs": 0.9,
+      "readableApiMs": 1,
       "reads": {
         "innerText": {
           "matched": 0,
@@ -944,7 +944,7 @@
       "htmlChars": 812,
       "innerTextSample": "\"\"",
       "readableDomMs": null,
-      "readableApiMs": 0.9,
+      "readableApiMs": 0.7,
       "reads": {
         "innerText": {
           "matched": 0,
@@ -1049,7 +1049,7 @@
       "htmlChars": 319,
       "innerTextSample": "\"\"",
       "readableDomMs": null,
-      "readableApiMs": 6.5,
+      "readableApiMs": 7,
       "reads": {
         "innerText": {
           "matched": 0,
@@ -1154,7 +1154,7 @@
       "htmlChars": 244,
       "innerTextSample": "\"\"",
       "readableDomMs": null,
-      "readableApiMs": 1.8,
+      "readableApiMs": 2,
       "reads": {
         "innerText": {
           "matched": 0,

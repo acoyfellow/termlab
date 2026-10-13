@@ -1,0 +1,429 @@
+{
+  "generatedAt": "2026-10-13T14:17:01.593Z",
+  "model": "gpt-5.6-terra",
+  "runs": 5,
+  "task": "You are in an empty web project directory. Build a page that embeds the terminal emulator package \"<package>\".\n\nThe package is already installed in node_modules/<package>. Its README is at ./PACKAGE_README.md. Use only the README and the package's own files in node_modules for API details. Do not use the internet and do not install other terminal packages.\n\nRequirements:\n1. Create index.html and main.js (plain ES modules, no framework, no bundler config needed; the page will be served by `bunx vite` from this directory).\n2. Mount a terminal from \"<package>\" into a full-window element.\n3. Write this exact text to the terminal once it is ready: ADOPT-OK-7f3a\n4. Expose two globals on window for automated checks:\n   - window.termWrite(text): writes text to the terminal.\n   - window.termInput: an array; push every string the terminal emits as user input (keyboard data) into it, decoded to a string.\n5. Do not draw the marker text any other way than writing it to the terminal.\n\nWhen finished, stop. Do not start a dev server.",
+  "results": [
+    {
+      "id": "cloudterm",
+      "run": 0,
+      "model": "gpt-5.6-terra",
+      "exitCode": 0,
+      "ms": 16263.444167,
+      "transcriptBytes": 401254,
+      "toolCalls": 4,
+      "tokens": 181485,
+      "costUsd": 0.164,
+      "files": [
+        "PACKAGE_README.md",
+        "index.html",
+        "main.js",
+        "package.json"
+      ],
+      "markerVisible": true,
+      "markerInDom": true,
+      "writeWorks": true,
+      "inputWorks": true
+    },
+    {
+      "id": "cloudterm",
+      "run": 1,
+      "model": "gpt-5.6-terra",
+      "exitCode": 0,
+      "ms": 18397.438667,
+      "transcriptBytes": 407630,
+      "toolCalls": 3,
+      "tokens": 183369,
+      "costUsd": 0.167,
+      "files": [
+        "PACKAGE_README.md",
+        "index.html",
+        "main.js",
+        "package.json"
+      ],
+      "markerVisible": true,
+      "markerInDom": true,
+      "writeWorks": true,
+      "inputWorks": true
+    },
+    {
+      "id": "cloudterm",
+      "run": 2,
+      "model": "gpt-5.6-terra",
+      "exitCode": 0,
+      "ms": 17931.995125,
+      "transcriptBytes": 409454,
+      "toolCalls": 4,
+      "tokens": 182922,
+      "costUsd": 0.165,
+      "files": [
+        "PACKAGE_README.md",
+        "index.html",
+        "main.js",
+        "package.json"
+      ],
+      "markerVisible": true,
+      "markerInDom": true,
+      "writeWorks": true,
+      "inputWorks": true
+    },
+    {
+      "id": "cloudterm",
+      "run": 3,
+      "model": "gpt-5.6-terra",
+      "exitCode": 0,
+      "ms": 26575.501583999998,
+      "transcriptBytes": 474314,
+      "toolCalls": 5,
+      "tokens": 280062,
+      "costUsd": 0.201,
+      "files": [
+        "PACKAGE_README.md",
+        "index.html",
+        "main.js",
+        "package.json"
+      ],
+      "markerVisible": true,
+      "markerInDom": true,
+      "writeWorks": true,
+      "inputWorks": true
+    },
+    {
+      "id": "cloudterm",
+      "run": 4,
+      "model": "gpt-5.6-terra",
+      "exitCode": 0,
+      "ms": 16625.21475,
+      "transcriptBytes": 374394,
+      "toolCalls": 4,
+      "tokens": 225168,
+      "costUsd": 0.173,
+      "files": [
+        "PACKAGE_README.md",
+        "index.html",
+        "main.js",
+        "package.json"
+      ],
+      "markerVisible": true,
+      "markerInDom": true,
+      "writeWorks": true,
+      "inputWorks": true
+    },
+    {
+      "id": "xterm",
+      "run": 0,
+      "model": "gpt-5.6-terra",
+      "exitCode": 0,
+      "ms": 19233.501000000004,
+      "transcriptBytes": 545279,
+      "toolCalls": 5,
+      "tokens": 316272,
+      "costUsd": 0.228,
+      "files": [
+        "PACKAGE_README.md",
+        "index.html",
+        "main.js",
+        "package.json"
+      ],
+      "markerVisible": true,
+      "markerInDom": true,
+      "writeWorks": true,
+      "inputWorks": true
+    },
+    {
+      "id": "xterm",
+      "run": 1,
+      "model": "gpt-5.6-terra",
+      "exitCode": 0,
+      "ms": 17789.686875000014,
+      "transcriptBytes": 491500,
+      "toolCalls": 4,
+      "tokens": 242106,
+      "costUsd": 0.195,
+      "files": [
+        "PACKAGE_README.md",
+        "index.html",
+        "main.js",
+        "package.json"
+      ],
+      "markerVisible": true,
+      "markerInDom": true,
+      "writeWorks": true,
+      "inputWorks": true
+    },
+    {
+      "id": "xterm",
+      "run": 2,
+      "model": "gpt-5.6-terra",
+      "exitCode": 0,
+      "ms": 18649.739124999993,
+      "transcriptBytes": 523183,
+      "toolCalls": 4,
+      "tokens": 260445,
+      "costUsd": 0.211,
+      "files": [
+        "PACKAGE_README.md",
+        "index.html",
+        "main.js",
+        "package.json"
+      ],
+      "markerVisible": true,
+      "markerInDom": true,
+      "writeWorks": true,
+      "inputWorks": true
+    },
+    {
+      "id": "xterm",
+      "run": 3,
+      "model": "gpt-5.6-terra",
+      "exitCode": 0,
+      "ms": 15607.09941699999,
+      "transcriptBytes": 476748,
+      "toolCalls": 4,
+      "tokens": 206382,
+      "costUsd": 0.19,
+      "files": [
+        "PACKAGE_README.md",
+        "index.html",
+        "main.js",
+        "package.json"
+      ],
+      "markerVisible": true,
+      "markerInDom": true,
+      "writeWorks": true,
+      "inputWorks": true
+    },
+    {
+      "id": "xterm",
+      "run": 4,
+      "model": "gpt-5.6-terra",
+      "exitCode": 0,
+      "ms": 21112.834875,
+      "transcriptBytes": 556115,
+      "toolCalls": 5,
+      "tokens": 332772,
+      "costUsd": 0.24,
+      "files": [
+        "PACKAGE_README.md",
+        "index.html",
+        "main.js",
+        "package.json"
+      ],
+      "markerVisible": true,
+      "markerInDom": true,
+      "writeWorks": true,
+      "inputWorks": true
+    },
+    {
+      "id": "wterm",
+      "run": 0,
+      "model": "gpt-5.6-terra",
+      "exitCode": 0,
+      "ms": 21657.38054099999,
+      "transcriptBytes": 551195,
+      "toolCalls": 6,
+      "tokens": 317865,
+      "costUsd": 0.22,
+      "files": [
+        "PACKAGE_README.md",
+        "index.html",
+        "main.js",
+        "package.json"
+      ],
+      "markerVisible": true,
+      "markerInDom": true,
+      "writeWorks": true,
+      "inputWorks": true
+    },
+    {
+      "id": "wterm",
+      "run": 1,
+      "model": "gpt-5.6-terra",
+      "exitCode": 0,
+      "ms": 21988.417000000016,
+      "transcriptBytes": 641739,
+      "toolCalls": 8,
+      "tokens": 332766,
+      "costUsd": 0.247,
+      "files": [
+        "PACKAGE_README.md",
+        "index.html",
+        "main.js",
+        "package.json"
+      ],
+      "markerVisible": true,
+      "markerInDom": true,
+      "writeWorks": true,
+      "inputWorks": true
+    },
+    {
+      "id": "wterm",
+      "run": 2,
+      "model": "gpt-5.6-terra",
+      "exitCode": 0,
+      "ms": 32486.478041000024,
+      "transcriptBytes": 869881,
+      "toolCalls": 9,
+      "tokens": 479034,
+      "costUsd": 0.324,
+      "files": [
+        "PACKAGE_README.md",
+        "index.html",
+        "main.js",
+        "package.json",
+        "style.css"
+      ],
+      "markerVisible": true,
+      "markerInDom": true,
+      "writeWorks": true,
+      "inputWorks": true
+    },
+    {
+      "id": "wterm",
+      "run": 3,
+      "model": "gpt-5.6-terra",
+      "exitCode": 0,
+      "ms": 18357.956166999997,
+      "transcriptBytes": 615300,
+      "toolCalls": 7,
+      "tokens": 261321,
+      "costUsd": 0.258,
+      "files": [
+        "PACKAGE_README.md",
+        "index.html",
+        "main.js",
+        "package.json"
+      ],
+      "markerVisible": true,
+      "markerInDom": true,
+      "writeWorks": true,
+      "inputWorks": true
+    },
+    {
+      "id": "wterm",
+      "run": 4,
+      "model": "gpt-5.6-terra",
+      "exitCode": 0,
+      "ms": 21728.682666999986,
+      "transcriptBytes": 767111,
+      "toolCalls": 7,
+      "tokens": 393327,
+      "costUsd": 0.289,
+      "files": [
+        "PACKAGE_README.md",
+        "index.html",
+        "main.js",
+        "package.json"
+      ],
+      "markerVisible": true,
+      "markerInDom": true,
+      "writeWorks": true,
+      "inputWorks": true
+    },
+    {
+      "id": "ghostty-web",
+      "run": 0,
+      "model": "gpt-5.6-terra",
+      "exitCode": 0,
+      "ms": 33830.47916700004,
+      "transcriptBytes": 939725,
+      "toolCalls": 11,
+      "tokens": 679053,
+      "costUsd": 0.372,
+      "files": [
+        "PACKAGE_README.md",
+        "index.html",
+        "main.js",
+        "package.json"
+      ],
+      "markerVisible": true,
+      "markerInDom": false,
+      "writeWorks": true,
+      "inputWorks": false
+    },
+    {
+      "id": "ghostty-web",
+      "run": 1,
+      "model": "gpt-5.6-terra",
+      "exitCode": 0,
+      "ms": 24320.713959000015,
+      "transcriptBytes": 1099516,
+      "toolCalls": 7,
+      "tokens": 417627,
+      "costUsd": 0.321,
+      "files": [
+        "PACKAGE_README.md",
+        "index.html",
+        "main.js",
+        "package.json"
+      ],
+      "markerVisible": true,
+      "markerInDom": false,
+      "writeWorks": true,
+      "inputWorks": false
+    },
+    {
+      "id": "ghostty-web",
+      "run": 2,
+      "model": "gpt-5.6-terra",
+      "exitCode": 0,
+      "ms": 37490.63229099999,
+      "transcriptBytes": 1382089,
+      "toolCalls": 11,
+      "tokens": 843387,
+      "costUsd": 0.45,
+      "files": [
+        "PACKAGE_README.md",
+        "index.html",
+        "main.js",
+        "package.json"
+      ],
+      "markerVisible": true,
+      "markerInDom": false,
+      "writeWorks": true,
+      "inputWorks": false
+    },
+    {
+      "id": "ghostty-web",
+      "run": 3,
+      "model": "gpt-5.6-terra",
+      "exitCode": 0,
+      "ms": 30219.341167000006,
+      "transcriptBytes": 983578,
+      "toolCalls": 11,
+      "tokens": 643167,
+      "costUsd": 0.381,
+      "files": [
+        "PACKAGE_README.md",
+        "index.html",
+        "main.js",
+        "package.json"
+      ],
+      "markerVisible": true,
+      "markerInDom": false,
+      "writeWorks": true,
+      "inputWorks": false
+    },
+    {
+      "id": "ghostty-web",
+      "run": 4,
+      "model": "gpt-5.6-terra",
+      "exitCode": 0,
+      "ms": 26251.315333000035,
+      "transcriptBytes": 700139,
+      "toolCalls": 8,
+      "tokens": 451602,
+      "costUsd": 0.281,
+      "files": [
+        "PACKAGE_README.md",
+        "index.html",
+        "main.js",
+        "package.json"
+      ],
+      "markerVisible": true,
+      "markerInDom": false,
+      "writeWorks": true,
+      "inputWorks": false
+    }
+  ]
+}
