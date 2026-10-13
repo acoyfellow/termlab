@@ -152,3 +152,5 @@ export const adapters: Adapter[] = [
   },
 ];
 
+
+export const freePort = () => { const s = Bun.listen({ hostname: "127.0.0.1", port: 0, socket: { data() {} } }); const p = s.port; s.stop(true); return p; };

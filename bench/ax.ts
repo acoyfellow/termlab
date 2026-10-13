@@ -2,7 +2,7 @@ import { spawn } from "node:child_process";
 import { mkdirSync, readdirSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
-import { adapters, root, type Adapter } from "./adapters";
+import { adapters, freePort, root, type Adapter } from "./adapters";
 
 const out = join(import.meta.dir, ".out");
 mkdirSync(out, { recursive: true });
@@ -211,9 +211,8 @@ const onlyIds = process.argv.slice(2);
 const selected = onlyIds.length ? adapters.filter((a) => onlyIds.includes(a.id)) : adapters;
 if (plantedDefects) process.stderr.write(`selected: ${selected.map((a) => a.id).join(",")}\n`);
 const results = [];
-let port = 9700;
 for (const adapter of selected) {
-  try { results.push(await measure(adapter, port++)); }
+  try { results.push(await measure(adapter, freePort())); }
   catch (e) { results.push({ id: adapter.id, version: adapter.version, error: String(e).slice(0, 200) }); }
   const r: any = results.at(-1);
   process.stderr.write(`${adapter.id}: ${r.error ?? `dom ${r.reads.innerText.matched}/${r.reads.innerText.total} ax ${r.reads.accessibility.matched}/${r.reads.accessibility.total} input ${r.input.passed}/${r.input.total}`}\n`);

@@ -3,7 +3,7 @@ import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
 
-import { adapters, pkg, root, type Adapter } from "./adapters";
+import { adapters, freePort, pkg, root, type Adapter } from "./adapters";
 const out = join(import.meta.dir, ".out");
 mkdirSync(out, { recursive: true });
 
@@ -150,13 +150,12 @@ if (onlyIds.length) adapters.splice(0, adapters.length, ...adapters.filter((a) =
 const results: Record<string, Record<string, any[]>> = {};
 const tracedResults: Record<string, Record<string, any[]>> = {};
 const traceEnabled = process.env.BENCH_TRACE !== "0";
-let port = 9400;
 async function runRounds(destination: Record<string, Record<string, any[]>>, traced: boolean) {
   for (let round = 0; round < rounds; round++) {
     const order = round % 2 === 0 ? adapters : [...adapters].reverse();
     for (const workload of Object.keys(workloads)) {
       for (const adapter of order) {
-        const s = await sample(adapter, workload, port++, traced);
+        const s = await sample(adapter, workload, freePort(), traced);
         ((destination[adapter.id] ??= {})[workload] ??= []).push(s);
         process.stderr.write(`${traced ? "trace " : ""}${round} ${workload} ${adapter.id} ${s.ok ? s.ms.toFixed(0) + "ms" : "FAIL " + (s.error ?? s.errors?.[0] ?? "")}\n`);
       }

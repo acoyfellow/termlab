@@ -3,6 +3,7 @@ import { mkdirSync, readdirSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
 import sharp from "sharp";
+import { freePort } from "./adapters";
 const out = join(import.meta.dir, ".out");
 mkdirSync(out, { recursive: true });
 const width = 1080;
@@ -110,9 +111,8 @@ async function probe(id: string, port: number) {
     }
 }
 const results = [];
-let port = 9600;
 for (const id of ids)
-    results.push(await probe(id, port++));
+    results.push(await probe(id, freePort()));
 server.stop(true);
 console.table(results);
 if (results.some((r) => r.blankFrames > 0 && r.id.startsWith("cloudterm")))

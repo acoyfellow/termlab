@@ -2,6 +2,7 @@ import { spawn, spawnSync } from "node:child_process";
 import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
+import { freePort } from "./adapters";
 
 type Candidate = { id: string; npm: string; readmeFrom: string; packageDir: string; canvas: boolean };
 
@@ -128,12 +129,11 @@ if (process.env.ADOPT_VERIFY_ONLY === "1") {
 const onlyIds = process.argv.slice(2);
 const selected = onlyIds.length ? candidates.filter((c) => onlyIds.includes(c.id)) : candidates;
 const results: any[] = [];
-let port = 9800;
 for (const c of selected) {
   for (let run = 0; run < runs; run++) {
     const dir = prepareSandbox(c, run);
     const agent = await runAgent(dir, task(c));
-    const check = await verify(dir, c, port++);
+    const check = await verify(dir, c, freePort());
     const files = readdirSync(dir).filter((f) => !f.startsWith(".") && f !== "node_modules");
     const r = { id: c.id, run, model, ...agent, files, ...check };
     results.push(r);
