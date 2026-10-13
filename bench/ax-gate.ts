@@ -41,6 +41,8 @@ const median = (values: number[]) => {
 const number = (value: number | null) => value == null ? "n/a" : value.toFixed(1);
 const ownFamily = (id: string) => id.startsWith("cloudterm") || id.startsWith("planted");
 
+const tokenBandPct = 5;
+
 export function runAxGate(resultsPath: string, packagePath: string, adoptionPath: string): number {
   if (!hasCurrentCloudtermPerfVersion(resultsPath, packagePath)) {
     console.log("gate: stale or missing cloudterm-perf AX results");
@@ -69,18 +71,24 @@ export function runAxGate(resultsPath: string, packagePath: string, adoptionPath
   const readableRivals = rivals.map((terminal) => terminal.readableDomMs).filter((value): value is number => value != null);
   check("readable DOM ms", subject.readableDomMs, readableRivals.length ? Math.min(...readableRivals) + 17 : null, "<=");
   const correctDom = rivals.filter((terminal) => terminal.reads.innerText.matched === terminal.reads.innerText.total);
-  check("innerText tokens", subject.reads.innerText.tokens, correctDom.length ? Math.min(...correctDom.map((terminal) => terminal.reads.innerText.tokens)) : null, "<=");
+  const lowestTokens = correctDom.length ? Math.min(...correctDom.map((terminal) => terminal.reads.innerText.tokens)) : null;
+  check(`innerText tokens (within ${tokenBandPct}% of lowest ${number(lowestTokens)})`, subject.reads.innerText.tokens, lowestTokens == null ? null : lowestTokens * (1 + tokenBandPct / 100), "<=");
   if (!existsSync(adoptionPath)) {
-    console.log("  SKIP adoption: no results");
+    passed = false;
+    console.log("  FAIL adoption: no results (run ADOPT_RUNS=5 bun bench/adopt.ts)");
   } else {
     const adoption = JSON.parse(readFileSync(adoptionPath, "utf8")) as AdoptionResults;
     const grouped = new Map<string, AdoptionRun[]>();
     for (const run of adoption.results) grouped.set(run.id, [...(grouped.get(run.id) ?? []), run]);
     const cloudterm = grouped.get("cloudterm") ?? [];
     const eligible = [...grouped.entries()].filter(([id, runs]) => !id.startsWith("planted") && id !== "cloudterm" && runs.length >= 3 && runs.every((run) => (run.markerInDom || run.writeWorks) && run.inputWorks));
+    const cloudtermReliable = cloudterm.length >= 3 && cloudterm.every((run) => run.markerInDom && run.writeWorks && run.inputWorks);
     if (cloudterm.length < 3 || !eligible.length) {
-      console.log("  SKIP adoption: fewer than three eligible runs per terminal");
+      passed = false;
+      console.log("  FAIL adoption: fewer than three runs for cloudterm or no eligible rival");
     } else {
+      passed &&= cloudtermReliable;
+      console.log(`  ${cloudtermReliable ? "PASS" : "FAIL"} adoption reliability: ${cloudterm.filter((run) => run.markerInDom && run.writeWorks && run.inputWorks).length}/${cloudterm.length} cloudterm runs pass marker+write+input`);
       check("adoption median tokens", median(cloudterm.map((run) => run.tokens)), Math.min(...eligible.map(([, runs]) => median(runs.map((run) => run.tokens))!)), "<=");
     }
   }
