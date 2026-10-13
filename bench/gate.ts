@@ -1,8 +1,8 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { hasCurrentCloudtermPerfVersion } from "./ax-gate";
+import { hasCurrentCloudtermVersion } from "./ax-gate";
 
-export const hasCurrentPerfBenchmarkVersion = hasCurrentCloudtermPerfVersion;
+export const hasCurrentPerfBenchmarkVersion = hasCurrentCloudtermVersion;
 
 type Timing = {
     medianMs: number | null;
@@ -25,10 +25,10 @@ export function runPerfGate(resultsPath: string, packagePath: string, args: stri
         return 2;
     }
     if (!hasCurrentPerfBenchmarkVersion(resultsPath, packagePath)) {
-        console.log("gate: stale or missing cloudterm-perf benchmark results");
+        console.log("gate: stale or missing cloudterm benchmark results");
         return 2;
     }
-    const subject = args.find((arg, index) => index !== metricIndex && index !== metricIndex + 1 && !arg.startsWith("--")) ?? "cloudterm-perf";
+    const subject = args.find((arg, index) => index !== metricIndex && index !== metricIndex + 1 && !arg.startsWith("--")) ?? "cloudterm";
     const ownFamily = (id: string) => id === "cloudterm" || id.startsWith("cloudterm-");
     const results = JSON.parse(readFileSync(resultsPath, "utf8")) as {
         generatedAt: string;

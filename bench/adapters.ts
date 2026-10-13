@@ -19,15 +19,6 @@ export const adapters: Adapter[] = [
       return { write: (s) => t.write(s), text: () => [...host.querySelectorAll('.cloudterm-line')].map((l) => l.textContent).join('\\n'), destroy: () => t.destroy() };`,
   },
   {
-    id: "cloudterm-perf",
-    version: "main " + (JSON.parse(readFileSync(join(root, "package.json"), "utf8")).dependencies["cloudterm-perf"].split("#")[1] ?? "?"),
-    sizeEntry: "import { mount } from 'cloudterm-perf'; console.log(mount);",
-    setup: `
-      const { mount } = await import('cloudterm-perf');
-      const t = await mount(host, { onData: (d) => (window as any).__axInput?.(new TextDecoder().decode(d)), predictionMode: 'off' });
-      return { write: (s) => t.write(s), text: () => [...host.querySelectorAll('.cloudterm-line')].map((l) => l.textContent).join('\\n'), destroy: () => t.destroy() };`,
-  },
-  {
     id: "xterm-dom",
     version: pkg("@xterm/xterm"),
     sizeEntry: "import { Terminal } from '@xterm/xterm'; console.log(Terminal);",

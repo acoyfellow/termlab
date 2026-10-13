@@ -1,5 +1,5 @@
 import { existsSync, readFileSync } from "node:fs";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
 
 type Read = { matched: number; total: number; tokens: number };
 type Terminal = {
@@ -21,17 +21,20 @@ type AdoptionRun = {
 };
 type AdoptionResults = { model: string; runs: number; results: AdoptionRun[] };
 
-export function cloudtermPerfSha(packagePath: string): string | null {
-  const dependency = JSON.parse(readFileSync(packagePath, "utf8")).dependencies?.["cloudterm-perf"];
-  const match = typeof dependency === "string" && dependency.match(/^github:acoyfellow\/cloudterm#([0-9a-f]+)$/i);
-  return match?.[1] ?? null;
+export function expectedCloudtermVersion(packagePath: string): string | null {
+  const dependency = JSON.parse(readFileSync(packagePath, "utf8")).dependencies?.cloudterm;
+  if (typeof dependency !== "string") return null;
+  const sha = dependency.match(/^github:acoyfellow\/cloudterm#([0-9a-f]+)$/i)?.[1];
+  if (sha) return sha;
+  const installed = join(dirname(packagePath), "node_modules/cloudterm/package.json");
+  return existsSync(installed) ? JSON.parse(readFileSync(installed, "utf8")).version : null;
 }
 
-export function hasCurrentCloudtermPerfVersion(resultsPath: string, packagePath: string): boolean {
-  const sha = cloudtermPerfSha(packagePath);
-  if (!sha) return false;
+export function hasCurrentCloudtermVersion(resultsPath: string, packagePath: string): boolean {
+  const expected = expectedCloudtermVersion(packagePath);
+  if (!expected) return false;
   const results = JSON.parse(readFileSync(resultsPath, "utf8")) as { terminals?: Array<{ id: string; version: string }> };
-  return results.terminals?.find((terminal) => terminal.id === "cloudterm-perf")?.version.includes(sha) ?? false;
+  return results.terminals?.find((terminal) => terminal.id === "cloudterm")?.version === expected;
 }
 
 const median = (values: number[]) => {
@@ -44,14 +47,14 @@ const ownFamily = (id: string) => id.startsWith("cloudterm") || id.startsWith("p
 const tokenBandPct = 5;
 
 export function runAxGate(resultsPath: string, packagePath: string, adoptionPath: string): number {
-  if (!hasCurrentCloudtermPerfVersion(resultsPath, packagePath)) {
-    console.log("gate: stale or missing cloudterm-perf AX results");
+  if (!hasCurrentCloudtermVersion(resultsPath, packagePath)) {
+    console.log("gate: stale or missing cloudterm AX results");
     return 2;
   }
   const results = JSON.parse(readFileSync(resultsPath, "utf8")) as { generatedAt: string; terminals: Terminal[] };
-  const subject = results.terminals.find((terminal) => terminal.id === "cloudterm-perf");
+  const subject = results.terminals.find((terminal) => terminal.id === "cloudterm");
   if (!subject) {
-    console.log("gate: no row for cloudterm-perf");
+    console.log("gate: no row for cloudterm");
     return 2;
   }
   const rivals = results.terminals.filter((terminal) => !ownFamily(terminal.id));

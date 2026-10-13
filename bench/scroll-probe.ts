@@ -10,7 +10,6 @@ const width = 1080;
 const height = 720;
 const setups: Record<string, string> = {
     cloudterm: `const { mount } = await import('cloudterm'); await import('cloudterm/style.css'); const t = await mount(host, { onData() {}, predictionMode: 'off' }); return (s) => t.write(s);`,
-    "cloudterm-perf": `const { mount } = await import('cloudterm-perf'); await import('cloudterm-perf/style.css'); const t = await mount(host, { onData() {}, predictionMode: 'off' }); return (s) => t.write(s);`,
     "xterm-dom": `const { Terminal } = await import('@xterm/xterm'); await import('@xterm/xterm/css/xterm.css'); const t = new Terminal({ scrollback: 20000 }); t.open(host); t.resize(118, 39); return (s) => new Promise((r) => t.write(s, r));`,
     wterm: `const { WTerm } = await import('@wterm/dom'); await import('@wterm/dom/css'); const t = new WTerm(host, { cols: 118, rows: 39, autoResize: false, onData() {} }); await t.init(); return (s) => t.write(s);`,
 };

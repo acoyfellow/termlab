@@ -35,8 +35,8 @@
   const cheapestReliable = Math.min(...reliable.map((row) => row.tokens));
   const adoptionTokenGrade = (row: (typeof adoptionRows)[number]): Grade => (row.success !== row.runs ? 'bad' : row.tokens <= cheapestReliable * (1 + tokenBandPct / 100) ? 'good' : 'ok');
 
-  const isSubject = (id: string) => id === 'cloudterm' || id === 'cloudterm-perf';
-  const subject = axResults.terminals.find((terminal) => terminal.id === 'cloudterm-perf') ?? axResults.terminals.find((terminal) => terminal.id === 'cloudterm');
+  const isSubject = (id: string) => id === 'cloudterm';
+  const subject = axResults.terminals.find((terminal) => terminal.id === 'cloudterm');
   const cloudtermAdoption = adoptionRows.find((row) => row.id === 'cloudterm');
   const verdicts = subject && !subject.canvas
     ? [
