@@ -45,7 +45,7 @@
     <div><dt>Grid size</dt><dd>{results.grid}</dd></div>
     <div><dt>Terminals tested</dt><dd>{results.terminals.length}</dd></div>
   </dl>
-  <p>Each sample uses a fresh headless Chromium. Terminal order alternates per round. The timer stops after the end marker is visible following a painted frame. Lower times are lower medians.</p>
+  <p>Each sample uses a fresh headless Chromium. Terminal order alternates per round. The timer stops after the end marker is visible following a painted frame. Lower values are faster.</p>
 </section>
 
 <section class="results" aria-labelledby="results-title">
@@ -53,7 +53,7 @@
   {#each workloads as workload, tableNumber (workload)}
     {@const minimum = verifiedLows[workload]}
     <figure>
-      <figcaption>Table {tableNumber + 1}. {labels[workload]} median wall time, ms, {results.rounds} rounds. Lower is lower.</figcaption>
+      <figcaption>Table {tableNumber + 1}. {labels[workload]} median wall time, ms, {results.rounds} rounds. Lower is faster.</figcaption>
       <p class="workload-detail">{results.workloads[workload]}</p>
       <table>
         <thead><tr><th>Terminal</th><th>Median (ms)</th><th>vs lowest (×)</th><th>Status</th></tr></thead>
