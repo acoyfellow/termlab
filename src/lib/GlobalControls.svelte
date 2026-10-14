@@ -82,9 +82,9 @@
     flex-wrap: wrap;
     align-items: center;
     padding: 10px 14px;
-    background: #0a0a0a;
-    border: 1px solid #222;
-    border-radius: 8px;
+    background: #f0f2f4;
+    border: 1px solid #cfd4da;
+    border-radius: 0;
   }
   .group {
     display: flex;
@@ -94,15 +94,15 @@
   }
   .group-label {
     font-size: 12px;
-    color: #8a8a8a;
-    font-family: 'IBM Plex Mono', monospace;
+    color: #4f5964;
+    font-family: ui-monospace, monospace;
     margin-right: 4px;
   }
   button {
-    background: #1f1f1f;
-    color: #d4d4d4;
-    border: 1px solid #2a2a2a;
-    border-radius: 4px;
+    background: #ffffff;
+    color: #26313b;
+    border: 1px solid #aeb7c0;
+    border-radius: 0;
     padding: 6px 12px;
     font-size: 12px;
     cursor: pointer;
@@ -110,18 +110,18 @@
     transition: background 0.1s ease, border-color 0.1s ease;
   }
   button:hover:not(:disabled) {
-    background: #2a2a2a;
-    border-color: #3a3a3a;
+    background: #e4e8eb;
+    border-color: #7e8994;
   }
   button.primary {
-    background: #1e3a24;
-    border-color: #2f5a3a;
-    color: #86efac;
+    background: #315f82;
+    border-color: #315f82;
+    color: #ffffff;
     font-weight: 500;
   }
   button.primary:hover:not(:disabled) {
-    background: #265a30;
-    border-color: #3b8449;
+    background: #244b69;
+    border-color: #244b69;
   }
   button:disabled {
     opacity: 0.4;

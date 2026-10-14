@@ -33,6 +33,7 @@
     const t0 = performance.now();
     try {
       handle = await mountWithoutStealingPage(host, shell);
+      nameEmbeddedControls(host, adapter.label);
       mountMs = Math.round(performance.now() - t0);
       status = 'ready';
       // Publish to the bench matrix. Green below 100ms, yellow under
@@ -65,6 +66,14 @@
     // hot-reloads in dev and nav events in prod.
     shell?.dispose();
   });
+
+  function nameEmbeddedControls(element: HTMLDivElement, label: string) {
+    element.querySelectorAll('iframe').forEach((frame) => frame.title = `${label} terminal`);
+    element.querySelectorAll('input, textarea').forEach((control) => control.setAttribute('aria-label', `${label} terminal input`));
+    element.querySelectorAll<HTMLElement>('[style*="overflow"], .xterm-viewport').forEach((region) => {
+      if (region.scrollHeight > region.clientHeight) region.tabIndex = 0;
+    });
+  }
 
   function onFireClick(id: string) {
     shell?.fire(id);
@@ -121,15 +130,15 @@
     flex-direction: column;
     min-height: 0;
     min-width: 0;
-    background: #0a0a0a;
-    border: 1px solid #222;
-    border-radius: 8px;
+    background: #ffffff;
+    border: 1px solid #cfd4da;
+    border-radius: 0;
     overflow: hidden;
   }
   .head {
     padding: 10px 12px 8px;
-    background: #111;
-    border-bottom: 1px solid #222;
+    background: #f0f2f4;
+    border-bottom: 1px solid #cfd4da;
   }
   .title-row {
     display: flex;
@@ -141,19 +150,19 @@
     margin: 0;
     font-size: 14px;
     font-weight: 600;
-    color: #f2efe8;
+    color: #202831;
   }
   .bundle-hint,
   .mount-hint {
     font-size: 11px;
-    color: #8a8a8a;
-    font-family: 'IBM Plex Mono', monospace;
+    color: #4f5964;
+    font-family: ui-monospace, monospace;
   }
   .description {
     margin: 6px 0 0;
     font-size: 12px;
     line-height: 1.45;
-    color: #a1a1aa;
+    color: #4f5964;
   }
   .host-wrap {
     position: relative;
@@ -194,22 +203,22 @@
     gap: 6px;
     flex-wrap: wrap;
     padding: 8px 10px;
-    background: #111;
-    border-top: 1px solid #222;
+    background: #f0f2f4;
+    border-top: 1px solid #cfd4da;
   }
   .actions button {
-    background: #1f1f1f;
-    color: #d4d4d4;
-    border: 1px solid #2a2a2a;
-    border-radius: 4px;
+    background: #ffffff;
+    color: #26313b;
+    border: 1px solid #aeb7c0;
+    border-radius: 0;
     padding: 4px 10px;
     font-size: 11px;
     cursor: pointer;
     font-family: inherit;
   }
   .actions button:hover:not(:disabled) {
-    background: #2a2a2a;
-    border-color: #3a3a3a;
+    background: #e4e8eb;
+    border-color: #7e8994;
   }
   .actions button:disabled {
     opacity: 0.4;

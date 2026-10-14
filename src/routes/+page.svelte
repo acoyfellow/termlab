@@ -7,87 +7,42 @@
   import { FakeShell } from '$lib/fake-shell';
   import { liveMeasurements } from '$lib/live-measurements.svelte';
 
-  // Sanity touch so tree-shaker doesn't drop FakeShell from the module graph.
   void FakeShell;
-
   const live = liveMeasurements();
 </script>
 
 <main>
-  <header class="page-head">
-    <div>
-      <h1>termlab</h1>
-      <p class="sub">
-        Side-by-side benchmark of web terminal emulators: cloudterm, xterm.js (6.0 stable, 6.1 beta,
-        WebGL), wterm, ghostty-web, restty, ferroterm, auterm and hterm (npm build and upstream), each at
-        its latest release or upstream head. The table below is a reproducible
-        throughput run. The live terminals underneath share one in-browser fake shell — no network,
-        no backend.
-      </p>
-      <p class="sub">
-        Things to test: <strong>Cmd+F</strong> to search output, <strong>drag-select</strong>
-        to copy, <strong>scroll</strong> back through history, compare <strong>ANSI
-        colors</strong> / <strong>box drawing</strong> / <strong>emoji</strong>
-        alignment, watch <strong>mount time</strong> on page load.
-      </p>
-      <p class="sub">
-        Public repo: <a href="https://github.com/acoyfellow/termlab">github.com/acoyfellow/termlab</a>
-      </p>
-    </div>
+  <header class="report-header">
+    <p class="eyebrow">termlab / browser terminal measurement</p>
+    <h1>Test report</h1>
+    <p class="lede">Measured web-terminal output and agent interaction results.</p>
   </header>
-
-  <GlobalControls />
 
   <BenchResults />
 
-  <BenchMatrix liveMeasurements={live} />
-
-  <div class="grid">
-    {#each ADAPTERS as adapter (adapter.id)}
-      <TerminalCell {adapter} />
-    {/each}
-  </div>
+  <section class="live" aria-labelledby="live-title">
+    <h2 id="live-title"><span>7</span> Live comparison</h2>
+    <p>Each terminal below receives output from the same in-browser fake shell. No network or backend is used for the shell.</p>
+    <GlobalControls />
+    <BenchMatrix liveMeasurements={live} />
+    <div class="grid">
+      {#each ADAPTERS as adapter (adapter.id)}
+        <TerminalCell {adapter} />
+      {/each}
+    </div>
+  </section>
 </main>
 
 <style>
-  main {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 24px;
-    min-height: 100vh;
-  }
-  .page-head {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  h1 {
-    margin: 0;
-    font-size: 24px;
-    font-weight: 700;
-    color: #f2efe8;
-    letter-spacing: -0.02em;
-  }
-  .sub {
-    margin: 4px 0 0;
-    color: #a1a1aa;
-    font-size: 13px;
-    line-height: 1.5;
-    max-width: 820px;
-  }
-  .sub a {
-    color: #d4d4d4;
-    text-decoration: underline;
-    text-decoration-color: #444;
-  }
-  .sub a:hover {
-    text-decoration-color: #888;
-  }
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(520px, 1fr));
-    gap: 16px;
-    flex: 1;
-  }
+  main { width: min(100%, 1120px); margin: 0 auto; padding: 30px 20px 48px; }
+  .report-header { border-bottom: 1px solid #cfd4da; padding-bottom: 20px; margin-bottom: 24px; }
+  .eyebrow { margin: 0 0 8px; color: #5f6873; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+  h1 { margin: 0; color: #1c232b; font-size: clamp(28px, 6vw, 42px); font-weight: 600; letter-spacing: -.035em; }
+  .lede { margin: 8px 0 0; color: #4f5964; font-size: 15px; }
+  .live { margin-top: 34px; }
+  h2 { margin: 0 0 8px; color: #202831; font-size: 19px; font-weight: 600; }
+  h2 span { color: #697582; font-weight: 500; margin-right: 8px; }
+  .live > p { margin: 0 0 14px; color: #56616c; font-size: 14px; line-height: 1.5; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 14px; margin-top: 16px; }
+  @media (max-width: 520px) { main { padding: 20px 12px 36px; } }
 </style>
