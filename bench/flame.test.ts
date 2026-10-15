@@ -9,6 +9,7 @@ const cleanA = join(fixture, "clean-a");
 const cleanB = join(fixture, "clean-b");
 const planted = join(fixture, "planted");
 const flameSource = readFileSync(join(import.meta.dir, "flame.ts"), "utf8");
+const runSource = readFileSync(join(import.meta.dir, "run.ts"), "utf8");
 
 type Row = { fn: string; source: string; delta: number; significant: boolean };
 
@@ -24,12 +25,12 @@ function copyCheckout(destination: string): void {
   cpSync(cloudterm, destination, { recursive: true, filter: (path) => !["node_modules", ".git", ".loop-wt", "dist"].includes(path.split("/").pop() ?? "") });
 }
 
-function plantDelayInHandleSgr(root: string): void {
+function plantSmallDelayInHandleSgr(root: string): void {
   const parser = join(root, "src", "parser.ts");
   const text = readFileSync(parser, "utf8");
   const signature = "  private handleSgr(): void {\n";
   if (!text.includes(signature)) throw new Error("handleSgr signature not found");
-  const delay = "    { const until = performance.now() + 0.0002; while (performance.now() < until) {} }\n";
+  const delay = "    { const g = globalThis as any; g.__plantedCalls = (g.__plantedCalls ?? 0) + 1; if (g.__plantedCalls % 20000 === 0) { const until = performance.now() + 0.15; while (performance.now() < until) {} } }\n";
   writeFileSync(parser, text.replace(signature, signature + delay));
 }
 
@@ -45,7 +46,18 @@ mkdirSync(fixture, { recursive: true });
 copyCheckout(cleanA);
 copyCheckout(cleanB);
 copyCheckout(planted);
-plantDelayInHandleSgr(planted);
+plantSmallDelayInHandleSgr(planted);
+
+test("run.ts and flame.ts share one workload module with the real sizes", async () => {
+  const { workloads } = await import("./workloads");
+  expect(runSource).toMatch(/from\s+["']\.\/workloads["']/);
+  expect(flameSource).toMatch(/from\s+["']\.\/workloads["']/);
+  expect(flameSource).not.toMatch(/\.repeat\(\s*\d+\s*\)\s*\+\s*["']\\r\\nEND-SGR/);
+  expect(runSource).not.toMatch(/\.repeat\(\s*\d+\s*\)\s*\+\s*["']\\r\\nEND-SGR/);
+  const sgr = workloads["sgr-tokens"];
+  const input = typeof sgr === "string" ? sgr : sgr.input;
+  expect(input).toBe("\x1b[32mfoo\x1b[0m ".repeat(100000) + "\r\nEND-SGR");
+});
 
 test("flame.ts has no shortcut paths", () => {
   expect(flameSource).not.toMatch(/resolve\(a\)\s*===\s*resolve\(b\)/);
@@ -53,21 +65,22 @@ test("flame.ts has no shortcut paths", () => {
   expect(flameSource).not.toMatch(/functionNames\(/);
 });
 
-test("a delay planted inside existing handleSgr ranks first as significantly slower", async () => {
+test("a small (~1.5 ms per run) delay inside existing handleSgr ranks first as significantly slower", async () => {
   const { rows } = await diff(cleanA, planted);
   const slower = rows.filter((row) => row.significant && row.delta > 0).sort((x, y) => y.delta - x.delta);
   expect(slower.length).toBeGreaterThan(0);
   expect(slower[0]!.fn).toBe("handleSgr");
   expect(slower[0]!.source).toMatch(/^src\/parser\.ts:\d+$/);
-  expect(slower[0]!.delta).toBeGreaterThan(1);
-}, 600000);
+  expect(slower[0]!.delta).toBeGreaterThan(0.5);
+  expect(slower[0]!.delta).toBeLessThan(6);
+}, 1800000);
 
-test("two separate copies of the same checkout, both profiled, flag nothing", async () => {
+test("two separately built copies of the same checkout, both profiled, flag nothing", async () => {
   const { rows, seconds } = await diff(cleanA, cleanB);
-  expect(seconds).toBeGreaterThan(5);
+  expect(seconds).toBeGreaterThan(10);
   expect(rows.length).toBeGreaterThan(10);
   expect(rows.filter((row) => row.significant)).toEqual([]);
-}, 600000);
+}, 1800000);
 
 test("the real cloudterm checkout is untouched", () => {
   expect(digest(join(cloudterm, "src"))).toBe(sourceBefore);
