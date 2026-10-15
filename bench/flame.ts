@@ -14,10 +14,11 @@ type Run = { entries: Entry[]; profile: Profile; path: string };
 
 const rows = 40;
 const cols = 120;
+const profileIterations = 20;
 const workloads: Record<string, string> = {
   "scroll-flood": Array.from({ length: 100000 }, (_, i) => `line ${i} ${"x".repeat(80)}`).join("\r\n") + "\r\nEND-SCROLL",
   "full-redraw": Array.from({ length: 1500 }, (_, f) => "\x1b[H" + Array.from({ length: rows - 1 }, (_, r) => `\x1b[3${(f + r) % 8}m${`${f}:${r} `.padEnd(cols - 1, "#")}\x1b[0m`).join("\r\n")).join("") + "\r\nEND-REDRAW",
-  "sgr-tokens": "\x1b[32mfoo\x1b[0m ".repeat(100000) + "\r\nEND-SGR",
+  "sgr-tokens": "\x1b[32mfoo\x1b[0m ".repeat(5000) + "\r\nEND-SGR",
 };
 
 const root = resolve(import.meta.dir, "..");
@@ -54,11 +55,14 @@ function build(source: string) {
   mkdirSync(scratch, { recursive: true });
   cpSync(join(source, "src"), join(scratch, "src"), { recursive: true });
   cpSync(join(source, "package.json"), join(scratch, "package.json"));
-  symlinkSync(join(source, "node_modules"), join(scratch, "node_modules"), "dir");
+  const dependencyDirectory = [join(source, "node_modules"), "/Users/jcoeyman/cloudflare/cloudterm/node_modules"].find(existsSync);
+  if (!dependencyDirectory) throw new Error(`node_modules is unavailable for ${source}`);
+  symlinkSync(dependencyDirectory, join(scratch, "node_modules"), "dir");
   const outfile = join(scratch, "dist", "index.js");
   mkdirSync(join(scratch, "dist"), { recursive: true });
   const result = Bun.spawnSync([join(root, "node_modules", ".bin", "esbuild"), "src/index.ts", "--bundle", "--format=esm", "--target=es2022", "--sourcemap", `--outfile=${outfile}`], { cwd: scratch, stdout: "pipe", stderr: "pipe" });
-  if (result.exitCode !== 0) throw new Error(new TextDecoder().decode(result.stderr));
+  if (result.exitCode !== 0) throw new Error(`build failed for ${source}: ${new TextDecoder().decode(result.stderr)}`);
+  if (!existsSync(outfile)) throw new Error(`build produced no output for ${source}`);
   return scratch;
 }
 
@@ -79,7 +83,7 @@ function serve(scratch: string, workload: string) {
 async function profile(scratch: string, workload: string, destination: string): Promise<Run> {
   const server = serve(scratch, workloads[workload]!);
   const port = freePort();
-  const chrome = spawn(shellBinary(), [`--remote-debugging-port=${port}`, "--use-angle=metal", "--enable-gpu", "about:blank"], { stdio: "ignore" });
+  const chrome = spawn(shellBinary(), [`--remote-debugging-port=${port}`, "--use-angle=metal", "--enable-gpu", "--js-flags=--expose-gc", "about:blank"], { stdio: "ignore" });
   try {
     let ws = "";
     for (let attempt = 0; attempt < 100 && !ws; attempt++) {
@@ -109,19 +113,26 @@ async function profile(scratch: string, workload: string, destination: string): 
       if (ready.result?.result?.value) break;
       await Bun.sleep(50);
     }
-    await send("Runtime.evaluate", { expression: "run()", awaitPromise: true });
+    const evaluate = async (expression: string) => {
+      const result = await send("Runtime.evaluate", { expression, awaitPromise: true });
+      if (result.error || result.result?.exceptionDetails) throw new Error(`profile evaluation failed: ${JSON.stringify(result.error ?? result.result.exceptionDetails)}\n${errors.join("\n")}`);
+      return result;
+    };
+    await evaluate("run()");
+    await evaluate("globalThis.gc?.()");
     await send("Profiler.enable");
     await send("Profiler.setSamplingInterval", { interval: 100 });
     await send("Profiler.start");
-    const result = await send("Runtime.evaluate", { expression: "run()", awaitPromise: true });
-    if (result.result?.exceptionDetails) throw new Error(`${JSON.stringify(result.result.exceptionDetails)}\n${errors.join("\n")}`);
+    await evaluate(`(async () => { for (let iteration = 0; iteration < ${profileIterations}; iteration++) { await run(); globalThis.gc?.(); } })()`);
     const stopped = await send("Profiler.stop");
+    if (stopped.error || !stopped.result?.profile) throw new Error(`profile stop failed: ${JSON.stringify(stopped.error ?? stopped)}`);
+    if (errors.length) throw new Error(`profile reported errors: ${errors.join("\n")}`);
     const raw = stopped.result.profile as Profile;
     mkdirSync(destination, { recursive: true });
       const path = join(destination, `capture-${Date.now()}-${Math.random().toString(16).slice(2)}.cpuprofile`);
     writeFileSync(path, JSON.stringify(raw));
     socket.close();
-    return { entries: mapProfile(raw, scratch), profile: raw, path };
+    return { entries: mapProfile(raw, scratch).map((entry) => ({ ...entry, self: entry.self / profileIterations, total: entry.total / profileIterations })), profile: raw, path };
   } finally {
     chrome.kill("SIGKILL");
     server.stop(true);
@@ -162,18 +173,6 @@ function mapProfile(profile: Profile, scratch: string): Entry[] {
 
 function median(values: number[]) { const sorted = [...values].sort((a, b) => a - b); return sorted[Math.floor(sorted.length / 2)] ?? 0; }
 function spread(values: number[]) { return { min: Math.min(...values), max: Math.max(...values) }; }
-function functionNames(directory: string) {
-  const names = new Set<string>();
-  const visit = (path: string) => {
-    for (const entry of readdirSync(path, { withFileTypes: true })) {
-      const file = join(path, entry.name);
-      if (entry.isDirectory()) visit(file);
-      else if (entry.name.endsWith(".ts")) for (const match of readFileSync(file, "utf8").matchAll(/function\s+([A-Za-z_$][\w$]*)/g)) names.add(match[1]!);
-    }
-  };
-  visit(join(directory, "src"));
-  return names;
-}
 function report(entries: Entry[]) {
   const top = [...entries].sort((a, b) => b.total - a.total).slice(0, 30);
   console.log("call tree (total self fn source):");
@@ -196,11 +195,6 @@ async function single(source: string, workload: string) {
 }
 
 async function compare(a: string, b: string, workload: string) {
-  if (resolve(a) === resolve(b)) {
-    if (json) console.log("[]");
-    return;
-  }
-  const addedFunctions = functionNames(b).difference(functionNames(a));
   const builds = [build(a), build(b)];
   const collected: Entry[][][] = [[], []];
   for (let index = 0; index < runs; index++) for (const side of [0, 1]) collected[side].push((await profile(builds[side], workload, output)).entries);
@@ -223,7 +217,7 @@ async function compare(a: string, b: string, workload: string) {
     const ranges = self.map(spread);
     const representative = samples.flat().find((entry) => entry.source !== key.slice(key.indexOf(" ") + 1)) ?? samples[0][0];
     return { key, fn: representative.fn, source: representative.source, a: { self: median(self[0]), total: median(total[0]), spread: ranges[0] }, b: { self: median(self[1]), total: median(total[1]), spread: ranges[1] }, delta, significant: Math.abs(delta) > 0.5 && Math.abs(delta) > Math.max(ranges[0].max - ranges[0].min, ranges[1].max - ranges[1].min) };
-  }).sort((left, right) => Number(addedFunctions.has(right.fn)) - Number(addedFunctions.has(left.fn)) || right.delta - left.delta);
+  }).sort((left, right) => right.delta - left.delta);
   if (json) console.log(JSON.stringify(rows)); else for (const row of rows) console.log(`${row.significant ? "significant " : ""}${row.delta.toFixed(2)}ms ${row.fn} ${row.source} A ${row.a.self.toFixed(2)} B ${row.b.self.toFixed(2)} spread ${row.a.spread.min.toFixed(2)}..${row.a.spread.max.toFixed(2)} ${row.b.spread.min.toFixed(2)}..${row.b.spread.max.toFixed(2)}`);
 }
 
