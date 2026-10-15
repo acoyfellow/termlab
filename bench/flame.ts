@@ -5,6 +5,7 @@ import { homedir } from "node:os";
 import { basename, join, relative, resolve } from "node:path";
 import { SourceMapConsumer } from "source-map-js";
 import { freePort } from "./adapters";
+import { cols, rows, workloads } from "./workloads";
 
 type Frame = { functionName: string; url: string; lineNumber: number; columnNumber: number };
 type Node = { id: number; callFrame: Frame; children?: number[] };
@@ -12,14 +13,7 @@ type Profile = { nodes: Node[]; samples?: number[]; timeDeltas?: number[] };
 type Entry = { key: string; fn: string; source: string; self: number; total: number };
 type Run = { entries: Entry[]; profile: Profile; path: string };
 
-const rows = 40;
-const cols = 120;
 const profileIterations = 20;
-const workloads: Record<string, string> = {
-  "scroll-flood": Array.from({ length: 100000 }, (_, i) => `line ${i} ${"x".repeat(80)}`).join("\r\n") + "\r\nEND-SCROLL",
-  "full-redraw": Array.from({ length: 1500 }, (_, f) => "\x1b[H" + Array.from({ length: rows - 1 }, (_, r) => `\x1b[3${(f + r) % 8}m${`${f}:${r} `.padEnd(cols - 1, "#")}\x1b[0m`).join("\r\n")).join("") + "\r\nEND-REDRAW",
-  "sgr-tokens": "\x1b[32mfoo\x1b[0m ".repeat(5000) + "\r\nEND-SGR",
-};
 
 const root = resolve(import.meta.dir, "..");
 const outRoot = join(import.meta.dir, ".out", "flame");
@@ -81,7 +75,7 @@ function serve(scratch: string, workload: string) {
 }
 
 async function profile(scratch: string, workload: string, destination: string): Promise<Run> {
-  const server = serve(scratch, workloads[workload]!);
+  const server = serve(scratch, workloads[workload]!.input);
   const port = freePort();
   const chrome = spawn(shellBinary(), [`--remote-debugging-port=${port}`, "--use-angle=metal", "--enable-gpu", "--js-flags=--expose-gc", "about:blank"], { stdio: "ignore" });
   try {
@@ -121,7 +115,7 @@ async function profile(scratch: string, workload: string, destination: string): 
     await evaluate("run()");
     await evaluate("globalThis.gc?.()");
     await send("Profiler.enable");
-    await send("Profiler.setSamplingInterval", { interval: 100 });
+    await send("Profiler.setSamplingInterval", { interval: 50 });
     await send("Profiler.start");
     await evaluate(`(async () => { for (let iteration = 0; iteration < ${profileIterations}; iteration++) { await run(); globalThis.gc?.(); } })()`);
     const stopped = await send("Profiler.stop");

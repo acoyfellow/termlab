@@ -4,16 +4,10 @@ import { homedir } from "node:os";
 import { join } from "node:path";
 
 import { adapters, freePort, pkg, root, type Adapter } from "./adapters";
+import { cols, rows, workloads } from "./workloads";
+
 const out = join(import.meta.dir, ".out");
 mkdirSync(out, { recursive: true });
-
-const cols = 120;
-const rows = 40;
-const workloads: Record<string, { input: string; marker: string }> = {
-  "scroll-flood": { input: Array.from({ length: 100000 }, (_, i) => `line ${i} ` + "x".repeat(80)).join("\r\n") + "\r\nEND-SCROLL", marker: "END-SCROLL" },
-  "full-redraw": { input: Array.from({ length: 1500 }, (_, f) => "\x1b[H" + Array.from({ length: rows - 1 }, (_, r) => `\x1b[3${(f + r) % 8}m` + `${f}:${r} `.padEnd(cols - 1, "#") + "\x1b[0m").join("\r\n")).join("") + "\r\nEND-REDRAW", marker: "END-REDRAW" },
-  "sgr-tokens": { input: "\x1b[32mfoo\x1b[0m ".repeat(100000) + "\r\nEND-SGR", marker: "END-SGR" },
-};
 
 const html = (adapter: Adapter) => `<!doctype html><html><head><meta charset="utf-8">
 <style>html,body{margin:0;background:#000}#host{width:${cols * 9}px;height:${rows * 18}px}</style></head>
