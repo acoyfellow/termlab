@@ -4,51 +4,74 @@ import { createHash } from "node:crypto";
 import { join } from "node:path";
 
 const cloudterm = "/Users/jcoeyman/cloudflare/cloudterm";
-const fixture = join(import.meta.dir, ".out", "flame", "planted-test");
-const clean = join(fixture, "clean");
+const fixture = join(import.meta.dir, ".out", "flame", "judge");
+const cleanA = join(fixture, "clean-a");
+const cleanB = join(fixture, "clean-b");
 const planted = join(fixture, "planted");
+const flameSource = readFileSync(join(import.meta.dir, "flame.ts"), "utf8");
 
-function digest(path: string) {
-  const result = Bun.spawnSync(["shasum", "-a", "256", ...Bun.spawnSync(["find", path, "-type", "f", "-print"]).stdout.toString().trim().split("\n").sort()]);
-  return createHash("sha256").update(result.stdout).digest("hex");
+type Row = { fn: string; source: string; delta: number; significant: boolean };
+
+function digest(path: string): string {
+  const files = Bun.spawnSync(["find", path, "-type", "f"]).stdout.toString().trim().split("\n").sort();
+  const hash = createHash("sha256");
+  for (const file of files) hash.update(file).update(readFileSync(file));
+  return hash.digest("hex");
 }
 
-function copy(source: string, destination: string) {
-  cpSync(source, destination, { recursive: true, filter: (path) => !["node_modules", ".git", ".loop-wt"].includes(path.split("/").pop() ?? "") });
+function copyCheckout(destination: string): void {
+  rmSync(destination, { recursive: true, force: true });
+  cpSync(cloudterm, destination, { recursive: true, filter: (path) => !["node_modules", ".git", ".loop-wt", "dist"].includes(path.split("/").pop() ?? "") });
+}
+
+function plantDelayInHandleSgr(root: string): void {
+  const parser = join(root, "src", "parser.ts");
+  const text = readFileSync(parser, "utf8");
+  const signature = "  private handleSgr(): void {\n";
+  if (!text.includes(signature)) throw new Error("handleSgr signature not found");
+  const delay = "    { const until = performance.now() + 0.0002; while (performance.now() < until) {} }\n";
+  writeFileSync(parser, text.replace(signature, signature + delay));
+}
+
+async function diff(a: string, b: string): Promise<{ rows: Row[]; seconds: number }> {
+  const started = performance.now();
+  const result = await Bun.$`bun ${join(import.meta.dir, "flame.ts")} --diff ${a} ${b} sgr-tokens --runs 3 --json`.quiet();
+  return { rows: JSON.parse(result.stdout.toString()), seconds: (performance.now() - started) / 1000 };
 }
 
 const sourceBefore = digest(join(cloudterm, "src"));
 const distBefore = digest(join(cloudterm, "dist"));
-
 mkdirSync(fixture, { recursive: true });
-rmSync(clean, { recursive: true, force: true });
-rmSync(planted, { recursive: true, force: true });
-copy(cloudterm, clean);
-copy(cloudterm, planted);
-const parser = join(planted, "src", "parser.ts");
-const text = readFileSync(parser, "utf8");
-const insertion = "function plantedSgrDelay(): void {\n  const count = ((globalThis as any).__flamePlantedCount ?? 0) + 1;\n  (globalThis as any).__flamePlantedCount = count;\n  if (count !== 200001) return;\n  const end = performance.now() + 3;\n  while (performance.now() < end) {}\n}\n\n";
-const marker = "function quickSgr(current: CellAttr, code: number): CellAttr | null {\n";
-const line = text.slice(0, text.indexOf(marker)).split("\n").length;
-writeFileSync(parser, text.replace(marker, insertion + marker + "  plantedSgrDelay();\n"));
+copyCheckout(cleanA);
+copyCheckout(cleanB);
+copyCheckout(planted);
+plantDelayInHandleSgr(planted);
 
-async function diff(a: string, b: string) {
-  const result = await Bun.$`bun bench/flame.ts --diff ${a} ${b} sgr-tokens --runs 3 --json`.quiet();
-  return JSON.parse(result.stdout.toString());
-}
+test("flame.ts has no shortcut paths", () => {
+  expect(flameSource).not.toMatch(/resolve\(a\)\s*===\s*resolve\(b\)/);
+  expect(flameSource).not.toMatch(/addedFunctions/);
+  expect(flameSource).not.toMatch(/functionNames\(/);
+});
 
-test("flame identifies a planted parser delay and leaves cloudterm untouched", async () => {
-  const rows = await diff(clean, planted);
-  const first = rows.find((row: any) => row.significant && row.delta > 0);
-  expect(first.fn).toBe("plantedSgrDelay");
-  expect(first.source).toMatch(new RegExp(`src/parser\\.ts:${line - 3}|src/parser\\.ts:${line - 2}|src/parser\\.ts:${line - 1}|src/parser\\.ts:${line}|src/parser\\.ts:${line + 1}|src/parser\\.ts:${line + 2}|src/parser\\.ts:${line + 3}`));
+test("a delay planted inside existing handleSgr ranks first as significantly slower", async () => {
+  const { rows } = await diff(cleanA, planted);
+  const slower = rows.filter((row) => row.significant && row.delta > 0).sort((x, y) => y.delta - x.delta);
+  expect(slower.length).toBeGreaterThan(0);
+  expect(slower[0]!.fn).toBe("handleSgr");
+  expect(slower[0]!.source).toMatch(/^src\/parser\.ts:\d+$/);
+  expect(slower[0]!.delta).toBeGreaterThan(1);
+}, 600000);
+
+test("two separate copies of the same checkout, both profiled, flag nothing", async () => {
+  const { rows, seconds } = await diff(cleanA, cleanB);
+  expect(seconds).toBeGreaterThan(5);
+  expect(rows.length).toBeGreaterThan(10);
+  expect(rows.filter((row) => row.significant)).toEqual([]);
+}, 600000);
+
+test("the real cloudterm checkout is untouched", () => {
   expect(digest(join(cloudterm, "src"))).toBe(sourceBefore);
   expect(digest(join(cloudterm, "dist"))).toBe(distBefore);
-}, 180000);
-
-test("flame reports no significant differences for the same checkout", async () => {
-  const rows = await diff(clean, clean);
-  expect(rows.filter((row: any) => row.significant)).toEqual([]);
-}, 180000);
+});
 
 afterAll(() => rmSync(fixture, { recursive: true, force: true }));
