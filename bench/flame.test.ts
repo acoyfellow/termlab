@@ -1,5 +1,5 @@
 import { afterAll, expect, test } from "bun:test";
-import { cpSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { cpSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { join } from "node:path";
 
@@ -34,10 +34,13 @@ function plantSmallDelayInHandleSgr(root: string): void {
   writeFileSync(parser, text.replace(signature, signature + delay));
 }
 
-async function diff(a: string, b: string): Promise<{ rows: Row[]; seconds: number }> {
-  const started = performance.now();
-  const result = await Bun.$`bun ${join(import.meta.dir, "flame.ts")} --diff ${a} ${b} sgr-tokens --runs 3 --json`.quiet();
-  return { rows: JSON.parse(result.stdout.toString()), seconds: (performance.now() - started) / 1000 };
+async function diff(a: string, b: string): Promise<{ rows: Row[]; profiles: number }> {
+  const out = join(fixture, `out-${Date.now()}`);
+  rmSync(out, { recursive: true, force: true });
+  mkdirSync(out, { recursive: true });
+  const result = await Bun.$`bun ${join(import.meta.dir, "flame.ts")} --diff ${a} ${b} sgr-tokens --runs 3 --json --out ${out}`.quiet();
+  const profiles = readdirSync(out).filter((name) => name.endsWith(".cpuprofile") && statSync(join(out, name)).size > 1000).length;
+  return { rows: JSON.parse(result.stdout.toString()), profiles };
 }
 
 const sourceBefore = digest(join(cloudterm, "src"));
@@ -76,8 +79,8 @@ test("a small (~1.5 ms per run) delay inside existing handleSgr ranks first as s
 }, 1800000);
 
 test("two separately built copies of the same checkout, both profiled, flag nothing", async () => {
-  const { rows, seconds } = await diff(cleanA, cleanB);
-  expect(seconds).toBeGreaterThan(10);
+  const { rows, profiles } = await diff(cleanA, cleanB);
+  expect(profiles).toBeGreaterThanOrEqual(6);
   expect(rows.length).toBeGreaterThan(10);
   expect(rows.filter((row) => row.significant)).toEqual([]);
 }, 1800000);
