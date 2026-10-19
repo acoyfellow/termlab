@@ -38,7 +38,7 @@ async function diff(a: string, b: string): Promise<{ rows: Row[]; profiles: numb
   const out = join(fixture, `out-${Date.now()}`);
   rmSync(out, { recursive: true, force: true });
   mkdirSync(out, { recursive: true });
-  const result = await Bun.$`bun ${join(import.meta.dir, "flame.ts")} --diff ${a} ${b} sgr-tokens --runs 3 --json --out ${out}`.quiet();
+  const result = await Bun.$`bun ${join(import.meta.dir, "flame.ts")} --diff ${a} ${b} sgr-tokens --json --out ${out}`.quiet();
   const profiles = readdirSync(out).filter((name) => name.endsWith(".cpuprofile") && statSync(join(out, name)).size > 1000).length;
   return { rows: JSON.parse(result.stdout.toString()), profiles };
 }
@@ -69,7 +69,9 @@ test("flame.ts has no shortcut paths", () => {
 });
 
 test("a small (~1.5 ms per run) delay inside existing handleSgr ranks first as significantly slower", async () => {
-  const { rows } = await diff(cleanA, planted);
+  const { rows, profiles } = await diff(cleanA, planted);
+  expect(profiles).toBeGreaterThanOrEqual(6);
+  if (rows.filter((row) => row.significant && row.delta > 0).sort((x, y) => y.delta - x.delta)[0]?.fn !== "handleSgr") console.log("FLAGGED_ROWS planted", JSON.stringify(rows.filter((row) => row.significant)));
   const slower = rows.filter((row) => row.significant && row.delta > 0).sort((x, y) => y.delta - x.delta);
   expect(slower.length).toBeGreaterThan(0);
   expect(slower[0]!.fn).toBe("handleSgr");
@@ -82,7 +84,9 @@ test("two separately built copies of the same checkout, both profiled, flag noth
   const { rows, profiles } = await diff(cleanA, cleanB);
   expect(profiles).toBeGreaterThanOrEqual(6);
   expect(rows.length).toBeGreaterThan(10);
-  expect(rows.filter((row) => row.significant)).toEqual([]);
+  const flagged = rows.filter((row) => row.significant);
+  if (flagged.length > 0) console.log("FLAGGED_ROWS null", JSON.stringify(flagged));
+  expect(flagged).toEqual([]);
 }, 1800000);
 
 test("the real cloudterm checkout is untouched", () => {
