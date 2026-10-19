@@ -19,7 +19,7 @@ const root = resolve(import.meta.dir, "..");
 const outRoot = join(import.meta.dir, ".out", "flame");
 const args = process.argv.slice(2);
 const valueAfter = (flag: string) => { const index = args.indexOf(flag); return index < 0 ? undefined : args[index + 1]; };
-const runs = Number(valueAfter("--runs") ?? 3);
+const runs = Number(valueAfter("--runs") ?? 7);
 const json = args.includes("--json");
 const diffAt = args.indexOf("--diff");
 const output = resolve(valueAfter("--out") ?? outRoot);
@@ -210,7 +210,7 @@ async function compare(a: string, b: string, workload: string) {
     const delta = median(self[1]) - median(self[0]);
     const ranges = self.map(spread);
     const representative = samples.flat().find((entry) => entry.source !== key.slice(key.indexOf(" ") + 1)) ?? samples[0][0];
-    return { key, fn: representative.fn, source: representative.source, a: { self: median(self[0]), total: median(total[0]), spread: ranges[0] }, b: { self: median(self[1]), total: median(total[1]), spread: ranges[1] }, delta, significant: Math.abs(delta) > 0.5 && Math.abs(delta) > Math.max(ranges[0].max - ranges[0].min, ranges[1].max - ranges[1].min) };
+    return { key, fn: representative.fn, source: representative.source, a: { self: median(self[0]), total: median(total[0]), spread: ranges[0] }, b: { self: median(self[1]), total: median(total[1]), spread: ranges[1] }, delta, significant: Math.abs(delta) > 0.5 && Math.abs(delta) > 2 * Math.max(ranges[0].max - ranges[0].min, ranges[1].max - ranges[1].min) };
   }).sort((left, right) => right.delta - left.delta);
   if (json) console.log(JSON.stringify(rows)); else for (const row of rows) console.log(`${row.significant ? "significant " : ""}${row.delta.toFixed(2)}ms ${row.fn} ${row.source} A ${row.a.self.toFixed(2)} B ${row.b.self.toFixed(2)} spread ${row.a.spread.min.toFixed(2)}..${row.a.spread.max.toFixed(2)} ${row.b.spread.min.toFixed(2)}..${row.b.spread.max.toFixed(2)}`);
 }
