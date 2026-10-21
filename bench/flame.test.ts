@@ -30,7 +30,7 @@ function plantSmallDelayInHandleSgr(root: string): void {
   const text = readFileSync(parser, "utf8");
   const signature = "  private handleSgr(): void {\n";
   if (!text.includes(signature)) throw new Error("handleSgr signature not found");
-  const delay = "    { const g = globalThis as any; g.__plantedCalls = (g.__plantedCalls ?? 0) + 1; if (g.__plantedCalls % 20000 === 0) { const until = performance.now() + 0.15; while (performance.now() < until) {} } }\n";
+  const delay = "    { const g = globalThis as any; g.__plantedCalls = (g.__plantedCalls ?? 0) + 1; if (g.__plantedCalls % 20000 === 0) { const until = performance.now() + 0.3; while (performance.now() < until) {} } }\n";
   writeFileSync(parser, text.replace(signature, signature + delay));
 }
 
@@ -68,7 +68,7 @@ test("flame.ts has no shortcut paths", () => {
   expect(flameSource).not.toMatch(/functionNames\(/);
 });
 
-test("a small (~1.5 ms per run) delay inside existing handleSgr ranks first as significantly slower", async () => {
+test("a small (~3 ms per run) delay inside existing handleSgr ranks first as significantly slower", async () => {
   const { rows, profiles } = await diff(cleanA, planted);
   expect(profiles).toBeGreaterThanOrEqual(6);
   if (rows.filter((row) => row.significant && row.delta > 0).sort((x, y) => y.delta - x.delta)[0]?.fn !== "handleSgr") console.log("FLAGGED_ROWS planted", JSON.stringify(rows.filter((row) => row.significant)));

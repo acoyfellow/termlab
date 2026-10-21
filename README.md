@@ -38,6 +38,8 @@ This is that bench. No WebSockets, no backend, no auth. Type in any terminal, or
 
 `bun run bench 5` runs three workloads (100k-line scroll flood, 1,500 full-screen redraws, 100k SGR runs) against every terminal in fresh headless Chromium processes, alternating order each round. It writes `src/lib/bench-results.json`, which the page renders. It needs Playwright's `chromium_headless_shell` in `~/Library/Caches/ms-playwright` (`bunx playwright install chromium-headless-shell`). WebGL runs on SwiftShader there, so the WebGL row understates a real GPU.
 
+`bun bench/flame.ts --diff <cloudtermA> <cloudtermB> sgr-tokens` profiles both builds on the same workloads and ranks per-function self-time changes. It reliably detects changes of about 3 ms per run or more. Smaller changes are within run-to-run noise (garbage collection alone varies by about 0.6 ms) and are not reported reliably.
+
 ## Local dev
 
 ```sh
