@@ -23,6 +23,8 @@ const runs = Number(valueAfter("--runs") ?? 7);
 const json = args.includes("--json");
 const diffAt = args.indexOf("--diff");
 const output = resolve(valueAfter("--out") ?? outRoot);
+const requestedCallTimeoutMs = Number(process.env.FLAME_CALL_TIMEOUT_MS ?? "60000");
+const callTimeoutMs = Number.isFinite(requestedCallTimeoutMs) && requestedCallTimeoutMs > 0 ? requestedCallTimeoutMs : 60000;
 
 function usage(): never {
   throw new Error("usage: bun bench/flame.ts [--runs N] [--out DIR] <cloudtermDir> <workload> | --diff <dirA> <dirB> <workload> [--runs N] [--json]");
@@ -77,7 +79,8 @@ function serve(scratch: string, workload: string) {
 async function profile(scratch: string, workload: string, destination: string): Promise<Run> {
   const server = serve(scratch, workloads[workload]!.input);
   const port = freePort();
-  const chrome = spawn(shellBinary(), [`--remote-debugging-port=${port}`, "--use-angle=metal", "--enable-gpu", "--js-flags=--expose-gc", "about:blank"], { stdio: "ignore" });
+  const chrome = spawn(process.env.FLAME_CHROME ?? shellBinary(), [`--remote-debugging-port=${port}`, "--use-angle=metal", "--enable-gpu", "--js-flags=--expose-gc", "about:blank"], { stdio: "ignore" });
+  let socket: WebSocket | undefined;
   try {
     let ws = "";
     for (let attempt = 0; attempt < 100 && !ws; attempt++) {
@@ -85,19 +88,54 @@ async function profile(scratch: string, workload: string, destination: string): 
       if (!ws) await Bun.sleep(50);
     }
     if (!ws) throw new Error("Chrome DevTools endpoint did not start");
-    const socket = new WebSocket(ws);
-    await new Promise<void>((done) => socket.addEventListener("open", () => done(), { once: true }));
+    socket = new WebSocket(ws);
+    await new Promise<void>((resolve, reject) => {
+      const timeout = setTimeout(() => reject(new Error(`CDP socket open timed out after ${callTimeoutMs} ms`)), callTimeoutMs);
+      socket!.addEventListener("open", () => { clearTimeout(timeout); resolve(); }, { once: true });
+      socket!.addEventListener("error", () => { clearTimeout(timeout); reject(new Error("CDP socket failed to open")); }, { once: true });
+      socket!.addEventListener("close", () => { clearTimeout(timeout); reject(new Error("CDP socket closed before opening")); }, { once: true });
+    });
     let id = 0;
-    const pending = new Map<number, (message: any) => void>();
+    const pending = new Map<number, { resolve: (message: any) => void; reject: (error: Error) => void; timeout: ReturnType<typeof setTimeout> }>();
+    const rejectPending = (error: Error) => {
+      for (const [requestId, request] of pending) {
+        clearTimeout(request.timeout);
+        pending.delete(requestId);
+        request.reject(error);
+      }
+    };
     const errors: string[] = [];
     socket.addEventListener("message", (event) => {
       const message = JSON.parse(String(event.data));
-      if (message.id) pending.get(message.id)?.(message);
+      if (message.id) {
+        const request = pending.get(message.id);
+        if (request) {
+          clearTimeout(request.timeout);
+          pending.delete(message.id);
+          request.resolve(message);
+        }
+      }
       if (message.method === "Runtime.exceptionThrown") errors.push(message.params.exceptionDetails.exception?.description ?? message.params.exceptionDetails.text);
       if (message.method === "Runtime.consoleAPICalled" && message.params.type === "error") errors.push(message.params.args.map((arg: any) => arg.value ?? arg.description ?? "").join(" "));
       if (message.method === "Log.entryAdded") errors.push(message.params.entry.text);
     });
-    const send = (method: string, params: object = {}) => new Promise<any>((done) => { const requestId = ++id; pending.set(requestId, done); socket.send(JSON.stringify({ id: requestId, method, params })); });
+    socket.addEventListener("close", () => rejectPending(new Error("CDP socket closed")));
+    socket.addEventListener("error", () => rejectPending(new Error("CDP socket error")));
+    const send = (method: string, params: object = {}) => new Promise<any>((resolve, reject) => {
+      const requestId = ++id;
+      const timeout = setTimeout(() => {
+        pending.delete(requestId);
+        reject(new Error(`CDP ${method} timed out after ${callTimeoutMs} ms`));
+      }, callTimeoutMs);
+      pending.set(requestId, { resolve, reject, timeout });
+      try {
+        socket!.send(JSON.stringify({ id: requestId, method, params }));
+      } catch (error) {
+        clearTimeout(timeout);
+        pending.delete(requestId);
+        reject(error instanceof Error ? error : new Error(String(error)));
+      }
+    });
     await send("Runtime.enable");
     await send("Log.enable");
     await send("Page.enable");
@@ -128,6 +166,7 @@ async function profile(scratch: string, workload: string, destination: string): 
     socket.close();
     return { entries: mapProfile(raw, scratch).map((entry) => ({ ...entry, self: entry.self / profileIterations, total: entry.total / profileIterations })), profile: raw, path };
   } finally {
+    socket?.close();
     chrome.kill("SIGKILL");
     server.stop(true);
   }
