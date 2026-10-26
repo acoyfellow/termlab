@@ -3,6 +3,7 @@ import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, write
 import { homedir } from "node:os";
 import { join } from "node:path";
 import { freePort } from "./adapters";
+import { finishedAssistantUsage } from "./transcript-usage";
 
 type Candidate = { id: string; npm: string; readmeFrom: string; packageDir: string; canvas: boolean };
 
@@ -74,8 +75,7 @@ async function runAgent(dir: string, prompt: string): Promise<{ exitCode: number
       clearTimeout(timer);
       writeFileSync(join(dir, ".agent-transcript.jsonl"), transcript);
       const toolCalls = (transcript.match(/"type":"tool_execution_start"/g) ?? []).length;
-      const totals = [...transcript.matchAll(/"totalTokens":(\d+)/g)].map((m) => Number(m[1]));
-      const costs = [...transcript.matchAll(/"cost":\{[^}]*"total":([0-9.]+)/g)].map((m) => Number(m[1]));
+      const { totals, costs } = finishedAssistantUsage(transcript);
       resolve({ exitCode: code, ms: performance.now() - t0, transcriptBytes: transcript.length, toolCalls, tokens: totals.reduce((a, b) => a + b, 0), costUsd: Math.round(costs.reduce((a, b) => a + b, 0) * 1000) / 1000 });
     });
   });
