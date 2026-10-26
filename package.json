@@ -24,7 +24,7 @@
   "dependencies": {
     "@beamterm/renderer": "1.0.0",
     "@wterm/core": "^0.5.4",
-    "@wterm/dom": "^0.5.4",
+    "@wterm/dom": "0.5.5",
     "@xterm/addon-canvas": "^0.7.0",
     "@xterm/addon-fit": "^0.11.0",
     "@xterm/addon-webgl": "^0.19.0",

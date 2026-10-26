@@ -7,7 +7,7 @@
       "dependencies": {
         "@beamterm/renderer": "1.0.0",
         "@wterm/core": "^0.5.4",
-        "@wterm/dom": "^0.5.4",
+        "@wterm/dom": "0.5.5",
         "@xterm/addon-canvas": "^0.7.0",
         "@xterm/addon-fit": "^0.11.0",
         "@xterm/addon-webgl": "^0.19.0",
@@ -245,7 +245,7 @@
 
     "@wterm/core": ["@wterm/core@0.5.4", "", {}, "sha512-yIhbn27ELHDjEDtduDIycHWEEaobJGhqR+WqKgCoSPYReCIrR+skJS67PBk3Wp6+yLImfQ3Fv1CJ4hLXKLa7Fg=="],
 
-    "@wterm/dom": ["@wterm/dom@0.5.4", "", { "dependencies": { "@wterm/core": "0.5.4" } }, "sha512-9zxZq52BFpBtVEkBEbZF5a+9dX+eIADQdlTRq6YgGxHP/G/aDXyRja+tebQtAYqx9KY8qJVm20vNOhQxwBe/FQ=="],
+    "@wterm/dom": ["@wterm/dom@0.5.5", "", { "dependencies": { "@wterm/core": "0.5.5" } }, "sha512-eUSgc4a0/8WxYLpjp/4UgLUI9K/Ret5O8LKljx4swT0B1bcQpZtyxgt/LZ/Sp7DFxEB2eesgy4OSB0TQsmSS1A=="],
 
     "@xterm/addon-canvas": ["@xterm/addon-canvas@0.7.0", "", { "peerDependencies": { "@xterm/xterm": "^5.0.0" } }, "sha512-LF5LYcfvefJuJ7QotNRdRSPc9YASAVDeoT5uyXS/nZshZXjYplGXRECBGiznwvhNL2I8bq1Lf5MzRwstsYQ2Iw=="],
 
@@ -408,6 +408,8 @@
     "@cspotcode/source-map-support/@jridgewell/trace-mapping": ["@jridgewell/trace-mapping@0.3.9", "", { "dependencies": { "@jridgewell/resolve-uri": "^3.0.3", "@jridgewell/sourcemap-codec": "^1.4.10" } }, "sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ=="],
 
     "@img/sharp-wasm32/@emnapi/runtime": ["@emnapi/runtime@1.9.2", "", { "dependencies": { "tslib": "^2.4.0" } }, "sha512-3U4+MIWHImeyu1wnmVygh5WlgfYDtyf0k8AbLhMFxOipihf6nrWC4syIm/SwEeec0mNSafiiNnMJwbza/Is6Lw=="],
+
+    "@wterm/dom/@wterm/core": ["@wterm/core@0.5.5", "", {}, "sha512-0dvlZuXMDFvaGr1B0wPqXx8qw5UVfE3gc/BkhpLd0t9zsYdmiIRJPEFmEJkFxzIQlffPbnEP5sQ6iT+XyjT1pg=="],
 
     "youch/cookie": ["cookie@1.1.1", "", {}, "sha512-ei8Aos7ja0weRpFzJnEA9UHJ/7XQmqglbRwnf2ATjcB9Wq874VKH9kfjjirM6UhU2/E5fFYadylyhFldcqSidQ=="],
   }
