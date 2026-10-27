@@ -12,7 +12,9 @@
   const ratio = (value: number, minimum: number) => `${(value / minimum).toFixed(1)}×`;
   const cloudterm = results.terminals.find((terminal) => terminal.id === 'cloudterm')!;
   const verifiedLows = Object.fromEntries(workloads.map((workload) => [workload, lowest(workload)])) as Record<Workload, number>;
-  const withinFrame = workloads.filter((workload) => cloudterm.timings[workload].medianMs - verifiedLows[workload] <= 17).length;
+  const leaders = (workload: Workload) => results.terminals.filter((terminal) => verified(terminal) && terminal.timings[workload].medianMs === verifiedLows[workload]).map((terminal) => `${terminal.id} ${terminal.version}`).join(' and ');
+  const cloudtermRank = (workload: Workload) => 1 + results.terminals.filter((terminal) => verified(terminal) && terminal.timings[workload].medianMs < cloudterm.timings[workload].medianMs).length;
+  const verifiedCount = results.terminals.filter(verified).length;
   const excluded = [
     { name: 'xterm.js + canvas', url: 'https://www.npmjs.com/package/@xterm/addon-canvas', reason: 'addon-canvas declares a peer dependency on xterm 5; its timing beside xterm 6 would not be like-for-like.' },
     { name: 'beamterm', url: 'https://github.com/junkdog/beamterm', reason: 'a WebGL2 cell renderer with no VT/ANSI parser; these workloads do not apply.' },
@@ -27,7 +29,7 @@
   <h2 id="summary-title"><span>1</span> Summary of findings</h2>
   <div class="summary" data-verdict>
     <ol>
-      <li>cloudterm {cloudterm.version} is within 17 ms of the lowest verified median on {withinFrame}/{workloads.length} workload measures: {#each workloads as workload, index}{cloudterm.timings[workload].medianMs} ms {labels[workload].toLowerCase()}{index < workloads.length - 1 ? '; ' : '.'}{/each}</li>
+      {#each workloads as workload (workload)}<li>{labels[workload]}: lowest verified median is {leaders(workload)} at {verifiedLows[workload]} ms. cloudterm {cloudterm.version} is {cloudterm.timings[workload].medianMs} ms, position {cloudtermRank(workload)} of {verifiedCount} verified terminals.</li>{/each}
       <li>cloudterm mount time is {cloudterm.mountMs} ms. Its bundle is {Math.round(cloudterm.gzipBytes / 1024)} KB gzip and its heap measurement is {cloudterm.heapMB} MB.</li>
       <li>Measured terminal count: {results.terminals.length}. One terminal has unverified timing status.</li>
     </ol>
