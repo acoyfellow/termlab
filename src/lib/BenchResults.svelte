@@ -15,6 +15,7 @@
   const leaders = (workload: Workload) => results.terminals.filter((terminal) => verified(terminal) && terminal.timings[workload].medianMs === verifiedLows[workload]).map((terminal) => `${terminal.id} ${terminal.version}`).join(' and ');
   const cloudtermRank = (workload: Workload) => 1 + results.terminals.filter((terminal) => verified(terminal) && terminal.timings[workload].medianMs < cloudterm.timings[workload].medianMs).length;
   const verifiedCount = results.terminals.filter(verified).length;
+  const ranked = (workload: Workload) => [...results.terminals].sort((a, b) => Number(!verified(a)) - Number(!verified(b)) || a.timings[workload].medianMs - b.timings[workload].medianMs);
   const excluded = [
     { name: 'xterm.js + canvas', url: 'https://www.npmjs.com/package/@xterm/addon-canvas', reason: 'addon-canvas declares a peer dependency on xterm 5; its timing beside xterm 6 would not be like-for-like.' },
     { name: 'beamterm', url: 'https://github.com/junkdog/beamterm', reason: 'a WebGL2 cell renderer with no VT/ANSI parser; these workloads do not apply.' },
@@ -55,18 +56,20 @@
   {#each workloads as workload, tableNumber (workload)}
     {@const minimum = verifiedLows[workload]}
     <figure>
-      <figcaption>Table {tableNumber + 1}. {labels[workload]} median wall time, ms, {results.rounds} rounds. Lower is faster.</figcaption>
+      <figcaption>Table {tableNumber + 1}. {labels[workload]} median wall time, ms, {results.rounds} rounds. Lower is faster. Sorted lowest first; the shaded row is the lowest verified median.</figcaption>
       <p class="workload-detail">{results.workloads[workload]}</p>
       <table>
-        <thead><tr><th>Terminal</th><th>Median (ms)</th><th>vs lowest (×)</th><th>Status</th></tr></thead>
+        <thead><tr><th>#</th><th>Terminal</th><th>Median (ms)</th><th>vs lowest (×)</th><th>Status</th></tr></thead>
         <tbody>
-          {#each results.terminals as terminal (terminal.id)}
+          {#each ranked(workload) as terminal, position (terminal.id)}
             {@const time = terminal.timings[workload].medianMs}
-            <tr class:cloudterm={terminal.id === 'cloudterm'}>
+            {@const isLowest = verified(terminal) && time === minimum}
+            <tr class:lowest={isLowest}>
+              <td>{terminal.unverifiedTiming ? '—' : position + 1}</td>
               <th>{terminal.id} <small>{terminal.version}</small></th>
               <td><span class="bar" style={`--bar: ${Math.max(4, (time / Math.max(...results.terminals.map((item) => item.timings[workload].medianMs))) * 100)}%`}></span>{time}</td>
               <td>{terminal.unverifiedTiming ? '—' : ratio(time, minimum)}</td>
-              <td>{terminal.unverifiedTiming ? 'unverified' : time === minimum ? 'lowest' : 'verified'}</td>
+              <td>{terminal.unverifiedTiming ? 'unverified' : isLowest ? 'lowest' : 'verified'}</td>
             </tr>
           {/each}
         </tbody>
@@ -101,7 +104,7 @@
   section { margin-top: 30px; } h2 { color: #202831; font-size: 19px; font-weight: 600; margin: 0 0 10px; } h2 span { color: #697582; font-weight: 500; margin-right: 8px; }
   .summary { border-top: 1px solid #aeb7c0; border-bottom: 1px solid #cfd4da; padding: 12px 0; color: #28323c; font-size: 14px; line-height: 1.55; } ol { margin: 0; padding-left: 23px; } li + li { margin-top: 7px; }
   .method { border-top: 1px solid #cfd4da; padding-top: 16px; } dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 0; border: 1px solid #cfd4da; } dl div { display: grid; grid-template-columns: 115px 1fr; border-bottom: 1px solid #dce1e5; } dl div:nth-last-child(-n+1) { border-bottom: 0; } dt, dd { margin: 0; padding: 7px 9px; font-size: 12px; line-height: 1.35; } dt { background: #f0f2f4; color: #57616b; font-weight: 600; } dd { color: #29323b; } .method > p, .workload-detail { color: #59636d; font-size: 12px; line-height: 1.5; }
-  figure { margin: 18px 0 0; } figcaption { color: #35414d; font-size: 13px; font-weight: 600; } .workload-detail { margin: 4px 0 7px; } table { width: 100%; border-collapse: collapse; font-size: 12px; } th, td { border: 1px solid #d5dbe0; padding: 7px 8px; text-align: left; vertical-align: middle; } thead { background: #eef1f3; color: #46515c; } tbody th { color: #26313b; font-weight: 600; } tbody tr.cloudterm { background: #edf4fa; } small { color: #65707b; font-family: ui-monospace, monospace; font-size: 10px; font-weight: 400; } tr.cloudterm > th, tr.cloudterm > td { color: #202831; } .bar { display: inline-block; width: var(--bar); max-width: 48px; height: 5px; margin: 0 6px 1px 0; background: #aeb7c0; } .cloudterm .bar { background: #4f82a7; }
+  figure { margin: 18px 0 0; } figcaption { color: #35414d; font-size: 13px; font-weight: 600; } .workload-detail { margin: 4px 0 7px; } table { width: 100%; border-collapse: collapse; font-size: 12px; } th, td { border: 1px solid #d5dbe0; padding: 7px 8px; text-align: left; vertical-align: middle; } thead { background: #eef1f3; color: #46515c; } tbody th { color: #26313b; font-weight: 600; } tbody tr.lowest { background: #edf4fa; } small { color: #65707b; font-family: ui-monospace, monospace; font-size: 10px; font-weight: 400; } tr.lowest > th, tr.lowest > td { color: #202831; } .bar { display: inline-block; width: var(--bar); max-width: 48px; height: 5px; margin: 0 6px 1px 0; background: #aeb7c0; } .lowest .bar { background: #4f82a7; }
   .notes, .excluded { border-top: 1px solid #cfd4da; padding-top: 16px; color: #4e5963; font-size: 13px; line-height: 1.5; } details { margin-top: 12px; border: 1px solid #d5dbe0; padding: 8px 10px; } summary { color: #35414d; cursor: pointer; font-weight: 600; } details ul { margin: 10px 0 0; padding-left: 18px; } a { color: #315f82; }
   @media (max-width: 600px) { dl { grid-template-columns: 1fr; } dl div { grid-template-columns: 96px 1fr; } dl div:not(:last-child) { border-bottom: 1px solid #dce1e5; } .results { overflow: hidden; } th, td { padding: 6px 5px; } small { display: block; overflow-wrap: anywhere; } }
 </style>
