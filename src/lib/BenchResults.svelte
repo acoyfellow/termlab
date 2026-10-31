@@ -61,11 +61,11 @@
       <table>
         <thead><tr><th>#</th><th>Terminal</th><th>Median (ms)</th><th>vs lowest (×)</th><th>Status</th></tr></thead>
         <tbody>
-          {#each ranked(workload) as terminal, position (terminal.id)}
+          {#each ranked(workload) as terminal (terminal.id)}
             {@const time = terminal.timings[workload].medianMs}
             {@const isLowest = verified(terminal) && time === minimum}
             <tr class:lowest={isLowest}>
-              <td>{terminal.unverifiedTiming ? '—' : position + 1}</td>
+              <td>{terminal.unverifiedTiming ? '—' : 1 + results.terminals.filter((other) => verified(other) && other.timings[workload].medianMs < time).length}</td>
               <th>{terminal.id} <small>{terminal.version}</small></th>
               <td><span class="bar" style={`--bar: ${Math.max(4, (time / Math.max(...results.terminals.map((item) => item.timings[workload].medianMs))) * 100)}%`}></span>{time}</td>
               <td>{terminal.unverifiedTiming ? '—' : ratio(time, minimum)}</td>

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-27T13:20:22.502Z",
+  "generatedAt": "2026-10-31T14:03:34.008Z",
   "rounds": 5,
   "browser": "Google Chrome for Testing 156.0.8078.4",
   "gpu": "hardware GPU, ANGLE Metal (Apple M4 Pro)",
@@ -13,37 +13,37 @@
   "terminals": [
     {
       "id": "cloudterm",
-      "version": "0.0.15",
+      "version": "0.0.16",
       "timings": {
         "scroll-flood": {
-          "medianMs": 87,
+          "medianMs": 66,
           "samplesMs": [
-            100,
-            90,
-            87,
-            83,
-            87
+            65,
+            58,
+            70,
+            66,
+            67
           ],
           "failures": 0,
           "cpuMs": {
-            "medianMs": 68.96,
-            "minMs": 68.08,
-            "maxMs": 71.07
+            "medianMs": 39.71,
+            "minMs": 38.6,
+            "maxMs": 40.49
           },
           "scriptMs": {
-            "medianMs": 0.95,
-            "minMs": 0.93,
-            "maxMs": 1.24
+            "medianMs": 1.21,
+            "minMs": 1.19,
+            "maxMs": 1.26
           },
           "styleLayoutMs": {
-            "medianMs": 0.64,
+            "medianMs": 0.63,
             "minMs": 0.61,
-            "maxMs": 0.73
+            "maxMs": 0.64
           },
           "paintMs": {
             "medianMs": 0.94,
-            "minMs": 0.87,
-            "maxMs": 1.05
+            "minMs": 0.88,
+            "maxMs": 1.02
           },
           "frames": {
             "medianMs": 3,
@@ -51,432 +51,9 @@
             "maxMs": 3
           },
           "longestTaskMs": {
-            "medianMs": 68.7,
-            "minMs": 67.84,
-            "maxMs": 70.87
-          }
-        },
-        "full-redraw": {
-          "medianMs": 70,
-          "samplesMs": [
-            73,
-            71,
-            67,
-            59,
-            70
-          ],
-          "failures": 0,
-          "cpuMs": {
-            "medianMs": 40.16,
-            "minMs": 39.38,
-            "maxMs": 42
-          },
-          "scriptMs": {
-            "medianMs": 0.54,
-            "minMs": 0.52,
-            "maxMs": 0.59
-          },
-          "styleLayoutMs": {
-            "medianMs": 0.32,
-            "minMs": 0.31,
-            "maxMs": 0.37
-          },
-          "paintMs": {
-            "medianMs": 0.66,
-            "minMs": 0.64,
-            "maxMs": 0.7
-          },
-          "frames": {
-            "medianMs": 3,
-            "minMs": 3,
-            "maxMs": 3
-          },
-          "longestTaskMs": {
-            "medianMs": 40.03,
-            "minMs": 39.22,
-            "maxMs": 41.85
-          }
-        },
-        "sgr-tokens": {
-          "medianMs": 53,
-          "samplesMs": [
-            50,
-            54,
-            53,
-            69,
-            49
-          ],
-          "failures": 0,
-          "cpuMs": {
-            "medianMs": 33.38,
-            "minMs": 32.73,
-            "maxMs": 34.05
-          },
-          "scriptMs": {
-            "medianMs": 6.39,
-            "minMs": 6.21,
-            "maxMs": 6.43
-          },
-          "styleLayoutMs": {
-            "medianMs": 4.79,
-            "minMs": 4.67,
-            "maxMs": 4.9
-          },
-          "paintMs": {
-            "medianMs": 5.13,
-            "minMs": 5.08,
-            "maxMs": 5.18
-          },
-          "frames": {
-            "medianMs": 3,
-            "minMs": 3,
-            "maxMs": 3
-          },
-          "longestTaskMs": {
-            "medianMs": 32.98,
-            "minMs": 32.38,
-            "maxMs": 33.66
-          }
-        }
-      },
-      "traceOverheadPct": {
-        "scroll-flood": 2.4,
-        "full-redraw": -4.3,
-        "sgr-tokens": 1.1
-      },
-      "mountMs": 13,
-      "heapMB": 42,
-      "gzipBytes": 27575,
-      "textInDom": true,
-      "canvas": false,
-      "renderer": null,
-      "unverifiedTiming": null
-    },
-    {
-      "id": "xterm-dom",
-      "version": "6.0.0",
-      "timings": {
-        "scroll-flood": {
-          "medianMs": 149,
-          "samplesMs": [
-            166,
-            166,
-            149,
-            149,
-            137
-          ],
-          "failures": 0,
-          "cpuMs": {
-            "medianMs": 123.62,
-            "minMs": 120.34,
-            "maxMs": 127.27
-          },
-          "scriptMs": {
-            "medianMs": 114.36,
-            "minMs": 112.72,
-            "maxMs": 117.75
-          },
-          "styleLayoutMs": {
-            "medianMs": 4.35,
-            "minMs": 3.5,
-            "maxMs": 4.64
-          },
-          "paintMs": {
-            "medianMs": 3.01,
-            "minMs": 2.58,
-            "maxMs": 3.19
-          },
-          "frames": {
-            "medianMs": 20,
-            "minMs": 18,
-            "maxMs": 20
-          },
-          "longestTaskMs": {
-            "medianMs": 12.63,
-            "minMs": 12.55,
-            "maxMs": 12.72
-          }
-        },
-        "full-redraw": {
-          "medianMs": 99,
-          "samplesMs": [
-            100,
-            99,
-            100,
-            99,
-            99
-          ],
-          "failures": 0,
-          "cpuMs": {
-            "medianMs": 60.35,
-            "minMs": 59.66,
-            "maxMs": 63.82
-          },
-          "scriptMs": {
-            "medianMs": 56.18,
-            "minMs": 55.63,
-            "maxMs": 59.65
-          },
-          "styleLayoutMs": {
-            "medianMs": 1.93,
-            "minMs": 1.81,
-            "maxMs": 2.2
-          },
-          "paintMs": {
-            "medianMs": 1.38,
-            "minMs": 1.34,
-            "maxMs": 1.45
-          },
-          "frames": {
-            "medianMs": 6,
-            "minMs": 6,
-            "maxMs": 6
-          },
-          "longestTaskMs": {
-            "medianMs": 12.18,
-            "minMs": 12.11,
-            "maxMs": 13.03
-          }
-        },
-        "sgr-tokens": {
-          "medianMs": 68,
-          "samplesMs": [
-            49,
-            73,
-            68,
-            85,
-            49
-          ],
-          "failures": 0,
-          "cpuMs": {
-            "medianMs": 65.98,
-            "minMs": 51.84,
-            "maxMs": 68.77
-          },
-          "scriptMs": {
-            "medianMs": 46.1,
-            "minMs": 42.67,
-            "maxMs": 47.96
-          },
-          "styleLayoutMs": {
-            "medianMs": 18.49,
-            "minMs": 11.37,
-            "maxMs": 18.94
-          },
-          "paintMs": {
-            "medianMs": 9.45,
-            "minMs": 4.33,
-            "maxMs": 10.4
-          },
-          "frames": {
-            "medianMs": 8,
-            "minMs": 6,
-            "maxMs": 8
-          },
-          "longestTaskMs": {
-            "medianMs": 13.07,
-            "minMs": 12.24,
-            "maxMs": 13.41
-          }
-        }
-      },
-      "traceOverheadPct": {
-        "scroll-flood": 14.5,
-        "full-redraw": -3.1,
-        "sgr-tokens": 26.7
-      },
-      "mountMs": 16,
-      "heapMB": 54,
-      "gzipBytes": 87643,
-      "textInDom": true,
-      "canvas": false,
-      "renderer": null,
-      "unverifiedTiming": null
-    },
-    {
-      "id": "xterm-webgl",
-      "version": "6.0.0 + webgl 0.19.0",
-      "timings": {
-        "scroll-flood": {
-          "medianMs": 155,
-          "samplesMs": [
-            150,
-            171,
-            155,
-            156,
-            155
-          ],
-          "failures": 0,
-          "cpuMs": {
-            "medianMs": 128.65,
-            "minMs": 125.72,
-            "maxMs": 130.72
-          },
-          "scriptMs": {
-            "medianMs": 122.83,
-            "minMs": 120.87,
-            "maxMs": 124.91
-          },
-          "styleLayoutMs": {
-            "medianMs": 1.26,
-            "minMs": 1.08,
-            "maxMs": 1.31
-          },
-          "paintMs": {
-            "medianMs": 1.55,
-            "minMs": 1.31,
-            "maxMs": 1.66
-          },
-          "frames": {
-            "medianMs": 22,
-            "minMs": 20,
-            "maxMs": 23
-          },
-          "longestTaskMs": {
-            "medianMs": 12.54,
-            "minMs": 12.37,
-            "maxMs": 12.79
-          }
-        },
-        "full-redraw": {
-          "medianMs": 106,
-          "samplesMs": [
-            106,
-            106,
-            107,
-            106,
-            105
-          ],
-          "failures": 0,
-          "cpuMs": {
-            "medianMs": 68.92,
-            "minMs": 67.14,
-            "maxMs": 70.33
-          },
-          "scriptMs": {
-            "medianMs": 65.53,
-            "minMs": 64.05,
-            "maxMs": 66.84
-          },
-          "styleLayoutMs": {
-            "medianMs": 0.51,
-            "minMs": 0.49,
-            "maxMs": 0.57
-          },
-          "paintMs": {
-            "medianMs": 0.66,
-            "minMs": 0.63,
-            "maxMs": 0.74
-          },
-          "frames": {
-            "medianMs": 6,
-            "minMs": 6,
-            "maxMs": 6
-          },
-          "longestTaskMs": {
-            "medianMs": 12.9,
-            "minMs": 12.08,
-            "maxMs": 13.42
-          }
-        },
-        "sgr-tokens": {
-          "medianMs": 57,
-          "samplesMs": [
-            57,
-            57,
-            40,
-            55,
-            72
-          ],
-          "failures": 0,
-          "cpuMs": {
-            "medianMs": 42.03,
-            "minMs": 39.06,
-            "maxMs": 43.83
-          },
-          "scriptMs": {
-            "medianMs": 39.8,
-            "minMs": 37.08,
-            "maxMs": 41.47
-          },
-          "styleLayoutMs": {
-            "medianMs": 0.52,
-            "minMs": 0.49,
-            "maxMs": 0.54
-          },
-          "paintMs": {
-            "medianMs": 0.63,
-            "minMs": 0.6,
-            "maxMs": 0.75
-          },
-          "frames": {
-            "medianMs": 8,
-            "minMs": 8,
-            "maxMs": 8
-          },
-          "longestTaskMs": {
-            "medianMs": 12.26,
-            "minMs": 12.16,
-            "maxMs": 12.29
-          }
-        }
-      },
-      "traceOverheadPct": {
-        "scroll-flood": 19.4,
-        "full-redraw": -1.9,
-        "sgr-tokens": 0
-      },
-      "mountMs": 27,
-      "heapMB": 56,
-      "gzipBytes": 122768,
-      "textInDom": false,
-      "canvas": true,
-      "renderer": "webgl",
-      "unverifiedTiming": null
-    },
-    {
-      "id": "wterm",
-      "version": "0.5.6",
-      "timings": {
-        "scroll-flood": {
-          "medianMs": 67,
-          "samplesMs": [
-            67,
-            67,
-            67,
-            67,
-            66
-          ],
-          "failures": 0,
-          "cpuMs": {
-            "medianMs": 45.71,
-            "minMs": 44.08,
-            "maxMs": 46.04
-          },
-          "scriptMs": {
-            "medianMs": 2.37,
-            "minMs": 2.11,
-            "maxMs": 2.57
-          },
-          "styleLayoutMs": {
-            "medianMs": 0.44,
-            "minMs": 0.4,
-            "maxMs": 0.52
-          },
-          "paintMs": {
-            "medianMs": 0.31,
-            "minMs": 0.29,
-            "maxMs": 0.34
-          },
-          "frames": {
-            "medianMs": 3,
-            "minMs": 3,
-            "maxMs": 3
-          },
-          "longestTaskMs": {
-            "medianMs": 43.32,
-            "minMs": 42.06,
-            "maxMs": 43.72
+            "medianMs": 39.5,
+            "minMs": 38.39,
+            "maxMs": 40.21
           }
         },
         "full-redraw": {
@@ -490,24 +67,24 @@
           ],
           "failures": 0,
           "cpuMs": {
-            "medianMs": 27.26,
-            "minMs": 26.03,
-            "maxMs": 28.01
+            "medianMs": 24.83,
+            "minMs": 24.32,
+            "maxMs": 25.32
           },
           "scriptMs": {
-            "medianMs": 2.27,
-            "minMs": 2.01,
-            "maxMs": 2.39
+            "medianMs": 0.84,
+            "minMs": 0.76,
+            "maxMs": 0.91
           },
           "styleLayoutMs": {
-            "medianMs": 0.43,
-            "minMs": 0.4,
-            "maxMs": 0.48
+            "medianMs": 0.33,
+            "minMs": 0.32,
+            "maxMs": 0.35
           },
           "paintMs": {
-            "medianMs": 0.32,
-            "minMs": 0.31,
-            "maxMs": 0.38
+            "medianMs": 0.69,
+            "minMs": 0.67,
+            "maxMs": 0.71
           },
           "frames": {
             "medianMs": 3,
@@ -515,39 +92,380 @@
             "maxMs": 3
           },
           "longestTaskMs": {
-            "medianMs": 25.02,
-            "minMs": 24.16,
-            "maxMs": 25.85
+            "medianMs": 24.62,
+            "minMs": 24.15,
+            "maxMs": 25.16
           }
         },
         "sgr-tokens": {
-          "medianMs": 50,
+          "medianMs": 55,
           "samplesMs": [
-            63,
-            43,
-            50,
-            50,
-            50
+            61,
+            55,
+            67,
+            51,
+            49
           ],
           "failures": 0,
           "cpuMs": {
-            "medianMs": 19.83,
-            "minMs": 19.15,
-            "maxMs": 20.5
+            "medianMs": 33.05,
+            "minMs": 32.1,
+            "maxMs": 37.57
           },
           "scriptMs": {
-            "medianMs": 7.37,
-            "minMs": 7.08,
-            "maxMs": 8.1
+            "medianMs": 7.1,
+            "minMs": 6.83,
+            "maxMs": 7.42
           },
           "styleLayoutMs": {
-            "medianMs": 2.96,
-            "minMs": 2.95,
-            "maxMs": 3.25
+            "medianMs": 4.89,
+            "minMs": 4.72,
+            "maxMs": 6.1
+          },
+          "paintMs": {
+            "medianMs": 5.28,
+            "minMs": 5.14,
+            "maxMs": 5.55
+          },
+          "frames": {
+            "medianMs": 3,
+            "minMs": 3,
+            "maxMs": 3
+          },
+          "longestTaskMs": {
+            "medianMs": 32.66,
+            "minMs": 31.7,
+            "maxMs": 37.14
+          }
+        }
+      },
+      "traceOverheadPct": {
+        "scroll-flood": 5.8,
+        "full-redraw": -1.6,
+        "sgr-tokens": -6
+      },
+      "mountMs": 15,
+      "heapMB": 43,
+      "gzipBytes": 28544,
+      "textInDom": true,
+      "canvas": false,
+      "renderer": null,
+      "unverifiedTiming": null
+    },
+    {
+      "id": "xterm-dom",
+      "version": "6.0.0",
+      "timings": {
+        "scroll-flood": {
+          "medianMs": 166,
+          "samplesMs": [
+            157,
+            169,
+            166,
+            165,
+            166
+          ],
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 128.27,
+            "minMs": 127.04,
+            "maxMs": 133.66
+          },
+          "scriptMs": {
+            "medianMs": 119.21,
+            "minMs": 117.43,
+            "maxMs": 124.1
+          },
+          "styleLayoutMs": {
+            "medianMs": 4.56,
+            "minMs": 4.38,
+            "maxMs": 4.68
+          },
+          "paintMs": {
+            "medianMs": 3.13,
+            "minMs": 2.97,
+            "maxMs": 3.28
+          },
+          "frames": {
+            "medianMs": 20,
+            "minMs": 20,
+            "maxMs": 20
+          },
+          "longestTaskMs": {
+            "medianMs": 12.61,
+            "minMs": 12.4,
+            "maxMs": 13.1
+          }
+        },
+        "full-redraw": {
+          "medianMs": 99,
+          "samplesMs": [
+            97,
+            99,
+            98,
+            100,
+            99
+          ],
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 61.9,
+            "minMs": 61.01,
+            "maxMs": 171.72
+          },
+          "scriptMs": {
+            "medianMs": 57.47,
+            "minMs": 56.56,
+            "maxMs": 159.9
+          },
+          "styleLayoutMs": {
+            "medianMs": 2.02,
+            "minMs": 1.97,
+            "maxMs": 5.58
+          },
+          "paintMs": {
+            "medianMs": 1.43,
+            "minMs": 1.34,
+            "maxMs": 4.24
+          },
+          "frames": {
+            "medianMs": 6,
+            "minMs": 6,
+            "maxMs": 14
+          },
+          "longestTaskMs": {
+            "medianMs": 12.96,
+            "minMs": 12.16,
+            "maxMs": 13.04
+          }
+        },
+        "sgr-tokens": {
+          "medianMs": 65,
+          "samplesMs": [
+            65,
+            66,
+            63,
+            65,
+            66
+          ],
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 55.26,
+            "minMs": 54.07,
+            "maxMs": 68.26
+          },
+          "scriptMs": {
+            "medianMs": 45.28,
+            "minMs": 44.45,
+            "maxMs": 48.94
+          },
+          "styleLayoutMs": {
+            "medianMs": 12.02,
+            "minMs": 11.46,
+            "maxMs": 18
+          },
+          "paintMs": {
+            "medianMs": 4.74,
+            "minMs": 4.67,
+            "maxMs": 9.35
+          },
+          "frames": {
+            "medianMs": 6,
+            "minMs": 6,
+            "maxMs": 8
+          },
+          "longestTaskMs": {
+            "medianMs": 12.28,
+            "minMs": 12.2,
+            "maxMs": 13.36
+          }
+        }
+      },
+      "traceOverheadPct": {
+        "scroll-flood": 9.6,
+        "full-redraw": -0.9,
+        "sgr-tokens": 21.6
+      },
+      "mountMs": 17,
+      "heapMB": 54,
+      "gzipBytes": 87643,
+      "textInDom": true,
+      "canvas": false,
+      "renderer": null,
+      "unverifiedTiming": null
+    },
+    {
+      "id": "xterm-webgl",
+      "version": "6.0.0 + webgl 0.19.0",
+      "timings": {
+        "scroll-flood": {
+          "medianMs": 168,
+          "samplesMs": [
+            162,
+            155,
+            168,
+            169,
+            183
+          ],
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 133.1,
+            "minMs": 131.56,
+            "maxMs": 134.92
+          },
+          "scriptMs": {
+            "medianMs": 127.03,
+            "minMs": 125.97,
+            "maxMs": 128.83
+          },
+          "styleLayoutMs": {
+            "medianMs": 1.33,
+            "minMs": 1.33,
+            "maxMs": 1.48
+          },
+          "paintMs": {
+            "medianMs": 1.61,
+            "minMs": 1.53,
+            "maxMs": 1.67
+          },
+          "frames": {
+            "medianMs": 22,
+            "minMs": 22,
+            "maxMs": 22
+          },
+          "longestTaskMs": {
+            "medianMs": 12.67,
+            "minMs": 12.31,
+            "maxMs": 12.77
+          }
+        },
+        "full-redraw": {
+          "medianMs": 106,
+          "samplesMs": [
+            108,
+            106,
+            135,
+            101,
+            103
+          ],
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 68.37,
+            "minMs": 68.29,
+            "maxMs": 73.58
+          },
+          "scriptMs": {
+            "medianMs": 65.74,
+            "minMs": 65.13,
+            "maxMs": 69.82
+          },
+          "styleLayoutMs": {
+            "medianMs": 0.56,
+            "minMs": 0.54,
+            "maxMs": 0.71
+          },
+          "paintMs": {
+            "medianMs": 0.69,
+            "minMs": 0.64,
+            "maxMs": 0.84
+          },
+          "frames": {
+            "medianMs": 6,
+            "minMs": 6,
+            "maxMs": 7
+          },
+          "longestTaskMs": {
+            "medianMs": 12.16,
+            "minMs": 12.04,
+            "maxMs": 12.18
+          }
+        },
+        "sgr-tokens": {
+          "medianMs": 71,
+          "samplesMs": [
+            71,
+            71,
+            64,
+            73,
+            71
+          ],
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 43.68,
+            "minMs": 42.31,
+            "maxMs": 47.64
+          },
+          "scriptMs": {
+            "medianMs": 41.48,
+            "minMs": 40.02,
+            "maxMs": 45.34
+          },
+          "styleLayoutMs": {
+            "medianMs": 0.57,
+            "minMs": 0.54,
+            "maxMs": 0.6
+          },
+          "paintMs": {
+            "medianMs": 0.66,
+            "minMs": 0.59,
+            "maxMs": 0.71
+          },
+          "frames": {
+            "medianMs": 8,
+            "minMs": 8,
+            "maxMs": 8
+          },
+          "longestTaskMs": {
+            "medianMs": 12.29,
+            "minMs": 12.07,
+            "maxMs": 12.33
+          }
+        }
+      },
+      "traceOverheadPct": {
+        "scroll-flood": 9.7,
+        "full-redraw": -4.7,
+        "sgr-tokens": -3.1
+      },
+      "mountMs": 30,
+      "heapMB": 56,
+      "gzipBytes": 122768,
+      "textInDom": false,
+      "canvas": true,
+      "renderer": "webgl",
+      "unverifiedTiming": null
+    },
+    {
+      "id": "wterm",
+      "version": "0.5.6",
+      "timings": {
+        "scroll-flood": {
+          "medianMs": 66,
+          "samplesMs": [
+            66,
+            67,
+            67,
+            66,
+            66
+          ],
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 46.05,
+            "minMs": 45.11,
+            "maxMs": 47.26
+          },
+          "scriptMs": {
+            "medianMs": 2.32,
+            "minMs": 2.2,
+            "maxMs": 2.47
+          },
+          "styleLayoutMs": {
+            "medianMs": 0.43,
+            "minMs": 0.41,
+            "maxMs": 0.47
           },
           "paintMs": {
             "medianMs": 0.33,
-            "minMs": 0.3,
+            "minMs": 0.32,
             "maxMs": 0.35
           },
           "frames": {
@@ -556,16 +474,98 @@
             "maxMs": 3
           },
           "longestTaskMs": {
-            "medianMs": 11.92,
-            "minMs": 11.4,
-            "maxMs": 12.19
+            "medianMs": 43.95,
+            "minMs": 42.82,
+            "maxMs": 45.05
+          }
+        },
+        "full-redraw": {
+          "medianMs": 50,
+          "samplesMs": [
+            49,
+            51,
+            50,
+            50,
+            50
+          ],
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 28.16,
+            "minMs": 26.9,
+            "maxMs": 28.45
+          },
+          "scriptMs": {
+            "medianMs": 2.32,
+            "minMs": 2.06,
+            "maxMs": 2.42
+          },
+          "styleLayoutMs": {
+            "medianMs": 0.46,
+            "minMs": 0.43,
+            "maxMs": 0.53
+          },
+          "paintMs": {
+            "medianMs": 0.33,
+            "minMs": 0.32,
+            "maxMs": 0.4
+          },
+          "frames": {
+            "medianMs": 3,
+            "minMs": 3,
+            "maxMs": 3
+          },
+          "longestTaskMs": {
+            "medianMs": 26.02,
+            "minMs": 24.99,
+            "maxMs": 26.36
+          }
+        },
+        "sgr-tokens": {
+          "medianMs": 49,
+          "samplesMs": [
+            51,
+            49,
+            50,
+            47,
+            49
+          ],
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 20.58,
+            "minMs": 19.47,
+            "maxMs": 21.44
+          },
+          "scriptMs": {
+            "medianMs": 8.04,
+            "minMs": 7.32,
+            "maxMs": 8.33
+          },
+          "styleLayoutMs": {
+            "medianMs": 3.08,
+            "minMs": 2.94,
+            "maxMs": 3.11
+          },
+          "paintMs": {
+            "medianMs": 0.34,
+            "minMs": 0.31,
+            "maxMs": 0.43
+          },
+          "frames": {
+            "medianMs": 3,
+            "minMs": 3,
+            "maxMs": 3
+          },
+          "longestTaskMs": {
+            "medianMs": 12.32,
+            "minMs": 11.97,
+            "maxMs": 12.98
           }
         }
       },
       "traceOverheadPct": {
-        "scroll-flood": 8.7,
-        "full-redraw": 11,
-        "sgr-tokens": -10
+        "scroll-flood": 13.2,
+        "full-redraw": 10.8,
+        "sgr-tokens": -22.9
       },
       "mountMs": 16,
       "heapMB": 37,
@@ -580,24 +580,24 @@
       "version": "0.4.0",
       "timings": {
         "scroll-flood": {
-          "medianMs": 150,
+          "medianMs": 151,
           "samplesMs": [
-            150,
-            150,
-            152,
-            150,
-            135
+            151,
+            135,
+            136,
+            151,
+            151
           ],
           "failures": 0,
           "cpuMs": {
-            "medianMs": 113.62,
-            "minMs": 109.38,
-            "maxMs": 115.1
+            "medianMs": 114.37,
+            "minMs": 112.68,
+            "maxMs": 116.13
           },
           "scriptMs": {
-            "medianMs": 5.96,
-            "minMs": 5.6,
-            "maxMs": 6.08
+            "medianMs": 5.94,
+            "minMs": 5.78,
+            "maxMs": 6.23
           },
           "styleLayoutMs": {
             "medianMs": 0,
@@ -605,9 +605,9 @@
             "maxMs": 0
           },
           "paintMs": {
-            "medianMs": 1.92,
-            "minMs": 1.91,
-            "maxMs": 2.15
+            "medianMs": 1.98,
+            "minMs": 1.94,
+            "maxMs": 2.09
           },
           "frames": {
             "medianMs": 571,
@@ -615,30 +615,30 @@
             "maxMs": 571
           },
           "longestTaskMs": {
-            "medianMs": 101.33,
-            "minMs": 98.7,
-            "maxMs": 102.67
+            "medianMs": 102.43,
+            "minMs": 100.77,
+            "maxMs": 103.83
           }
         },
         "full-redraw": {
-          "medianMs": 151,
+          "medianMs": 152,
           "samplesMs": [
-            151,
-            151,
-            154,
-            151,
-            153
+            167,
+            150,
+            150,
+            162,
+            152
           ],
           "failures": 0,
           "cpuMs": {
-            "medianMs": 123.28,
-            "minMs": 117.97,
-            "maxMs": 124.28
+            "medianMs": 125,
+            "minMs": 123.88,
+            "maxMs": 140.9
           },
           "scriptMs": {
-            "medianMs": 4.96,
-            "minMs": 4.78,
-            "maxMs": 5.3
+            "medianMs": 5.29,
+            "minMs": 5.03,
+            "maxMs": 7.62
           },
           "styleLayoutMs": {
             "medianMs": 0,
@@ -646,9 +646,9 @@
             "maxMs": 0
           },
           "paintMs": {
-            "medianMs": 2.6,
-            "minMs": 2.43,
-            "maxMs": 2.69
+            "medianMs": 2.63,
+            "minMs": 2.51,
+            "maxMs": 6.53
           },
           "frames": {
             "medianMs": 469,
@@ -656,30 +656,30 @@
             "maxMs": 469
           },
           "longestTaskMs": {
-            "medianMs": 111.33,
-            "minMs": 106.18,
-            "maxMs": 111.86
+            "medianMs": 112.79,
+            "minMs": 112.04,
+            "maxMs": 125.35
           }
         },
         "sgr-tokens": {
           "medianMs": 85,
           "samplesMs": [
+            86,
+            85,
+            82,
             83,
-            85,
-            70,
-            85,
-            85
+            87
           ],
           "failures": 0,
           "cpuMs": {
-            "medianMs": 44.2,
-            "minMs": 43.9,
-            "maxMs": 45.29
+            "medianMs": 46.7,
+            "minMs": 44.94,
+            "maxMs": 48.45
           },
           "scriptMs": {
-            "medianMs": 4.54,
-            "minMs": 4.43,
-            "maxMs": 4.77
+            "medianMs": 4.84,
+            "minMs": 4.63,
+            "maxMs": 5.05
           },
           "styleLayoutMs": {
             "medianMs": 0,
@@ -687,9 +687,9 @@
             "maxMs": 0
           },
           "paintMs": {
-            "medianMs": 1.87,
-            "minMs": 1.76,
-            "maxMs": 1.94
+            "medianMs": 1.93,
+            "minMs": 1.92,
+            "maxMs": 2.14
           },
           "frames": {
             "medianMs": 84,
@@ -697,18 +697,18 @@
             "maxMs": 84
           },
           "longestTaskMs": {
-            "medianMs": 35.12,
-            "minMs": 34.73,
-            "maxMs": 35.6
+            "medianMs": 36.92,
+            "minMs": 35.36,
+            "maxMs": 38.04
           }
         }
       },
       "traceOverheadPct": {
-        "scroll-flood": -1.9,
-        "full-redraw": -0.7,
-        "sgr-tokens": -15.9
+        "scroll-flood": -1.3,
+        "full-redraw": -1.9,
+        "sgr-tokens": -8.2
       },
-      "mountMs": 14,
+      "mountMs": 15,
       "heapMB": 39,
       "gzipBytes": 184556,
       "textInDom": false,
@@ -721,34 +721,34 @@
       "version": "6.1.0-beta.304",
       "timings": {
         "scroll-flood": {
-          "medianMs": 150,
+          "medianMs": 153,
           "samplesMs": [
-            150,
-            150,
-            150,
-            166,
-            154
+            151,
+            153,
+            156,
+            165,
+            150
           ],
           "failures": 0,
           "cpuMs": {
-            "medianMs": 127.22,
-            "minMs": 118.79,
-            "maxMs": 128.93
+            "medianMs": 127.53,
+            "minMs": 126.38,
+            "maxMs": 133
           },
           "scriptMs": {
-            "medianMs": 117.19,
-            "minMs": 110.9,
-            "maxMs": 119.64
+            "medianMs": 118.2,
+            "minMs": 117.14,
+            "maxMs": 123.14
           },
           "styleLayoutMs": {
-            "medianMs": 3.93,
-            "minMs": 3.38,
-            "maxMs": 4.45
+            "medianMs": 3.79,
+            "minMs": 3.48,
+            "maxMs": 4.19
           },
           "paintMs": {
             "medianMs": 2.82,
-            "minMs": 2.42,
-            "maxMs": 2.92
+            "minMs": 2.57,
+            "maxMs": 3
           },
           "frames": {
             "medianMs": 20,
@@ -756,40 +756,40 @@
             "maxMs": 20
           },
           "longestTaskMs": {
-            "medianMs": 12.43,
-            "minMs": 12.23,
-            "maxMs": 13.28
+            "medianMs": 12.78,
+            "minMs": 12.59,
+            "maxMs": 13.35
           }
         },
         "full-redraw": {
-          "medianMs": 99,
+          "medianMs": 100,
           "samplesMs": [
+            100,
             99,
-            104,
             99,
-            99,
-            92
+            100,
+            104
           ],
           "failures": 0,
           "cpuMs": {
-            "medianMs": 63.04,
-            "minMs": 60.91,
-            "maxMs": 63.56
+            "medianMs": 64.18,
+            "minMs": 64.02,
+            "maxMs": 65.13
           },
           "scriptMs": {
-            "medianMs": 58,
-            "minMs": 56.19,
-            "maxMs": 58.64
+            "medianMs": 59.27,
+            "minMs": 58.75,
+            "maxMs": 59.9
           },
           "styleLayoutMs": {
-            "medianMs": 1.89,
-            "minMs": 1.78,
-            "maxMs": 1.99
+            "medianMs": 1.94,
+            "minMs": 1.82,
+            "maxMs": 2.59
           },
           "paintMs": {
-            "medianMs": 1.28,
-            "minMs": 1.19,
-            "maxMs": 1.51
+            "medianMs": 1.27,
+            "minMs": 1.15,
+            "maxMs": 1.65
           },
           "frames": {
             "medianMs": 6,
@@ -797,59 +797,59 @@
             "maxMs": 7
           },
           "longestTaskMs": {
-            "medianMs": 12.16,
-            "minMs": 12.12,
-            "maxMs": 12.21
+            "medianMs": 12.15,
+            "minMs": 12.11,
+            "maxMs": 12.22
           }
         },
         "sgr-tokens": {
           "medianMs": 66,
           "samplesMs": [
             66,
-            75,
-            52,
-            87,
+            86,
+            65,
+            72,
             66
           ],
           "failures": 0,
           "cpuMs": {
-            "medianMs": 47.23,
-            "minMs": 45.64,
-            "maxMs": 57.57
+            "medianMs": 59.98,
+            "minMs": 47.19,
+            "maxMs": 61.69
           },
           "scriptMs": {
-            "medianMs": 36.26,
-            "minMs": 35.21,
-            "maxMs": 38.25
+            "medianMs": 40.06,
+            "minMs": 36.81,
+            "maxMs": 40.91
           },
           "styleLayoutMs": {
-            "medianMs": 6.32,
-            "minMs": 6.11,
-            "maxMs": 12.83
+            "medianMs": 12.36,
+            "minMs": 6.32,
+            "maxMs": 13.06
           },
           "paintMs": {
-            "medianMs": 4.71,
-            "minMs": 4.45,
-            "maxMs": 9.64
+            "medianMs": 9.75,
+            "minMs": 4.62,
+            "maxMs": 10.1
           },
           "frames": {
-            "medianMs": 6,
+            "medianMs": 8,
             "minMs": 6,
             "maxMs": 8
           },
           "longestTaskMs": {
-            "medianMs": 12.2,
-            "minMs": 12.12,
-            "maxMs": 12.51
+            "medianMs": 13.44,
+            "minMs": 12.06,
+            "maxMs": 14.45
           }
         }
       },
       "traceOverheadPct": {
-        "scroll-flood": 14.1,
-        "full-redraw": 0.5,
-        "sgr-tokens": 4.1
+        "scroll-flood": 19.6,
+        "full-redraw": -0.7,
+        "sgr-tokens": 7.4
       },
-      "mountMs": 16,
+      "mountMs": 15,
       "heapMB": 54,
       "gzipBytes": 83425,
       "textInDom": true,
@@ -862,116 +862,34 @@
       "version": "0.3.0",
       "timings": {
         "scroll-flood": {
-          "medianMs": 66,
-          "samplesMs": [
-            66,
-            67,
-            66,
-            67,
-            66
-          ],
-          "failures": 0,
-          "cpuMs": {
-            "medianMs": 41.68,
-            "minMs": 39.85,
-            "maxMs": 46
-          },
-          "scriptMs": {
-            "medianMs": 18.62,
-            "minMs": 18.38,
-            "maxMs": 21.44
-          },
-          "styleLayoutMs": {
-            "medianMs": 0.19,
-            "minMs": 0.19,
-            "maxMs": 0.25
-          },
-          "paintMs": {
-            "medianMs": 0.25,
-            "minMs": 0.22,
-            "maxMs": 0.29
-          },
-          "frames": {
-            "medianMs": 6,
-            "minMs": 6,
-            "maxMs": 6
-          },
-          "longestTaskMs": {
-            "medianMs": 22.05,
-            "minMs": 20.88,
-            "maxMs": 23.8
-          }
-        },
-        "full-redraw": {
           "medianMs": 67,
           "samplesMs": [
-            66,
+            83,
             67,
-            67,
-            67,
-            68
-          ],
-          "failures": 0,
-          "cpuMs": {
-            "medianMs": 37.82,
-            "minMs": 36.89,
-            "maxMs": 38.72
-          },
-          "scriptMs": {
-            "medianMs": 15.71,
-            "minMs": 15.58,
-            "maxMs": 16.86
-          },
-          "styleLayoutMs": {
-            "medianMs": 0.1,
-            "minMs": 0.1,
-            "maxMs": 0.11
-          },
-          "paintMs": {
-            "medianMs": 0.15,
-            "minMs": 0.15,
-            "maxMs": 0.18
-          },
-          "frames": {
-            "medianMs": 6,
-            "minMs": 6,
-            "maxMs": 6
-          },
-          "longestTaskMs": {
-            "medianMs": 20.94,
-            "minMs": 20.86,
-            "maxMs": 22.36
-          }
-        },
-        "sgr-tokens": {
-          "medianMs": 67,
-          "samplesMs": [
-            66,
-            68,
             67,
             67,
             67
           ],
           "failures": 0,
           "cpuMs": {
-            "medianMs": 35.99,
-            "minMs": 34.9,
-            "maxMs": 37.33
+            "medianMs": 40.66,
+            "minMs": 40.17,
+            "maxMs": 41.69
           },
           "scriptMs": {
-            "medianMs": 18.08,
-            "minMs": 17.57,
-            "maxMs": 19.29
+            "medianMs": 18.68,
+            "minMs": 18.27,
+            "maxMs": 18.77
           },
           "styleLayoutMs": {
-            "medianMs": 0.19,
+            "medianMs": 0.2,
             "minMs": 0.19,
             "maxMs": 0.2
           },
           "paintMs": {
-            "medianMs": 0.24,
-            "minMs": 0.22,
-            "maxMs": 0.25
+            "medianMs": 0.25,
+            "minMs": 0.23,
+            "maxMs": 0.27
           },
           "frames": {
             "medianMs": 6,
@@ -979,18 +897,100 @@
             "maxMs": 6
           },
           "longestTaskMs": {
-            "medianMs": 17.32,
-            "minMs": 16.72,
-            "maxMs": 17.61
+            "medianMs": 21.39,
+            "minMs": 21.29,
+            "maxMs": 22.28
+          }
+        },
+        "full-redraw": {
+          "medianMs": 67,
+          "samplesMs": [
+            67,
+            67,
+            72,
+            66,
+            67
+          ],
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 39,
+            "minMs": 37.96,
+            "maxMs": 42.1
+          },
+          "scriptMs": {
+            "medianMs": 17.1,
+            "minMs": 16.24,
+            "maxMs": 18.39
+          },
+          "styleLayoutMs": {
+            "medianMs": 0.11,
+            "minMs": 0.1,
+            "maxMs": 0.17
+          },
+          "paintMs": {
+            "medianMs": 0.15,
+            "minMs": 0.14,
+            "maxMs": 0.17
+          },
+          "frames": {
+            "medianMs": 6,
+            "minMs": 6,
+            "maxMs": 6
+          },
+          "longestTaskMs": {
+            "medianMs": 21.75,
+            "minMs": 21.1,
+            "maxMs": 23.25
+          }
+        },
+        "sgr-tokens": {
+          "medianMs": 67,
+          "samplesMs": [
+            67,
+            67,
+            68,
+            67,
+            67
+          ],
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 37.48,
+            "minMs": 35.61,
+            "maxMs": 40.54
+          },
+          "scriptMs": {
+            "medianMs": 18.67,
+            "minMs": 17.69,
+            "maxMs": 20.54
+          },
+          "styleLayoutMs": {
+            "medianMs": 0.2,
+            "minMs": 0.19,
+            "maxMs": 0.22
+          },
+          "paintMs": {
+            "medianMs": 0.24,
+            "minMs": 0.22,
+            "maxMs": 0.27
+          },
+          "frames": {
+            "medianMs": 6,
+            "minMs": 6,
+            "maxMs": 6
+          },
+          "longestTaskMs": {
+            "medianMs": 17.95,
+            "minMs": 17.31,
+            "maxMs": 18.36
           }
         }
       },
       "traceOverheadPct": {
-        "scroll-flood": 0.9,
-        "full-redraw": 0,
-        "sgr-tokens": 0
+        "scroll-flood": 0.7,
+        "full-redraw": -0.4,
+        "sgr-tokens": -0.4
       },
-      "mountMs": 3150,
+      "mountMs": 3111,
       "heapMB": 96,
       "gzipBytes": 720927,
       "textInDom": false,
@@ -1003,24 +1003,24 @@
       "version": "0.8.0",
       "timings": {
         "scroll-flood": {
-          "medianMs": 99,
+          "medianMs": 110,
           "samplesMs": [
-            98,
-            98,
-            99,
-            101,
-            100
+            110,
+            104,
+            115,
+            115,
+            97
           ],
           "failures": 0,
           "cpuMs": {
-            "medianMs": 82.46,
-            "minMs": 80.57,
-            "maxMs": 83.32
+            "medianMs": 83.4,
+            "minMs": 83.29,
+            "maxMs": 84.46
           },
           "scriptMs": {
-            "medianMs": 1.78,
-            "minMs": 1.71,
-            "maxMs": 1.91
+            "medianMs": 1.75,
+            "minMs": 1.58,
+            "maxMs": 1.84
           },
           "styleLayoutMs": {
             "medianMs": 0,
@@ -1028,9 +1028,9 @@
             "maxMs": 0
           },
           "paintMs": {
-            "medianMs": 0.32,
-            "minMs": 0.29,
-            "maxMs": 0.38
+            "medianMs": 0.33,
+            "minMs": 0.32,
+            "maxMs": 0.34
           },
           "frames": {
             "medianMs": 3,
@@ -1038,30 +1038,30 @@
             "maxMs": 3
           },
           "longestTaskMs": {
-            "medianMs": 80.45,
-            "minMs": 78.5,
-            "maxMs": 81.26
+            "medianMs": 81.5,
+            "minMs": 81.14,
+            "maxMs": 82.38
           }
         },
         "full-redraw": {
-          "medianMs": 83,
+          "medianMs": 81,
           "samplesMs": [
+            81,
             82,
-            83,
-            84,
-            79,
-            83
+            80,
+            82,
+            81
           ],
           "failures": 0,
           "cpuMs": {
-            "medianMs": 53.13,
-            "minMs": 52.12,
-            "maxMs": 54.06
+            "medianMs": 54.51,
+            "minMs": 53.45,
+            "maxMs": 55.84
           },
           "scriptMs": {
-            "medianMs": 1.6,
-            "minMs": 1.52,
-            "maxMs": 1.75
+            "medianMs": 1.66,
+            "minMs": 1.61,
+            "maxMs": 1.92
           },
           "styleLayoutMs": {
             "medianMs": 0,
@@ -1069,9 +1069,9 @@
             "maxMs": 0
           },
           "paintMs": {
-            "medianMs": 0.3,
-            "minMs": 0.3,
-            "maxMs": 0.31
+            "medianMs": 0.31,
+            "minMs": 0.29,
+            "maxMs": 0.55
           },
           "frames": {
             "medianMs": 3,
@@ -1079,30 +1079,30 @@
             "maxMs": 3
           },
           "longestTaskMs": {
-            "medianMs": 50.89,
-            "minMs": 50.2,
-            "maxMs": 51.87
+            "medianMs": 52.44,
+            "minMs": 51.37,
+            "maxMs": 53.55
           }
         },
         "sgr-tokens": {
-          "medianMs": 40,
+          "medianMs": 47,
           "samplesMs": [
-            36,
+            48,
+            46,
+            47,
             50,
-            38,
-            40,
-            49
+            47
           ],
           "failures": 0,
           "cpuMs": {
-            "medianMs": 18.72,
-            "minMs": 18.59,
-            "maxMs": 18.89
+            "medianMs": 19.07,
+            "minMs": 17.92,
+            "maxMs": 19.54
           },
           "scriptMs": {
-            "medianMs": 1.42,
-            "minMs": 1.35,
-            "maxMs": 1.54
+            "medianMs": 1.54,
+            "minMs": 1.37,
+            "maxMs": 1.59
           },
           "styleLayoutMs": {
             "medianMs": 0,
@@ -1110,9 +1110,9 @@
             "maxMs": 0
           },
           "paintMs": {
-            "medianMs": 0.32,
-            "minMs": 0.31,
-            "maxMs": 0.32
+            "medianMs": 0.33,
+            "minMs": 0.33,
+            "maxMs": 0.35
           },
           "frames": {
             "medianMs": 3,
@@ -1120,18 +1120,18 @@
             "maxMs": 3
           },
           "longestTaskMs": {
-            "medianMs": 17.07,
-            "minMs": 16.93,
-            "maxMs": 17.24
+            "medianMs": 17.28,
+            "minMs": 16.34,
+            "maxMs": 17.7
           }
         }
       },
       "traceOverheadPct": {
-        "scroll-flood": 3.6,
-        "full-redraw": -11.3,
-        "sgr-tokens": 2.8
+        "scroll-flood": -4.2,
+        "full-redraw": 1.1,
+        "sgr-tokens": -14.3
       },
-      "mountMs": 17,
+      "mountMs": 18,
       "heapMB": 38,
       "gzipBytes": 67387,
       "textInDom": false,
@@ -1144,24 +1144,65 @@
       "version": "0.1.0",
       "timings": {
         "scroll-flood": {
-          "medianMs": 742,
+          "medianMs": 760,
           "samplesMs": [
-            746,
-            748,
-            730,
-            742,
-            742
+            808,
+            781,
+            760,
+            747,
+            758
           ],
           "failures": 0,
           "cpuMs": {
-            "medianMs": 727.82,
-            "minMs": 696.62,
-            "maxMs": 749.74
+            "medianMs": 742.17,
+            "minMs": 732.03,
+            "maxMs": 798.06
           },
           "scriptMs": {
-            "medianMs": 39.16,
-            "minMs": 37.36,
-            "maxMs": 41.14
+            "medianMs": 40.05,
+            "minMs": 38.88,
+            "maxMs": 67.55
+          },
+          "styleLayoutMs": {
+            "medianMs": 0.23,
+            "minMs": 0.22,
+            "maxMs": 0.26
+          },
+          "paintMs": {
+            "medianMs": 0.32,
+            "minMs": 0.3,
+            "maxMs": 0.39
+          },
+          "frames": {
+            "medianMs": 3,
+            "minMs": 3,
+            "maxMs": 3
+          },
+          "longestTaskMs": {
+            "medianMs": 738.43,
+            "minMs": 728.2,
+            "maxMs": 793.92
+          }
+        },
+        "full-redraw": {
+          "medianMs": 175,
+          "samplesMs": [
+            180,
+            174,
+            180,
+            175,
+            174
+          ],
+          "failures": 0,
+          "cpuMs": {
+            "medianMs": 151.37,
+            "minMs": 149.87,
+            "maxMs": 156.44
+          },
+          "scriptMs": {
+            "medianMs": 3.37,
+            "minMs": 3.17,
+            "maxMs": 3.74
           },
           "styleLayoutMs": {
             "medianMs": 0.22,
@@ -1169,9 +1210,9 @@
             "maxMs": 0.23
           },
           "paintMs": {
-            "medianMs": 0.32,
+            "medianMs": 0.3,
             "minMs": 0.29,
-            "maxMs": 0.36
+            "maxMs": 0.3
           },
           "frames": {
             "medianMs": 3,
@@ -1179,79 +1220,38 @@
             "maxMs": 3
           },
           "longestTaskMs": {
-            "medianMs": 724.09,
-            "minMs": 692.97,
-            "maxMs": 745.93
-          }
-        },
-        "full-redraw": {
-          "medianMs": 175,
-          "samplesMs": [
-            163,
-            178,
-            175,
-            177,
-            158
-          ],
-          "failures": 0,
-          "cpuMs": {
-            "medianMs": 146.04,
-            "minMs": 143.65,
-            "maxMs": 151.03
-          },
-          "scriptMs": {
-            "medianMs": 3.22,
-            "minMs": 3.19,
-            "maxMs": 3.27
-          },
-          "styleLayoutMs": {
-            "medianMs": 0.2,
-            "minMs": 0.19,
-            "maxMs": 0.2
-          },
-          "paintMs": {
-            "medianMs": 0.32,
-            "minMs": 0.29,
-            "maxMs": 0.32
-          },
-          "frames": {
-            "medianMs": 3,
-            "minMs": 3,
-            "maxMs": 3
-          },
-          "longestTaskMs": {
-            "medianMs": 142.87,
-            "minMs": 140.44,
-            "maxMs": 147.92
+            "medianMs": 148.13,
+            "minMs": 146.73,
+            "maxMs": 152.82
           }
         },
         "sgr-tokens": {
-          "medianMs": 108,
+          "medianMs": 113,
           "samplesMs": [
-            106,
-            108,
             113,
-            108,
-            108
+            114,
+            113,
+            113,
+            114
           ],
           "failures": 0,
           "cpuMs": {
-            "medianMs": 86.54,
-            "minMs": 83.35,
-            "maxMs": 89.44
+            "medianMs": 89.94,
+            "minMs": 86.27,
+            "maxMs": 94.18
           },
           "scriptMs": {
-            "medianMs": 34.32,
-            "minMs": 32.2,
-            "maxMs": 37.24
+            "medianMs": 34.79,
+            "minMs": 30.58,
+            "maxMs": 37.83
           },
           "styleLayoutMs": {
-            "medianMs": 0.21,
-            "minMs": 0.2,
-            "maxMs": 0.32
+            "medianMs": 0.22,
+            "minMs": 0.21,
+            "maxMs": 0.23
           },
           "paintMs": {
-            "medianMs": 0.32,
+            "medianMs": 0.3,
             "minMs": 0.28,
             "maxMs": 0.34
           },
@@ -1261,18 +1261,18 @@
             "maxMs": 3
           },
           "longestTaskMs": {
-            "medianMs": 82.92,
-            "minMs": 77.92,
-            "maxMs": 85.98
+            "medianMs": 84.53,
+            "minMs": 82.76,
+            "maxMs": 90.56
           }
         }
       },
       "traceOverheadPct": {
-        "scroll-flood": 1.5,
-        "full-redraw": -3.4,
-        "sgr-tokens": 0.8
+        "scroll-flood": 0.4,
+        "full-redraw": -0.6,
+        "sgr-tokens": -0.4
       },
-      "mountMs": 8,
+      "mountMs": 18,
       "heapMB": 95,
       "gzipBytes": 16414,
       "textInDom": false,
@@ -1285,34 +1285,34 @@
       "version": "1.92.1 (libapps HEAD)",
       "timings": {
         "scroll-flood": {
-          "medianMs": 266,
+          "medianMs": 267,
           "samplesMs": [
-            250,
-            266,
-            250,
+            282,
             267,
-            266
+            267,
+            267,
+            267
           ],
           "failures": 0,
           "cpuMs": {
-            "medianMs": 237.22,
-            "minMs": 231.77,
-            "maxMs": 242.74
+            "medianMs": 244.21,
+            "minMs": 238.57,
+            "maxMs": 248.7
           },
           "scriptMs": {
             "medianMs": 0.04,
             "minMs": 0.04,
-            "maxMs": 0.04
+            "maxMs": 0.05
           },
           "styleLayoutMs": {
-            "medianMs": 0.49,
+            "medianMs": 0.5,
             "minMs": 0.48,
-            "maxMs": 0.54
+            "maxMs": 0.53
           },
           "paintMs": {
-            "medianMs": 0.57,
-            "minMs": 0.55,
-            "maxMs": 0.58
+            "medianMs": 0.59,
+            "minMs": 0.58,
+            "maxMs": 0.6
           },
           "frames": {
             "medianMs": 2,
@@ -1320,40 +1320,40 @@
             "maxMs": 2
           },
           "longestTaskMs": {
-            "medianMs": 236.81,
-            "minMs": 231.43,
-            "maxMs": 242.39
+            "medianMs": 243.82,
+            "minMs": 238.2,
+            "maxMs": 248.36
           }
         },
         "full-redraw": {
           "medianMs": 250,
           "samplesMs": [
             250,
+            251,
             267,
             250,
-            251,
             250
           ],
           "failures": 0,
           "cpuMs": {
-            "medianMs": 223.17,
-            "minMs": 221.9,
-            "maxMs": 227.6
+            "medianMs": 231.6,
+            "minMs": 228.99,
+            "maxMs": 234.27
           },
           "scriptMs": {
-            "medianMs": 0.38,
-            "minMs": 0.29,
-            "maxMs": 0.48
+            "medianMs": 0.39,
+            "minMs": 0.3,
+            "maxMs": 0.42
           },
           "styleLayoutMs": {
             "medianMs": 0.63,
-            "minMs": 0.55,
-            "maxMs": 0.64
+            "minMs": 0.56,
+            "maxMs": 0.68
           },
           "paintMs": {
-            "medianMs": 0.57,
-            "minMs": 0.52,
-            "maxMs": 0.59
+            "medianMs": 0.59,
+            "minMs": 0.57,
+            "maxMs": 0.65
           },
           "frames": {
             "medianMs": 2,
@@ -1361,40 +1361,40 @@
             "maxMs": 2
           },
           "longestTaskMs": {
-            "medianMs": 222.34,
-            "minMs": 221.3,
-            "maxMs": 227.09
+            "medianMs": 231.09,
+            "minMs": 228.4,
+            "maxMs": 233.63
           }
         },
         "sgr-tokens": {
-          "medianMs": 383,
+          "medianMs": 384,
           "samplesMs": [
             400,
             384,
             383,
             383,
-            383
+            384
           ],
           "failures": 0,
           "cpuMs": {
-            "medianMs": 357.79,
-            "minMs": 346.85,
-            "maxMs": 360.97
+            "medianMs": 371.9,
+            "minMs": 355,
+            "maxMs": 381.56
           },
           "scriptMs": {
-            "medianMs": 0.04,
+            "medianMs": 0.05,
             "minMs": 0.04,
-            "maxMs": 0.28
+            "maxMs": 0.05
           },
           "styleLayoutMs": {
-            "medianMs": 3.3,
-            "minMs": 3.24,
-            "maxMs": 3.5
+            "medianMs": 3.54,
+            "minMs": 3.26,
+            "maxMs": 3.94
           },
           "paintMs": {
-            "medianMs": 4.24,
-            "minMs": 4.15,
-            "maxMs": 4.76
+            "medianMs": 4.52,
+            "minMs": 4.35,
+            "maxMs": 4.68
           },
           "frames": {
             "medianMs": 2,
@@ -1402,18 +1402,18 @@
             "maxMs": 2
           },
           "longestTaskMs": {
-            "medianMs": 357.37,
-            "minMs": 346.48,
-            "maxMs": 360.5
+            "medianMs": 371.43,
+            "minMs": 354.58,
+            "maxMs": 381.03
           }
         }
       },
       "traceOverheadPct": {
         "scroll-flood": 0,
         "full-redraw": -0.1,
-        "sgr-tokens": -0.1
+        "sgr-tokens": 4
       },
-      "mountMs": 33,
+      "mountMs": 32,
       "heapMB": 42,
       "gzipBytes": 81308,
       "textInDom": false,
@@ -1426,34 +1426,34 @@
       "version": "1.4.1",
       "timings": {
         "scroll-flood": {
-          "medianMs": 330,
+          "medianMs": 333,
           "samplesMs": [
+            350,
             333,
-            312,
-            330,
             334,
-            312
+            329,
+            329
           ],
           "failures": 0,
           "cpuMs": {
-            "medianMs": 303.31,
-            "minMs": 292.06,
-            "maxMs": 313.54
+            "medianMs": 313.58,
+            "minMs": 308.32,
+            "maxMs": 318.04
           },
           "scriptMs": {
-            "medianMs": 0.05,
-            "minMs": 0.04,
-            "maxMs": 0.72
+            "medianMs": 0.1,
+            "minMs": 0.05,
+            "maxMs": 0.88
           },
           "styleLayoutMs": {
-            "medianMs": 0.45,
-            "minMs": 0.44,
-            "maxMs": 0.74
+            "medianMs": 0.56,
+            "minMs": 0.45,
+            "maxMs": 0.8
           },
           "paintMs": {
-            "medianMs": 0.57,
-            "minMs": 0.51,
-            "maxMs": 0.6
+            "medianMs": 0.59,
+            "minMs": 0.53,
+            "maxMs": 0.66
           },
           "frames": {
             "medianMs": 2,
@@ -1461,40 +1461,40 @@
             "maxMs": 2
           },
           "longestTaskMs": {
-            "medianMs": 302.87,
-            "minMs": 291.67,
-            "maxMs": 312.48
+            "medianMs": 312.26,
+            "minMs": 307.28,
+            "maxMs": 317.58
           }
         },
         "full-redraw": {
-          "medianMs": 301,
+          "medianMs": 317,
           "samplesMs": [
-            301,
-            315,
-            301,
-            296,
-            295
+            314,
+            317,
+            317,
+            313,
+            317
           ],
           "failures": 0,
           "cpuMs": {
-            "medianMs": 279.71,
-            "minMs": 273.74,
-            "maxMs": 288.23
+            "medianMs": 291.84,
+            "minMs": 286.17,
+            "maxMs": 301.4
           },
           "scriptMs": {
-            "medianMs": 0.22,
+            "medianMs": 0.27,
             "minMs": 0.21,
-            "maxMs": 0.26
+            "maxMs": 0.38
           },
           "styleLayoutMs": {
-            "medianMs": 0.44,
+            "medianMs": 0.46,
             "minMs": 0.43,
-            "maxMs": 0.45
+            "maxMs": 0.52
           },
           "paintMs": {
-            "medianMs": 0.58,
-            "minMs": 0.55,
-            "maxMs": 0.63
+            "medianMs": 0.61,
+            "minMs": 0.54,
+            "maxMs": 0.88
           },
           "frames": {
             "medianMs": 2,
@@ -1502,40 +1502,40 @@
             "maxMs": 2
           },
           "longestTaskMs": {
-            "medianMs": 279.3,
-            "minMs": 273.32,
-            "maxMs": 287.82
+            "medianMs": 291.21,
+            "minMs": 285.75,
+            "maxMs": 300.6
           }
         },
         "sgr-tokens": {
-          "medianMs": 395,
+          "medianMs": 400,
           "samplesMs": [
-            384,
-            395,
-            416,
-            379,
-            400
+            400,
+            401,
+            383,
+            400,
+            384
           ],
           "failures": 0,
           "cpuMs": {
-            "medianMs": 366.84,
-            "minMs": 353.76,
-            "maxMs": 377.82
+            "medianMs": 371.16,
+            "minMs": 362.16,
+            "maxMs": 380.39
           },
           "scriptMs": {
-            "medianMs": 4,
+            "medianMs": 0.07,
             "minMs": 0.05,
-            "maxMs": 4
+            "maxMs": 4.87
           },
           "styleLayoutMs": {
-            "medianMs": 5.91,
-            "minMs": 3.6,
-            "maxMs": 6.24
+            "medianMs": 3.83,
+            "minMs": 3.7,
+            "maxMs": 6.58
           },
           "paintMs": {
-            "medianMs": 3.65,
-            "minMs": 3.49,
-            "maxMs": 3.71
+            "medianMs": 3.8,
+            "minMs": 3.67,
+            "maxMs": 3.87
           },
           "frames": {
             "medianMs": 2,
@@ -1543,18 +1543,18 @@
             "maxMs": 2
           },
           "longestTaskMs": {
-            "medianMs": 365.62,
-            "minMs": 349.36,
-            "maxMs": 373.43
+            "medianMs": 369.92,
+            "minMs": 360.97,
+            "maxMs": 375.51
           }
         }
       },
       "traceOverheadPct": {
-        "scroll-flood": 0.9,
+        "scroll-flood": 0.3,
         "full-redraw": -0.2,
-        "sgr-tokens": 0.8
+        "sgr-tokens": -1
       },
-      "mountMs": 41,
+      "mountMs": 49,
       "heapMB": 43,
       "gzipBytes": 143092,
       "textInDom": false,
