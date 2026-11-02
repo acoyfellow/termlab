@@ -105,6 +105,19 @@ export const adapters: Adapter[] = [
       return { write: (s) => t.write(s), text: () => { const n = t.totalLines(); let out = ''; for (let i = Math.max(0, n - 45); i < n; i++) out += t.lineText(i) + '\\n'; return out; }, destroy: () => t.dispose() };`,
   },
   {
+    id: "t3code-ghostty",
+    version: "t3code " + pkg("t3code-ghostty").split("-")[1] + " (libghostty-vt wasm)",
+    extraAssets: ["t3code-ghostty/ghostty-vt.wasm"],
+    sizeEntry: "import { GhosttyTerminalSurface } from 't3code-ghostty'; console.log(GhosttyTerminalSurface);",
+    setup: `
+      const [{ default: vt }, { default: pty }, { default: font }] = await Promise.all([import('t3code-ghostty/ghostty-vt.wasm'), import('t3code-ghostty/ghostty-write-pty.wasm'), import('t3code-ghostty/SymbolsNerdFontMono-Regular.woff2')]);
+      (globalThis as any).__T3_GHOSTTY_ASSETS = { 'ghostty-vt.wasm': vt, 'ghostty-write-pty.wasm': pty, 'SymbolsNerdFontMono-Regular.woff2': font };
+      const { GhosttyTerminalSurface } = await import('t3code-ghostty');
+      const color = (r, g, b) => ({ r, g, b });
+      const t = await GhosttyTerminalSurface.create(host, { theme: { foreground: color(229, 231, 235), background: color(0, 0, 0), cursor: color(229, 231, 235) }, onData: (d) => (window as any).__axInput?.(d), onResize: () => {}, onSelectionChange: () => {}, beforeKey: () => true, onLinkActivate: () => {} });
+      return { write: (s) => t.write(s), text: () => ((t as any).snapshot?.rowData ?? []).map((row) => row.text).join('\\n'), destroy: () => t.dispose() };`,
+  },
+  {
     id: "auterm",
     version: pkg("auterm"),
     sizeEntry: "import { Terminal } from 'auterm'; console.log(Terminal);",

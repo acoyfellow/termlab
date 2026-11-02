@@ -16,6 +16,7 @@ import { resttyAdapter } from './restty';
 import { ferrotermAdapter } from './ferroterm';
 import { autermAdapter } from './auterm';
 import { htermUpstreamAdapter } from './hterm-upstream';
+import { t3codeGhosttyAdapter } from './t3code-ghostty';
 
 export const ADAPTERS: readonly TerminalAdapter[] = [
   cloudterm,
@@ -27,6 +28,7 @@ export const ADAPTERS: readonly TerminalAdapter[] = [
   ghosttyWeb,
   resttyAdapter,
   ferrotermAdapter,
+  t3codeGhosttyAdapter,
   autermAdapter,
   htermUpstreamAdapter,
   htermAdapter,

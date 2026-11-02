@@ -33,6 +33,7 @@
     "auterm": "file:./vendor/auterm",
     "cloudterm": "0.0.16",
     "ferroterm": "file:./vendor/ferroterm",
+    "t3code-ghostty": "file:./vendor/t3code-ghostty",
     "ghostty-web": "^0.4.0",
     "hterm-umdjs": "^1.4.1",
     "hterm-upstream": "file:./vendor/hterm-upstream",

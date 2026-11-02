@@ -30,3 +30,6 @@ fetch https://chromium.googlesource.com/apps/libapps libapps f3b11d7e07d93b17288
 rm -rf "$here/hterm-upstream" && mkdir -p "$here/hterm-upstream"
 cp "$work/libapps/hterm/dist/js/hterm.js" "$work/libapps/LICENSE" "$here/hterm-upstream/"
 printf '{ "name": "hterm-upstream", "version": "%s", "type": "module", "main": "hterm.js", "module": "hterm.js", "license": "BSD-3-Clause" }\n' "$(node -p "require('$work/libapps/hterm/package.json').version")" > "$here/hterm-upstream/package.json"
+
+fetch https://github.com/pingdotgg/t3code t3code 15fe2832727893cbdd2214383f9f971474849695
+(cd "$here" && bun build-t3code.ts "$work/t3code" >>"$log" 2>&1)
