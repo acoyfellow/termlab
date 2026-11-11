@@ -2,6 +2,7 @@ import { copyFileSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "no
 import { join, resolve } from "node:path";
 
 const work = resolve(process.argv[2]!);
+const commit = Bun.spawnSync(["git", "-C", work, "rev-parse", "--short=7", "HEAD"]).stdout.toString().trim();
 const here = import.meta.dir;
 const out = join(here, "t3code-ghostty");
 const ghostty = join(work, "apps/web/src/terminal/ghostty");
@@ -14,7 +15,7 @@ const shims: Record<string, string> = {
   "../../lib/observeResize": "export function observeResize(element, callback) { if (typeof ResizeObserver === 'undefined') return () => {}; const observer = new ResizeObserver((entries) => callback(entries)); observer.observe(element); return () => observer.disconnect(); }",
 };
 
-const keybindingsShim = () => { const source = readFileSync(join(work, "packages/shared/src/keybindings.ts"), "utf8"); const start = source.indexOf("export const US_SHIFTED_TO_UNSHIFTED_KEYS"); return source.slice(start, source.indexOf("]);", start) + 3); };
+const keybindingsShim = () => { const source = readFileSync(join(work, "packages/shared/src/keybindings.ts"), "utf8"); const start = source.indexOf("export const US_SHIFTED_TO_UNSHIFTED_KEYS"); return `${shims["../../lib/utils"]}\n${source.slice(start, source.indexOf("]);", start) + 3)}`; };
 
 const anyPath = new RegExp(".*");
 const relativeImport = new RegExp("^\\.\\.?/");
@@ -51,4 +52,4 @@ copyFileSync(join(ghostty, "vendor/ghostty-vt.wasm"), join(out, assetNames[0]!))
 copyFileSync(join(ghostty, "vendor/ghostty-write-pty.wasm"), join(out, assetNames[1]!));
 copyFileSync(join(ghostty, "fonts/SymbolsNerdFontMono-Regular.woff2"), join(out, assetNames[2]!));
 copyFileSync(join(work, "LICENSE"), join(out, "LICENSE"));
-writeFileSync(join(out, "package.json"), JSON.stringify({ name: "t3code-ghostty", version: "0.0.0-15fe283", type: "module", main: "index.js", module: "index.js", license: "MIT", exports: { ".": "./index.js", "./*": "./*" } }, null, 2) + "\n");
+writeFileSync(join(out, "package.json"), JSON.stringify({ name: "t3code-ghostty", version: `0.0.0-${commit}`, type: "module", main: "index.js", module: "index.js", license: "MIT", exports: { ".": "./index.js", "./*": "./*" } }, null, 2) + "\n");
