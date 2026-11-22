@@ -166,8 +166,9 @@
   }
   .host-wrap {
     position: relative;
-    flex: 1;
-    min-height: 340px;
+    flex: 0 0 340px;
+    height: 340px;
+    contain: strict;
     background: #000;
   }
   .host {
