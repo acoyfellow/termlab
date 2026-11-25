@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "bench": "bun bench/run.ts",
     "conformance": "bun bench/conformance.ts",
+    "usability": "bun bench/usability.ts",
     "vendor": "bash vendor/build.sh",
     "refresh": "bun bench/refresh.ts"
   },

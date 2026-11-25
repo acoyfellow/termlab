@@ -1,7 +1,9 @@
 <script lang="ts">
   import AxResults from './AxResults.svelte';
   import ConformanceResults from './ConformanceResults.svelte';
+  import UsabilityResults from './UsabilityResults.svelte';
   import conformance from './conformance-results.json';
+  import usability from './usability-results.json';
   import results from './bench-results.json';
 
   type Workload = keyof typeof results.workloads;
@@ -33,6 +35,7 @@
   const ratio = (value: number, minimum: number) => `${(value / minimum).toFixed(1)}×`;
   const cloudterm = results.terminals.find((terminal) => terminal.id === 'cloudterm')!;
   const cloudtermConf = confById['cloudterm'];
+  const cloudtermUse = usability.terminals.find((terminal) => terminal.id === 'cloudterm');
   const leaders = (workload: Workload) =>
     results.terminals
       .filter((terminal) => eligible(terminal, workload) && Math.abs(cpuOf(terminal.timings[workload]) - verifiedLows[workload]) < 0.05)
@@ -61,7 +64,7 @@
 <section aria-labelledby="summary-title">
   <h2 id="summary-title"><span>1</span> Summary of findings</h2>
   <div class="summary" data-verdict>
-    <p class="verdict-meta">cloudterm {cloudterm.version}: mount {cloudterm.mountMs} ms, {Math.round(cloudterm.gzipBytes / 1024)} KB gz, {cloudterm.heapMB} MB heap{#if cloudtermConf}, VT conformance {cloudtermConf.passed}/{cloudtermConf.tested}{/if}. Ranked by main-thread CPU across {verifiedCount} verified terminals ({results.terminals.length} tested).</p>
+    <p class="verdict-meta">cloudterm {cloudterm.version}: mount {cloudterm.mountMs} ms, {Math.round(cloudterm.gzipBytes / 1024)} KB gz, {cloudterm.heapMB} MB heap{#if cloudtermConf}, VT {cloudtermConf.passed}/{cloudtermConf.tested}{/if}{#if cloudtermUse}, usability {cloudtermUse.passed}/{cloudtermUse.total}{/if}. Ranked by main-thread CPU across {verifiedCount} verified terminals ({results.terminals.length} tested).</p>
     <ol>
       {#each workloads as workload (workload)}
         {@const ct = cloudterm.timings[workload]}
@@ -142,10 +145,12 @@
 
 <ConformanceResults />
 
+<UsabilityResults />
+
 <AxResults />
 
 <section class="notes" aria-labelledby="notes-title">
-  <h2 id="notes-title"><span>6</span> Limitations and notes</h2>
+  <h2 id="notes-title"><span>7</span> Limitations and notes</h2>
   <ol>
     <li><strong>Main-thread CPU vs wall time:</strong> Wall time snaps to ~16.7 ms animation-frame steps. Traced main-thread CPU (including layout and paint through 2 settle frames) is the continuous signal; worker and GPU thread time are excluded.</li>
     <li><strong>Probe differences:</strong> <code>dom</code> probes wait for painted DOM text; <code>snapshot</code> waits for rendered frame snapshots; <code>buffer</code> reads the terminal buffer plus 2 settle frames; <code>search</code> (restty) can resolve before painting and is marked unverified.</li>
@@ -160,7 +165,7 @@
 </section>
 
 <section class="excluded" aria-labelledby="excluded-title">
-  <h2 id="excluded-title"><span>7</span> Excluded terminals</h2>
+  <h2 id="excluded-title"><span>8</span> Excluded terminals</h2>
   <ol>{#each excluded as terminal (terminal.name)}<li><a href={terminal.url}>{terminal.name}</a>: {terminal.reason}</li>{/each}</ol>
 </section>
 

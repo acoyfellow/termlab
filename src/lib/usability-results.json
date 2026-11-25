@@ -1,0 +1,748 @@
+{
+  "generatedAt": "2026-11-25T17:50:17.424Z",
+  "browser": "Google Chrome for Testing 159.0.8154.6",
+  "cases": [
+    {
+      "id": "single-key-no-ghost",
+      "name": "Single keystroke renders once with no ghost duplicate"
+    },
+    {
+      "id": "typing-and-backspace",
+      "name": "Typing and Backspace edit cleanly with no ghost overlay"
+    },
+    {
+      "id": "duplicate-keydown-input",
+      "name": "Keydown + same-char input emits once (no 2x/3x)"
+    },
+    {
+      "id": "ime-composition",
+      "name": "IME composition emits committed text once"
+    },
+    {
+      "id": "space-and-punctuation",
+      "name": "Space and punctuation echo cleanly"
+    },
+    {
+      "id": "paste-once",
+      "name": "Paste emits payload once"
+    },
+    {
+      "id": "bracketed-paste",
+      "name": "Bracketed paste (?2004h) wraps pasted bytes"
+    },
+    {
+      "id": "native-selection",
+      "name": "Native browser text selection reads terminal text"
+    },
+    {
+      "id": "scrollback-stay",
+      "name": "Wheel scroll into scrollback moves and stays up"
+    },
+    {
+      "id": "click-focus-ctrl-c",
+      "name": "Click focuses terminal and Ctrl+C emits ETX cleanly"
+    }
+  ],
+  "terminals": [
+    {
+      "id": "cloudterm",
+      "version": "0.0.16",
+      "passed": 5,
+      "total": 10,
+      "failed": [
+        "single-key-no-ghost",
+        "typing-and-backspace",
+        "duplicate-keydown-input",
+        "ime-composition",
+        "space-and-punctuation"
+      ],
+      "cases": {
+        "single-key-no-ghost": {
+          "pass": false,
+          "detail": "line=\"$ h\" preds=1"
+        },
+        "typing-and-backspace": {
+          "pass": false,
+          "detail": "line=\"$ hello\" preds=1"
+        },
+        "duplicate-keydown-input": {
+          "pass": false,
+          "detail": "\"aa\""
+        },
+        "ime-composition": {
+          "pass": false,
+          "detail": "\"n日\""
+        },
+        "space-and-punctuation": {
+          "pass": false,
+          "detail": "\"$ a b.c/d-e\""
+        },
+        "paste-once": {
+          "pass": true,
+          "detail": "\"echo pasted\""
+        },
+        "bracketed-paste": {
+          "pass": true,
+          "detail": "\"\\u001b[200~hello\\u001b[201~\""
+        },
+        "native-selection": {
+          "pass": true,
+          "detail": "\"SELECT-ME-42\""
+        },
+        "scrollback-stay": {
+          "pass": true,
+          "detail": "top 4697->4297 vpY null->null last \"scroll-row-299\"->\"scroll-row-219\""
+        },
+        "click-focus-ctrl-c": {
+          "pass": true,
+          "detail": "focused=true got=\"\\u0003\" line=\"$\""
+        }
+      }
+    },
+    {
+      "id": "xterm-dom",
+      "version": "6.0.0",
+      "passed": 8,
+      "total": 10,
+      "failed": [
+        "duplicate-keydown-input",
+        "native-selection"
+      ],
+      "cases": {
+        "single-key-no-ghost": {
+          "pass": true,
+          "detail": "line=\"$ h\" preds=0"
+        },
+        "typing-and-backspace": {
+          "pass": true,
+          "detail": "line=\"$ hello\" preds=0"
+        },
+        "duplicate-keydown-input": {
+          "pass": false,
+          "detail": "\"aa\""
+        },
+        "ime-composition": {
+          "pass": true,
+          "detail": "\"日\""
+        },
+        "space-and-punctuation": {
+          "pass": true,
+          "detail": "\"$ a b.c/d-e\""
+        },
+        "paste-once": {
+          "pass": true,
+          "detail": "\"echo pasted\""
+        },
+        "bracketed-paste": {
+          "pass": true,
+          "detail": "\"\\u001b[200~hello\\u001b[201~\""
+        },
+        "native-selection": {
+          "pass": false,
+          "detail": "\"\""
+        },
+        "scrollback-stay": {
+          "pass": true,
+          "detail": "top 0->0 vpY 261->258 last \"scroll-row-299\"->\"scroll-row-299\""
+        },
+        "click-focus-ctrl-c": {
+          "pass": true,
+          "detail": "focused=true got=\"\\u0003\" line=\"$ \""
+        }
+      }
+    },
+    {
+      "id": "xterm-webgl",
+      "version": "6.0.0 + webgl 0.19.0",
+      "passed": 8,
+      "total": 10,
+      "failed": [
+        "duplicate-keydown-input",
+        "native-selection"
+      ],
+      "cases": {
+        "single-key-no-ghost": {
+          "pass": true,
+          "detail": "line=\"$ h\" preds=0"
+        },
+        "typing-and-backspace": {
+          "pass": true,
+          "detail": "line=\"$ hello\" preds=0"
+        },
+        "duplicate-keydown-input": {
+          "pass": false,
+          "detail": "\"aa\""
+        },
+        "ime-composition": {
+          "pass": true,
+          "detail": "\"日\""
+        },
+        "space-and-punctuation": {
+          "pass": true,
+          "detail": "\"$ a b.c/d-e\""
+        },
+        "paste-once": {
+          "pass": true,
+          "detail": "\"echo pasted\""
+        },
+        "bracketed-paste": {
+          "pass": true,
+          "detail": "\"\\u001b[200~hello\\u001b[201~\""
+        },
+        "native-selection": {
+          "pass": false,
+          "detail": "\"\""
+        },
+        "scrollback-stay": {
+          "pass": true,
+          "detail": "top 0->0 vpY 261->258 last \"scroll-row-299\"->\"scroll-row-299\""
+        },
+        "click-focus-ctrl-c": {
+          "pass": true,
+          "detail": "focused=true got=\"\\u0003\" line=\"$ \""
+        }
+      }
+    },
+    {
+      "id": "wterm",
+      "version": "0.5.10",
+      "passed": 9,
+      "total": 10,
+      "failed": [
+        "duplicate-keydown-input"
+      ],
+      "cases": {
+        "single-key-no-ghost": {
+          "pass": true,
+          "detail": "line=\"$ h\" preds=0"
+        },
+        "typing-and-backspace": {
+          "pass": true,
+          "detail": "line=\"$ hello\" preds=0"
+        },
+        "duplicate-keydown-input": {
+          "pass": false,
+          "detail": "\"aa\""
+        },
+        "ime-composition": {
+          "pass": true,
+          "detail": "\"日\""
+        },
+        "space-and-punctuation": {
+          "pass": true,
+          "detail": "\"$ a b.c/d-e\""
+        },
+        "paste-once": {
+          "pass": true,
+          "detail": "\"echo pasted\""
+        },
+        "bracketed-paste": {
+          "pass": true,
+          "detail": "\"\\u001b[200~hello\\u001b[201~\""
+        },
+        "native-selection": {
+          "pass": true,
+          "detail": "\"SELECT-ME-42                                                \""
+        },
+        "scrollback-stay": {
+          "pass": true,
+          "detail": "top 4413->4013 vpY null->null last \"scroll-row-299\"->\"scroll-row-299\""
+        },
+        "click-focus-ctrl-c": {
+          "pass": true,
+          "detail": "focused=true got=\"\\u0003\" line=\"$\""
+        }
+      }
+    },
+    {
+      "id": "wterm-webgl",
+      "version": "0.5.10 (webgl)",
+      "passed": 8,
+      "total": 10,
+      "failed": [
+        "duplicate-keydown-input",
+        "scrollback-stay"
+      ],
+      "cases": {
+        "single-key-no-ghost": {
+          "pass": true,
+          "detail": "line=\"$ h\" preds=0"
+        },
+        "typing-and-backspace": {
+          "pass": true,
+          "detail": "line=\"$ hello\" preds=0"
+        },
+        "duplicate-keydown-input": {
+          "pass": false,
+          "detail": "\"aa\""
+        },
+        "ime-composition": {
+          "pass": true,
+          "detail": "\"日\""
+        },
+        "space-and-punctuation": {
+          "pass": true,
+          "detail": "\"$ a b.c/d-e\""
+        },
+        "paste-once": {
+          "pass": true,
+          "detail": "\"echo pasted\""
+        },
+        "bracketed-paste": {
+          "pass": true,
+          "detail": "\"\\u001b[200~hello\\u001b[201~\""
+        },
+        "native-selection": {
+          "pass": true,
+          "detail": "\"SELECT-ME-42                                                \""
+        },
+        "scrollback-stay": {
+          "pass": false,
+          "detail": "top null->4413 vpY null->null last \"scroll-row-299\"->\"scroll-row-299\""
+        },
+        "click-focus-ctrl-c": {
+          "pass": true,
+          "detail": "focused=true got=\"\\u0003\" line=\"$\""
+        }
+      }
+    },
+    {
+      "id": "ghostty-web",
+      "version": "0.4.0",
+      "passed": 8,
+      "total": 10,
+      "failed": [
+        "native-selection",
+        "scrollback-stay"
+      ],
+      "cases": {
+        "single-key-no-ghost": {
+          "pass": true,
+          "detail": "line=\"$ h\" preds=0"
+        },
+        "typing-and-backspace": {
+          "pass": true,
+          "detail": "line=\"$ hello\" preds=0"
+        },
+        "duplicate-keydown-input": {
+          "pass": true,
+          "detail": "\"a\""
+        },
+        "ime-composition": {
+          "pass": true,
+          "detail": "\"日\""
+        },
+        "space-and-punctuation": {
+          "pass": true,
+          "detail": "\"$ a b.c/d-e\""
+        },
+        "paste-once": {
+          "pass": true,
+          "detail": "\"echo pasted\""
+        },
+        "bracketed-paste": {
+          "pass": true,
+          "detail": "\"\\u001b[200~hello\\u001b[201~\""
+        },
+        "native-selection": {
+          "pass": false,
+          "detail": "\"\""
+        },
+        "scrollback-stay": {
+          "pass": false,
+          "detail": "top null->null vpY 0->0 last \"scroll-row-39\"->\"scroll-row-39\""
+        },
+        "click-focus-ctrl-c": {
+          "pass": true,
+          "detail": "focused=true got=\"\\u0003\" line=\"$\""
+        }
+      }
+    },
+    {
+      "id": "xterm-dom-beta",
+      "version": "6.1.0-beta.337",
+      "passed": 8,
+      "total": 10,
+      "failed": [
+        "duplicate-keydown-input",
+        "native-selection"
+      ],
+      "cases": {
+        "single-key-no-ghost": {
+          "pass": true,
+          "detail": "line=\"$ h\" preds=0"
+        },
+        "typing-and-backspace": {
+          "pass": true,
+          "detail": "line=\"$ hello\" preds=0"
+        },
+        "duplicate-keydown-input": {
+          "pass": false,
+          "detail": "\"aa\""
+        },
+        "ime-composition": {
+          "pass": true,
+          "detail": "\"日\""
+        },
+        "space-and-punctuation": {
+          "pass": true,
+          "detail": "\"$ a b.c/d-e\""
+        },
+        "paste-once": {
+          "pass": true,
+          "detail": "\"echo pasted\""
+        },
+        "bracketed-paste": {
+          "pass": true,
+          "detail": "\"\\u001b[200~hello\\u001b[201~\""
+        },
+        "native-selection": {
+          "pass": false,
+          "detail": "\"\""
+        },
+        "scrollback-stay": {
+          "pass": true,
+          "detail": "top 0->0 vpY 261->258 last \"scroll-row-299\"->\"scroll-row-299\""
+        },
+        "click-focus-ctrl-c": {
+          "pass": true,
+          "detail": "focused=true got=\"\\u0003\" line=\"$ \""
+        }
+      }
+    },
+    {
+      "id": "restty",
+      "version": "0.3.0",
+      "passed": 6,
+      "total": 10,
+      "failed": [
+        "typing-and-backspace",
+        "space-and-punctuation",
+        "bracketed-paste",
+        "native-selection"
+      ],
+      "cases": {
+        "single-key-no-ghost": {
+          "pass": true,
+          "detail": "line=null preds=0"
+        },
+        "typing-and-backspace": {
+          "pass": false,
+          "detail": "line=null preds=0"
+        },
+        "duplicate-keydown-input": {
+          "pass": true,
+          "detail": "\"a\""
+        },
+        "ime-composition": {
+          "pass": true,
+          "detail": "\"日\""
+        },
+        "space-and-punctuation": {
+          "pass": false,
+          "detail": "null"
+        },
+        "paste-once": {
+          "pass": true,
+          "detail": "\"echo pasted\""
+        },
+        "bracketed-paste": {
+          "pass": false,
+          "detail": "\"hello\""
+        },
+        "native-selection": {
+          "pass": false,
+          "detail": "\"\""
+        },
+        "scrollback-stay": {
+          "pass": true,
+          "detail": "top 2349->1953 vpY null->null last \"\"->\"\""
+        },
+        "click-focus-ctrl-c": {
+          "pass": true,
+          "detail": "focused=true got=\"\\u0003\" line=null"
+        }
+      }
+    },
+    {
+      "id": "ferroterm",
+      "version": "0.8.0",
+      "passed": 6,
+      "total": 10,
+      "failed": [
+        "duplicate-keydown-input",
+        "ime-composition",
+        "native-selection",
+        "scrollback-stay"
+      ],
+      "cases": {
+        "single-key-no-ghost": {
+          "pass": true,
+          "detail": "line=\"$ h\" preds=0"
+        },
+        "typing-and-backspace": {
+          "pass": true,
+          "detail": "line=\"$ hello\" preds=0"
+        },
+        "duplicate-keydown-input": {
+          "pass": false,
+          "detail": "\"aa\""
+        },
+        "ime-composition": {
+          "pass": false,
+          "detail": "\"日日\""
+        },
+        "space-and-punctuation": {
+          "pass": true,
+          "detail": "\"$ a b.c/d-e\""
+        },
+        "paste-once": {
+          "pass": true,
+          "detail": "\"echo pasted\""
+        },
+        "bracketed-paste": {
+          "pass": true,
+          "detail": "\"\\u001b[200~hello\\u001b[201~\""
+        },
+        "native-selection": {
+          "pass": false,
+          "detail": "\"\""
+        },
+        "scrollback-stay": {
+          "pass": false,
+          "detail": "top null->null vpY null->null last \"scroll-row-299\"->\"scroll-row-299\""
+        },
+        "click-focus-ctrl-c": {
+          "pass": true,
+          "detail": "focused=true got=\"\\u0003\" line=\"$\""
+        }
+      }
+    },
+    {
+      "id": "t3code-ghostty",
+      "version": "t3code faa8ad6 (libghostty-vt wasm)",
+      "passed": 8,
+      "total": 10,
+      "failed": [
+        "duplicate-keydown-input",
+        "native-selection"
+      ],
+      "cases": {
+        "single-key-no-ghost": {
+          "pass": true,
+          "detail": "line=\"$ h\" preds=0"
+        },
+        "typing-and-backspace": {
+          "pass": true,
+          "detail": "line=\"$ hello\" preds=0"
+        },
+        "duplicate-keydown-input": {
+          "pass": false,
+          "detail": "\"aa\""
+        },
+        "ime-composition": {
+          "pass": true,
+          "detail": "\"日\""
+        },
+        "space-and-punctuation": {
+          "pass": true,
+          "detail": "\"$ a b.c/d-e\""
+        },
+        "paste-once": {
+          "pass": true,
+          "detail": "\"echo pasted\""
+        },
+        "bracketed-paste": {
+          "pass": true,
+          "detail": "\"\\u001b[200~hello\\u001b[201~\""
+        },
+        "native-selection": {
+          "pass": false,
+          "detail": "\"\""
+        },
+        "scrollback-stay": {
+          "pass": true,
+          "detail": "top 0->0 vpY null->null last \"scroll-row-299\"->\"scroll-row-275\""
+        },
+        "click-focus-ctrl-c": {
+          "pass": true,
+          "detail": "focused=true got=\"\\u0003\" line=\"$\""
+        }
+      }
+    },
+    {
+      "id": "auterm",
+      "version": "0.1.0",
+      "passed": 6,
+      "total": 10,
+      "failed": [
+        "duplicate-keydown-input",
+        "ime-composition",
+        "native-selection",
+        "scrollback-stay"
+      ],
+      "cases": {
+        "single-key-no-ghost": {
+          "pass": true,
+          "detail": "line=\"$ h\" preds=0"
+        },
+        "typing-and-backspace": {
+          "pass": true,
+          "detail": "line=\"$ hello\" preds=0"
+        },
+        "duplicate-keydown-input": {
+          "pass": false,
+          "detail": "\"aa\""
+        },
+        "ime-composition": {
+          "pass": false,
+          "detail": "\"日日\""
+        },
+        "space-and-punctuation": {
+          "pass": true,
+          "detail": "\"$ a b.c/d-e\""
+        },
+        "paste-once": {
+          "pass": true,
+          "detail": "\"echo pasted\""
+        },
+        "bracketed-paste": {
+          "pass": true,
+          "detail": "\"\\u001b[200~hello\\u001b[201~\""
+        },
+        "native-selection": {
+          "pass": false,
+          "detail": "\"\""
+        },
+        "scrollback-stay": {
+          "pass": false,
+          "detail": "top null->0 vpY null->null last \"scroll-row-299\"->\"scroll-row-299\""
+        },
+        "click-focus-ctrl-c": {
+          "pass": true,
+          "detail": "focused=true got=\"\\u0003\" line=\"$\""
+        }
+      }
+    },
+    {
+      "id": "hterm-upstream",
+      "version": "1.92.1 (libapps HEAD)",
+      "passed": 0,
+      "total": 10,
+      "failed": [
+        "single-key-no-ghost",
+        "typing-and-backspace",
+        "duplicate-keydown-input",
+        "ime-composition",
+        "space-and-punctuation",
+        "paste-once",
+        "bracketed-paste",
+        "native-selection",
+        "scrollback-stay",
+        "click-focus-ctrl-c"
+      ],
+      "cases": {
+        "single-key-no-ghost": {
+          "pass": false,
+          "detail": "line=\"h\" preds=0"
+        },
+        "typing-and-backspace": {
+          "pass": false,
+          "detail": "line=\"hello\" preds=0"
+        },
+        "duplicate-keydown-input": {
+          "pass": false,
+          "detail": "no textarea"
+        },
+        "ime-composition": {
+          "pass": false,
+          "detail": "no textarea"
+        },
+        "space-and-punctuation": {
+          "pass": false,
+          "detail": "\"a b.c/d-e\""
+        },
+        "paste-once": {
+          "pass": false,
+          "detail": "\"\""
+        },
+        "bracketed-paste": {
+          "pass": false,
+          "detail": "\"\""
+        },
+        "native-selection": {
+          "pass": false,
+          "detail": "\"\""
+        },
+        "scrollback-stay": {
+          "pass": false,
+          "detail": "top null->null vpY null->null last \"scroll-row-299\"->\"scroll-row-299\""
+        },
+        "click-focus-ctrl-c": {
+          "pass": false,
+          "detail": "focused=true got=\"\" line=\"$\""
+        }
+      }
+    },
+    {
+      "id": "hterm",
+      "version": "1.4.1",
+      "passed": 0,
+      "total": 10,
+      "failed": [
+        "single-key-no-ghost",
+        "typing-and-backspace",
+        "duplicate-keydown-input",
+        "ime-composition",
+        "space-and-punctuation",
+        "paste-once",
+        "bracketed-paste",
+        "native-selection",
+        "scrollback-stay",
+        "click-focus-ctrl-c"
+      ],
+      "cases": {
+        "single-key-no-ghost": {
+          "pass": false,
+          "detail": "line=\"h\" preds=0"
+        },
+        "typing-and-backspace": {
+          "pass": false,
+          "detail": "line=\"hello\" preds=0"
+        },
+        "duplicate-keydown-input": {
+          "pass": false,
+          "detail": "no textarea"
+        },
+        "ime-composition": {
+          "pass": false,
+          "detail": "no textarea"
+        },
+        "space-and-punctuation": {
+          "pass": false,
+          "detail": "\"a b.c/d-e\""
+        },
+        "paste-once": {
+          "pass": false,
+          "detail": "\"\""
+        },
+        "bracketed-paste": {
+          "pass": false,
+          "detail": "\"\""
+        },
+        "native-selection": {
+          "pass": false,
+          "detail": "\"\""
+        },
+        "scrollback-stay": {
+          "pass": false,
+          "detail": "top null->null vpY null->null last \"scroll-row-299\"->\"scroll-row-299\""
+        },
+        "click-focus-ctrl-c": {
+          "pass": false,
+          "detail": "focused=true got=\"\" line=\"$\""
+        }
+      }
+    }
+  ]
+}

@@ -100,11 +100,12 @@ updateSources();
 run("bun", ["install"]);
 run("bun", ["bench/run.ts", rounds]);
 run("bun", ["bench/conformance.ts"]);
+run("bun", ["bench/usability.ts"]);
 run("bun", ["bench/ax.ts"]);
 if (withAdopt) run("bun", ["bench/adopt.ts"]);
 run("bun", ["run", "build"]);
 
-const results = ["src/lib/bench-results.json", "src/lib/conformance-results.json", "src/lib/ax-results.json", ...(withAdopt ? ["src/lib/adopt-results.json"] : [])];
+const results = ["src/lib/bench-results.json", "src/lib/conformance-results.json", "src/lib/usability-results.json", "src/lib/ax-results.json", ...(withAdopt ? ["src/lib/adopt-results.json"] : [])];
 run("git", ["add", "package.json", "bun.lock", "vite.config.ts", "svelte.config.js", "README.md", "bench/refresh.ts", "src/lib/adapters/t3code-ghostty.ts", "vendor/build.sh", "vendor/build-t3code.ts", "vendor/SOURCES.md", "vendor/t3code-ghostty", ...results]);
 if (!run("git", ["diff", "--cached", "--name-only"], true)) {
   console.log("[refresh] nothing changed");
