@@ -1,0 +1,319 @@
+{
+  "generatedAt": "2026-11-25T21:34:43.791Z",
+  "browser": "Google Chrome for Testing 159.0.8154.6",
+  "keysPerMode": 20,
+  "terminals": [
+    {
+      "id": "cloudterm",
+      "version": "0.0.16",
+      "probe": "dom",
+      "unverifiedTiming": null,
+      "clean": {
+        "samples": 20,
+        "failures": 0,
+        "readyMedianMs": 1.5,
+        "keyCpuMedianMs": 1.31,
+        "keyCpuP95Ms": 2.43,
+        "displayMedianMs": 15.67,
+        "displayP95Ms": 26.76
+      },
+      "scrollback5k": {
+        "samples": 20,
+        "failures": 0,
+        "readyMedianMs": 2.2,
+        "keyCpuMedianMs": 1.39,
+        "keyCpuP95Ms": 2.98,
+        "displayMedianMs": 16.96,
+        "displayP95Ms": 32.98
+      }
+    },
+    {
+      "id": "xterm-dom",
+      "version": "6.0.0",
+      "probe": "buffer",
+      "unverifiedTiming": null,
+      "clean": {
+        "samples": 20,
+        "failures": 0,
+        "readyMedianMs": 1.3,
+        "keyCpuMedianMs": 1.33,
+        "keyCpuP95Ms": 1.83,
+        "displayMedianMs": 11.89,
+        "displayP95Ms": 33.13
+      },
+      "scrollback5k": {
+        "samples": 20,
+        "failures": 0,
+        "readyMedianMs": 5.3,
+        "keyCpuMedianMs": 1.4,
+        "keyCpuP95Ms": 2.37,
+        "displayMedianMs": 21.01,
+        "displayP95Ms": 33.21
+      }
+    },
+    {
+      "id": "xterm-webgl",
+      "version": "6.0.0 + webgl 0.19.0",
+      "probe": "buffer",
+      "unverifiedTiming": null,
+      "clean": {
+        "samples": 20,
+        "failures": 0,
+        "readyMedianMs": 1.2,
+        "keyCpuMedianMs": 1.15,
+        "keyCpuP95Ms": 1.67,
+        "displayMedianMs": 11.19,
+        "displayP95Ms": 32.76
+      },
+      "scrollback5k": {
+        "samples": 20,
+        "failures": 0,
+        "readyMedianMs": 1.8,
+        "keyCpuMedianMs": 1.43,
+        "keyCpuP95Ms": 2.47,
+        "displayMedianMs": 16.81,
+        "displayP95Ms": 31.78
+      }
+    },
+    {
+      "id": "wterm",
+      "version": "0.5.10",
+      "probe": "dom",
+      "unverifiedTiming": null,
+      "clean": {
+        "samples": 20,
+        "failures": 0,
+        "readyMedianMs": 1.9,
+        "keyCpuMedianMs": 1.38,
+        "keyCpuP95Ms": 1.94,
+        "displayMedianMs": 18.52,
+        "displayP95Ms": 32.94
+      },
+      "scrollback5k": {
+        "samples": 20,
+        "failures": 0,
+        "readyMedianMs": 6.4,
+        "keyCpuMedianMs": 1.76,
+        "keyCpuP95Ms": 2.51,
+        "displayMedianMs": 22.07,
+        "displayP95Ms": 33.13
+      }
+    },
+    {
+      "id": "wterm-webgl",
+      "version": "0.5.10 (webgl)",
+      "probe": "buffer",
+      "unverifiedTiming": null,
+      "clean": {
+        "samples": 20,
+        "failures": 0,
+        "readyMedianMs": 1.5,
+        "keyCpuMedianMs": 1.42,
+        "keyCpuP95Ms": 3.19,
+        "displayMedianMs": 12.97,
+        "displayP95Ms": 32.3
+      },
+      "scrollback5k": {
+        "samples": 20,
+        "failures": 0,
+        "readyMedianMs": 5.7,
+        "keyCpuMedianMs": 1.74,
+        "keyCpuP95Ms": 2.95,
+        "displayMedianMs": 21.35,
+        "displayP95Ms": 32.44
+      }
+    },
+    {
+      "id": "ghostty-web",
+      "version": "0.4.0",
+      "probe": "buffer",
+      "unverifiedTiming": null,
+      "clean": {
+        "samples": 20,
+        "failures": 0,
+        "readyMedianMs": 13.1,
+        "keyCpuMedianMs": 4.53,
+        "keyCpuP95Ms": 5.64,
+        "displayMedianMs": 25.54,
+        "displayP95Ms": 34.22
+      },
+      "scrollback5k": {
+        "samples": 20,
+        "failures": 0,
+        "readyMedianMs": 10.5,
+        "keyCpuMedianMs": 4.12,
+        "keyCpuP95Ms": 5.22,
+        "displayMedianMs": 25.4,
+        "displayP95Ms": 33.71
+      }
+    },
+    {
+      "id": "xterm-dom-beta",
+      "version": "6.1.0-beta.337",
+      "probe": "buffer",
+      "unverifiedTiming": null,
+      "clean": {
+        "samples": 20,
+        "failures": 0,
+        "readyMedianMs": 5.5,
+        "keyCpuMedianMs": 1.61,
+        "keyCpuP95Ms": 2.88,
+        "displayMedianMs": 21.57,
+        "displayP95Ms": 33.84
+      },
+      "scrollback5k": {
+        "samples": 20,
+        "failures": 0,
+        "readyMedianMs": 5.3,
+        "keyCpuMedianMs": 1.43,
+        "keyCpuP95Ms": 2.59,
+        "displayMedianMs": 22.45,
+        "displayP95Ms": 32.8
+      }
+    },
+    {
+      "id": "restty",
+      "version": "0.3.0",
+      "probe": "search",
+      "unverifiedTiming": "restty exposes no screen text, so completion is detected through its search API. Search can resolve before output is painted; timings are not comparable until a pixel-based check exists.",
+      "clean": {
+        "samples": 20,
+        "failures": 20,
+        "readyMedianMs": null,
+        "keyCpuMedianMs": 36.17,
+        "keyCpuP95Ms": 45.47,
+        "displayMedianMs": null,
+        "displayP95Ms": null
+      },
+      "scrollback5k": {
+        "samples": 20,
+        "failures": 20,
+        "readyMedianMs": null,
+        "keyCpuMedianMs": 40.83,
+        "keyCpuP95Ms": 46.97,
+        "displayMedianMs": null,
+        "displayP95Ms": null
+      }
+    },
+    {
+      "id": "ferroterm",
+      "version": "0.8.0",
+      "probe": "buffer",
+      "unverifiedTiming": null,
+      "clean": {
+        "samples": 20,
+        "failures": 0,
+        "readyMedianMs": 9,
+        "keyCpuMedianMs": 1.12,
+        "keyCpuP95Ms": 1.88,
+        "displayMedianMs": 25.05,
+        "displayP95Ms": 33.87
+      },
+      "scrollback5k": {
+        "samples": 20,
+        "failures": 0,
+        "readyMedianMs": 1.5,
+        "keyCpuMedianMs": 0.89,
+        "keyCpuP95Ms": 1.56,
+        "displayMedianMs": 10.04,
+        "displayP95Ms": 32.93
+      }
+    },
+    {
+      "id": "t3code-ghostty",
+      "version": "t3code faa8ad6 (libghostty-vt wasm)",
+      "probe": "snapshot",
+      "unverifiedTiming": null,
+      "clean": {
+        "samples": 20,
+        "failures": 0,
+        "readyMedianMs": 2.3,
+        "keyCpuMedianMs": 1.34,
+        "keyCpuP95Ms": 2.71,
+        "displayMedianMs": 17.91,
+        "displayP95Ms": 32.83
+      },
+      "scrollback5k": {
+        "samples": 20,
+        "failures": 0,
+        "readyMedianMs": 1.5,
+        "keyCpuMedianMs": 1.52,
+        "keyCpuP95Ms": 3.27,
+        "displayMedianMs": 17.58,
+        "displayP95Ms": 33.24
+      }
+    },
+    {
+      "id": "auterm",
+      "version": "0.1.0",
+      "probe": "buffer",
+      "unverifiedTiming": null,
+      "clean": {
+        "samples": 20,
+        "failures": 0,
+        "readyMedianMs": 2.3,
+        "keyCpuMedianMs": 2.39,
+        "keyCpuP95Ms": 4.44,
+        "displayMedianMs": 14.42,
+        "displayP95Ms": 34.95
+      },
+      "scrollback5k": {
+        "samples": 20,
+        "failures": 0,
+        "readyMedianMs": 9.5,
+        "keyCpuMedianMs": 4.51,
+        "keyCpuP95Ms": 9.94,
+        "displayMedianMs": 20.92,
+        "displayP95Ms": 32.93
+      }
+    },
+    {
+      "id": "hterm-upstream",
+      "version": "1.92.1 (libapps HEAD)",
+      "probe": "buffer",
+      "unverifiedTiming": null,
+      "clean": {
+        "samples": 20,
+        "failures": 0,
+        "readyMedianMs": 1099.6,
+        "keyCpuMedianMs": null,
+        "keyCpuP95Ms": null,
+        "displayMedianMs": null,
+        "displayP95Ms": null
+      },
+      "scrollback5k": {
+        "samples": 20,
+        "failures": 20,
+        "readyMedianMs": null,
+        "keyCpuMedianMs": null,
+        "keyCpuP95Ms": null,
+        "displayMedianMs": null,
+        "displayP95Ms": null
+      }
+    },
+    {
+      "id": "hterm",
+      "version": "1.4.1",
+      "probe": "buffer",
+      "unverifiedTiming": null,
+      "clean": {
+        "samples": 20,
+        "failures": 0,
+        "readyMedianMs": 1374,
+        "keyCpuMedianMs": null,
+        "keyCpuP95Ms": null,
+        "displayMedianMs": null,
+        "displayP95Ms": null
+      },
+      "scrollback5k": {
+        "samples": 20,
+        "failures": 20,
+        "readyMedianMs": null,
+        "keyCpuMedianMs": null,
+        "keyCpuP95Ms": null,
+        "displayMedianMs": null,
+        "displayP95Ms": null
+      }
+    }
+  ]
+}

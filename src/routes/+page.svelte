@@ -21,7 +21,7 @@
   <BenchResults />
 
   <section class="live" aria-labelledby="live-title">
-    <h2 id="live-title"><span>9</span> Live comparison</h2>
+    <h2 id="live-title"><span>10</span> Live comparison</h2>
     <p>Each terminal below receives output from the same in-browser fake shell. No network or backend is used for the shell.</p>
     <GlobalControls />
     <BenchMatrix liveMeasurements={live} />
@@ -41,7 +41,7 @@
   .lede { margin: 8px 0 0; color: #4f5964; font-size: 15px; }
   .live { margin-top: 34px; }
   h2 { margin: 0 0 8px; color: #202831; font-size: 19px; font-weight: 600; }
-  h2 span { color: #697582; font-weight: 500; margin-right: 8px; }
+  h2 span { color: #56616c; font-weight: 500; margin-right: 8px; }
   .live > p { margin: 0 0 14px; color: #56616c; font-size: 14px; line-height: 1.5; }
   .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 14px; margin-top: 16px; }
   @media (max-width: 520px) { main { padding: 20px 12px 36px; } }

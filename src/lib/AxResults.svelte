@@ -15,7 +15,7 @@
 </script>
 
 <section aria-labelledby="ax-title">
-  <h2 id="ax-title"><span>6</span> Agent readability</h2>
+  <h2 id="ax-title"><span>7</span> Agent readability</h2>
   <p>Same-screen read checks, input checks, and zero-shot package adoption. Rows are sorted best first; shaded rows are the best result.</p>
   <div class="table-wrap" tabindex="0" role="region" aria-label="Agent readability results">
     <table>
