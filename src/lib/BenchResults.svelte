@@ -13,6 +13,14 @@
   const kinds = results.workloadKinds as Record<Workload, string>;
   const date = new Date(results.generatedAt).toISOString().slice(0, 10);
   const verified = (terminal: Terminal) => !terminal.unverifiedTiming;
+  const confById = Object.fromEntries(conformance.terminals.map((terminal) => [terminal.id, terminal]));
+  const eligible = (terminal: Terminal, workload: Workload) =>
+    verified(terminal) && !(workload === 'resize-reflow' && confById[terminal.id]?.cases['resize-reflow']?.pass === false);
+  const ineligibleReason = (terminal: Terminal, workload: Workload) => {
+    if (terminal.unverifiedTiming) return 'unverified';
+    if (workload === 'resize-reflow' && confById[terminal.id]?.cases['resize-reflow']?.pass === false) return 'no reflow';
+    return null;
+  };
   const cpuOf = (timing: Timing) => timing.cpuMs?.medianMs ?? timing.medianMs ?? Infinity;
   const drawOf = (timing: Timing) => {
     const lay = timing.styleLayoutMs?.medianMs ?? 0;
@@ -20,21 +28,22 @@
     return Math.round((lay + paint) * 10) / 10;
   };
   const fmt = (n: number | null | undefined) => (typeof n === 'number' && Number.isFinite(n) ? `${Math.round(n * 10) / 10}` : '—');
-  const lowestCpu = (workload: Workload) => Math.min(...results.terminals.filter(verified).map((terminal) => cpuOf(terminal.timings[workload])));
+  const lowestCpu = (workload: Workload) => Math.min(...results.terminals.filter((terminal) => eligible(terminal, workload)).map((terminal) => cpuOf(terminal.timings[workload])));
   const verifiedLows = Object.fromEntries(workloads.map((workload) => [workload, lowestCpu(workload)])) as Record<Workload, number>;
   const ratio = (value: number, minimum: number) => `${(value / minimum).toFixed(1)}×`;
   const cloudterm = results.terminals.find((terminal) => terminal.id === 'cloudterm')!;
-  const cloudtermConf = conformance.terminals.find((terminal) => terminal.id === 'cloudterm');
+  const cloudtermConf = confById['cloudterm'];
   const leaders = (workload: Workload) =>
     results.terminals
-      .filter((terminal) => verified(terminal) && Math.abs(cpuOf(terminal.timings[workload]) - verifiedLows[workload]) < 0.05)
+      .filter((terminal) => eligible(terminal, workload) && Math.abs(cpuOf(terminal.timings[workload]) - verifiedLows[workload]) < 0.05)
       .map((terminal) => `${terminal.id} ${terminal.version}`)
       .join(' and ');
+  const eligibleCount = (workload: Workload) => results.terminals.filter((terminal) => eligible(terminal, workload)).length;
   const cloudtermRank = (workload: Workload) =>
-    1 + results.terminals.filter((terminal) => verified(terminal) && cpuOf(terminal.timings[workload]) < cpuOf(cloudterm.timings[workload])).length;
+    1 + results.terminals.filter((terminal) => eligible(terminal, workload) && cpuOf(terminal.timings[workload]) < cpuOf(cloudterm.timings[workload])).length;
   const verifiedCount = results.terminals.filter(verified).length;
   const ranked = (workload: Workload) =>
-    [...results.terminals].sort((a, b) => Number(!verified(a)) - Number(!verified(b)) || cpuOf(a.timings[workload]) - cpuOf(b.timings[workload]));
+    [...results.terminals].sort((a, b) => Number(!eligible(a, workload)) - Number(!eligible(b, workload)) || cpuOf(a.timings[workload]) - cpuOf(b.timings[workload]));
   const maxCpu = (workload: Workload) => Math.max(...results.terminals.map((item) => {
     const v = cpuOf(item.timings[workload]);
     return Number.isFinite(v) ? v : 0;
@@ -56,7 +65,8 @@
     <ol>
       {#each workloads as workload (workload)}
         {@const ct = cloudterm.timings[workload]}
-        <li>{labels[workload]}: lowest CPU {leaders(workload)} ({fmt(verifiedLows[workload])} ms); cloudterm {fmt(cpuOf(ct))} ms CPU / {ct.medianMs} ms wall (#{cloudtermRank(workload)}/{verifiedCount}).</li>
+        {@const ctReason = ineligibleReason(cloudterm, workload)}
+        <li>{labels[workload]}: lowest CPU {leaders(workload)} ({fmt(verifiedLows[workload])} ms); cloudterm {fmt(cpuOf(ct))} ms CPU / {ct.medianMs} ms wall ({ctReason ? `unranked: ${ctReason}` : `#${cloudtermRank(workload)}/${eligibleCount(workload)}`}).</li>
       {/each}
     </ol>
   </div>
@@ -107,9 +117,10 @@
             {#each ranked(workload) as terminal (terminal.id)}
               {@const timing = terminal.timings[workload]}
               {@const cpu = cpuOf(timing)}
-              {@const isLowest = verified(terminal) && Math.abs(cpu - minimum) < 0.05}
+              {@const reason = ineligibleReason(terminal, workload)}
+              {@const isLowest = !reason && Math.abs(cpu - minimum) < 0.05}
               <tr class:lowest={isLowest}>
-                <td>{terminal.unverifiedTiming ? '—' : 1 + results.terminals.filter((other) => verified(other) && cpuOf(other.timings[workload]) < cpu - 0.05).length}</td>
+                <td>{reason ? '—' : 1 + results.terminals.filter((other) => eligible(other, workload) && cpuOf(other.timings[workload]) < cpu - 0.05).length}</td>
                 <th>{terminal.id} <small>{terminal.version}{#if terminal.grid !== results.grid} · {terminal.grid}{/if}</small></th>
                 <td><span class="bar" style={`--bar: ${peak ? Math.max(4, (cpu / peak) * 100) : 4}%`}></span>{fmt(timing.cpuMs?.medianMs)}</td>
                 <td>{fmt(drawOf(timing))}</td>
@@ -118,8 +129,8 @@
                 {:else}
                   <td>{timing.medianMs ?? '—'}</td>
                 {/if}
-                <td>{terminal.unverifiedTiming ? '—' : ratio(cpu, minimum)}</td>
-                <td>{terminal.unverifiedTiming ? 'unverified' : terminal.probe}</td>
+                <td>{reason ? '—' : ratio(cpu, minimum)}</td>
+                <td>{reason ?? terminal.probe}</td>
               </tr>
             {/each}
           </tbody>
