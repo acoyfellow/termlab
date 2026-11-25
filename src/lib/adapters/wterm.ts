@@ -14,7 +14,7 @@ export const wtermAdapter: TerminalAdapter = {
   label: 'wterm (Zig/WASM + DOM)',
   description:
     'vercel-labs/wterm. Zig core compiled to WASM, DOM renderer. Small payload and fast; earlier versions had measurement bugs under rapid resize.',
-  bundleHint: '~45KB gz incl. WASM',
+  bundleHint: '~76KB gz incl. WASM',
   async mount(element, shell) {
     const { WTerm } = await import('@wterm/dom');
     await import('@wterm/dom/css');

@@ -5,7 +5,7 @@ export const cloudterm: TerminalAdapter = {
   label: 'cloudterm (pretext + DOM)',
   description:
     'Homegrown, minimal. Built on @chenglou/pretext for text measurement, renders to DOM spans. One dependency, async mount() API.',
-  bundleHint: '~27KB gz incl. pretext',
+  bundleHint: '~28KB gz incl. pretext',
   async mount(element, shell) {
     const { mount } = await import('cloudterm');
     try {

@@ -51,7 +51,7 @@ function build(source: string) {
   mkdirSync(scratch, { recursive: true });
   cpSync(join(source, "src"), join(scratch, "src"), { recursive: true });
   cpSync(join(source, "package.json"), join(scratch, "package.json"));
-  const dependencyDirectory = [join(source, "node_modules"), "/Users/jcoeyman/cloudflare/cloudterm/node_modules"].find(existsSync);
+  const dependencyDirectory = [join(source, "node_modules"), "/Users/jcoeyman/cloudflare/cloudterm/node_modules", join(root, "node_modules")].find(existsSync);
   if (!dependencyDirectory) throw new Error(`node_modules is unavailable for ${source}`);
   symlinkSync(dependencyDirectory, join(scratch, "node_modules"), "dir");
   const outfile = join(scratch, "dist", "index.js");

@@ -9,8 +9,8 @@ const root = join(import.meta.dir, "..");
 const axeSource = readFileSync(join(root, "node_modules/axe-core/axe.min.js"), "utf8");
 const bench = JSON.parse(readFileSync(join(root, "src/lib/bench-results.json"), "utf8"));
 const cloudterm = bench.terminals.find((t: { id: string }) => t.id === "cloudterm");
-const workloads = ["scroll-flood", "full-redraw", "sgr-tokens"] as const;
-const keyNumbers: string[] = [...workloads.map((w) => `${cloudterm.timings[w].medianMs} ms`), `${cloudterm.mountMs} ms`];
+const workloads = Object.keys(bench.workloads);
+const keyNumbers: string[] = [...workloads.slice(0, 3).map((w) => `${cloudterm.timings[w].medianMs} ms`), `${cloudterm.mountMs} ms`];
 const allNumbers: Array<{ id: string; value: string }> = bench.terminals.flatMap((t: any) =>
   workloads.map((w) => ({ id: t.id, value: String(t.timings[w].medianMs) })),
 );

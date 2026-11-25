@@ -8,6 +8,7 @@ import { xtermCanvas } from './xterm-canvas';
 import { xtermWebgl } from './xterm-webgl';
 import { xtermDom } from './xterm-dom';
 import { wtermAdapter } from './wterm';
+import { wtermWebglAdapter } from './wterm-webgl';
 import { htermAdapter } from './hterm';
 import { cloudterm } from './cloudterm';
 import { ghosttyWeb } from './ghostty-web';
@@ -25,6 +26,7 @@ export const ADAPTERS: readonly TerminalAdapter[] = [
   xtermCanvas,
   xtermWebgl,
   wtermAdapter,
+  wtermWebglAdapter,
   ghosttyWeb,
   resttyAdapter,
   ferrotermAdapter,

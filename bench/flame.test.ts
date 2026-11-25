@@ -59,7 +59,17 @@ test("run.ts and flame.ts share one workload module with the real sizes", async 
   expect(runSource).not.toMatch(/\.repeat\(\s*\d+\s*\)\s*\+\s*["']\\r\\nEND-SGR/);
   const sgr = workloads["sgr-tokens"];
   const input = typeof sgr === "string" ? sgr : sgr.input;
-  expect(input).toBe("\x1b[32mfoo\x1b[0m ".repeat(100000) + "\r\nEND-SGR");
+  const cycle = [
+    "\x1b[31mfoo\x1b[0m ",
+    "\x1b[32mbar\x1b[0m ",
+    "\x1b[1;33mbaz\x1b[0m ",
+    "\x1b[34mlet\x1b[0m ",
+    "\x1b[3;35merr\x1b[0m ",
+    "\x1b[4;36mval\x1b[0m ",
+    "\x1b[38;5;208mkey\x1b[0m ",
+    "\x1b[38;2;90;210;160mend\x1b[0m ",
+  ].join("");
+  expect(input).toBe(cycle.repeat(12500) + "\r\nEND-SGR");
 });
 
 test("flame.ts has no shortcut paths", () => {

@@ -1,0 +1,1211 @@
+{
+  "generatedAt": "2026-11-25T10:29:36.387Z",
+  "browser": "Google Chrome for Testing 159.0.8154.6",
+  "cases": [
+    {
+      "id": "cup-overwrite",
+      "category": "Cursor & editing",
+      "name": "CSI H cursor positioning & overwrite",
+      "needsScreen": true
+    },
+    {
+      "id": "erase-line-display",
+      "category": "Cursor & editing",
+      "name": "CSI K / CSI 2J erase line & display",
+      "needsScreen": true
+    },
+    {
+      "id": "ich-dch",
+      "category": "Cursor & editing",
+      "name": "CSI @ / CSI P insert & delete chars",
+      "needsScreen": true
+    },
+    {
+      "id": "il-dl",
+      "category": "Cursor & editing",
+      "name": "CSI L / CSI M insert & delete lines",
+      "needsScreen": true
+    },
+    {
+      "id": "scroll-region",
+      "category": "Cursor & editing",
+      "name": "CSI r DECSTBM scroll region",
+      "needsScreen": true
+    },
+    {
+      "id": "pending-wrap",
+      "category": "Cursor & editing",
+      "name": "VT100 pending-wrap (xenl) at col 120",
+      "needsScreen": true
+    },
+    {
+      "id": "alt-screen-1049",
+      "category": "Buffers & modes",
+      "name": "CSI ?1049h/l alt screen save & restore",
+      "needsScreen": true
+    },
+    {
+      "id": "decsc-decrc",
+      "category": "Buffers & modes",
+      "name": "ESC 7 / ESC 8 save & restore cursor",
+      "needsScreen": true
+    },
+    {
+      "id": "sync-output-2026",
+      "category": "Buffers & modes",
+      "name": "CSI ?2026h/l synchronized output",
+      "needsScreen": true
+    },
+    {
+      "id": "dec-line-drawing",
+      "category": "Buffers & modes",
+      "name": "ESC ( 0 DEC Special Graphics charset",
+      "needsScreen": true
+    },
+    {
+      "id": "cjk-wide",
+      "category": "Unicode",
+      "name": "Wide CJK 2-column cursor advance",
+      "needsScreen": true
+    },
+    {
+      "id": "combining-marks",
+      "category": "Unicode",
+      "name": "Combining mark zero-width advance",
+      "needsScreen": true
+    },
+    {
+      "id": "emoji-utf8",
+      "category": "Unicode",
+      "name": "UTF-8 accents and emoji fidelity",
+      "needsScreen": true
+    },
+    {
+      "id": "dsr-cpr-6n",
+      "category": "Queries & replies",
+      "name": "CSI 6n cursor position report",
+      "needsScreen": false
+    },
+    {
+      "id": "da1-primary",
+      "category": "Queries & replies",
+      "name": "CSI c primary device attributes (DA1)",
+      "needsScreen": false
+    },
+    {
+      "id": "dsr-status-5n",
+      "category": "Queries & replies",
+      "name": "CSI 5n device status report",
+      "needsScreen": false
+    },
+    {
+      "id": "resize-reflow",
+      "category": "Resize & tabs",
+      "name": "Line reflow across shrink and widen",
+      "needsScreen": true
+    },
+    {
+      "id": "tab-stops",
+      "category": "Resize & tabs",
+      "name": "Default 8-col tabs + TBC/HTS custom stop",
+      "needsScreen": true
+    }
+  ],
+  "terminals": [
+    {
+      "id": "cloudterm",
+      "version": "0.0.16",
+      "passed": 12,
+      "tested": 18,
+      "total": 18,
+      "failed": [
+        "dec-line-drawing",
+        "dsr-cpr-6n",
+        "da1-primary",
+        "dsr-status-5n",
+        "resize-reflow",
+        "tab-stops"
+      ],
+      "cases": {
+        "cup-overwrite": {
+          "pass": true,
+          "detail": "\"    WOLLO\""
+        },
+        "erase-line-display": {
+          "pass": true,
+          "detail": "[\"1234\",\"second\",\"AFTER\",\"\"]"
+        },
+        "ich-dch": {
+          "pass": true,
+          "detail": "\"BXYCDEF\""
+        },
+        "il-dl": {
+          "pass": true,
+          "detail": "[\"R1\",\"INS\",\"R2\",\"R4\"]"
+        },
+        "scroll-region": {
+          "pass": true,
+          "detail": "[\"HDR\",\"B\",\"C\",\"D\",\"FTR\"]"
+        },
+        "pending-wrap": {
+          "pass": true,
+          "detail": "r0.len=120 r0[0]=\"X\" r1=\"\""
+        },
+        "alt-screen-1049": {
+          "pass": true,
+          "detail": "\"MAIN-LINE\""
+        },
+        "decsc-decrc": {
+          "pass": true,
+          "detail": "[\"TOP\",\"     HERE\"]"
+        },
+        "sync-output-2026": {
+          "pass": true,
+          "detail": "\"SYNC-OK\""
+        },
+        "dec-line-drawing": {
+          "pass": false,
+          "detail": "\"lqqqk-ok\""
+        },
+        "cjk-wide": {
+          "pass": true,
+          "detail": "\"日本語!\""
+        },
+        "combining-marks": {
+          "pass": true,
+          "detail": "\"é!\""
+        },
+        "emoji-utf8": {
+          "pass": true,
+          "detail": "\"café 🚀 ok\""
+        },
+        "dsr-cpr-6n": {
+          "pass": false,
+          "detail": "\"\""
+        },
+        "da1-primary": {
+          "pass": false,
+          "detail": "\"\""
+        },
+        "dsr-status-5n": {
+          "pass": false,
+          "detail": "\"\""
+        },
+        "resize-reflow": {
+          "pass": false,
+          "detail": "len=60 tail=\"xxxxxxxxxxxx\""
+        },
+        "tab-stops": {
+          "pass": false,
+          "detail": "[\"a       b\",\"1       2\"]"
+        }
+      }
+    },
+    {
+      "id": "xterm-dom",
+      "version": "6.0.0",
+      "passed": 18,
+      "tested": 18,
+      "total": 18,
+      "failed": [],
+      "cases": {
+        "cup-overwrite": {
+          "pass": true,
+          "detail": "\"    WOLLO\""
+        },
+        "erase-line-display": {
+          "pass": true,
+          "detail": "[\"1234\",\"second\",\"AFTER\",\"\"]"
+        },
+        "ich-dch": {
+          "pass": true,
+          "detail": "\"BXYCDEF\""
+        },
+        "il-dl": {
+          "pass": true,
+          "detail": "[\"R1\",\"INS\",\"R2\",\"R4\"]"
+        },
+        "scroll-region": {
+          "pass": true,
+          "detail": "[\"HDR\",\"B\",\"C\",\"D\",\"FTR\"]"
+        },
+        "pending-wrap": {
+          "pass": true,
+          "detail": "r0.len=120 r0[0]=\"X\" r1=\"\""
+        },
+        "alt-screen-1049": {
+          "pass": true,
+          "detail": "\"MAIN-LINE\""
+        },
+        "decsc-decrc": {
+          "pass": true,
+          "detail": "[\"TOP\",\"     HERE\"]"
+        },
+        "sync-output-2026": {
+          "pass": true,
+          "detail": "\"SYNC-OK\""
+        },
+        "dec-line-drawing": {
+          "pass": true,
+          "detail": "\"┌───┐-ok\""
+        },
+        "cjk-wide": {
+          "pass": true,
+          "detail": "\"日本語!\""
+        },
+        "combining-marks": {
+          "pass": true,
+          "detail": "\"é!\""
+        },
+        "emoji-utf8": {
+          "pass": true,
+          "detail": "\"café 🚀 ok\""
+        },
+        "dsr-cpr-6n": {
+          "pass": true,
+          "detail": "\"\\u001b[3;7R\""
+        },
+        "da1-primary": {
+          "pass": true,
+          "detail": "\"\\u001b[?1;2c\""
+        },
+        "dsr-status-5n": {
+          "pass": true,
+          "detail": "\"\\u001b[0n\""
+        },
+        "resize-reflow": {
+          "pass": true,
+          "detail": "len=100 tail=\"xxxxxxxx-END\""
+        },
+        "tab-stops": {
+          "pass": true,
+          "detail": "[\"a       b\",\"1   2\"]"
+        }
+      }
+    },
+    {
+      "id": "xterm-webgl",
+      "version": "6.0.0 + webgl 0.19.0",
+      "passed": 18,
+      "tested": 18,
+      "total": 18,
+      "failed": [],
+      "cases": {
+        "cup-overwrite": {
+          "pass": true,
+          "detail": "\"    WOLLO\""
+        },
+        "erase-line-display": {
+          "pass": true,
+          "detail": "[\"1234\",\"second\",\"AFTER\",\"\"]"
+        },
+        "ich-dch": {
+          "pass": true,
+          "detail": "\"BXYCDEF\""
+        },
+        "il-dl": {
+          "pass": true,
+          "detail": "[\"R1\",\"INS\",\"R2\",\"R4\"]"
+        },
+        "scroll-region": {
+          "pass": true,
+          "detail": "[\"HDR\",\"B\",\"C\",\"D\",\"FTR\"]"
+        },
+        "pending-wrap": {
+          "pass": true,
+          "detail": "r0.len=120 r0[0]=\"X\" r1=\"\""
+        },
+        "alt-screen-1049": {
+          "pass": true,
+          "detail": "\"MAIN-LINE\""
+        },
+        "decsc-decrc": {
+          "pass": true,
+          "detail": "[\"TOP\",\"     HERE\"]"
+        },
+        "sync-output-2026": {
+          "pass": true,
+          "detail": "\"SYNC-OK\""
+        },
+        "dec-line-drawing": {
+          "pass": true,
+          "detail": "\"┌───┐-ok\""
+        },
+        "cjk-wide": {
+          "pass": true,
+          "detail": "\"日本語!\""
+        },
+        "combining-marks": {
+          "pass": true,
+          "detail": "\"é!\""
+        },
+        "emoji-utf8": {
+          "pass": true,
+          "detail": "\"café 🚀 ok\""
+        },
+        "dsr-cpr-6n": {
+          "pass": true,
+          "detail": "\"\\u001b[3;7R\""
+        },
+        "da1-primary": {
+          "pass": true,
+          "detail": "\"\\u001b[?1;2c\""
+        },
+        "dsr-status-5n": {
+          "pass": true,
+          "detail": "\"\\u001b[0n\""
+        },
+        "resize-reflow": {
+          "pass": true,
+          "detail": "len=100 tail=\"xxxxxxxx-END\""
+        },
+        "tab-stops": {
+          "pass": true,
+          "detail": "[\"a       b\",\"1   2\"]"
+        }
+      }
+    },
+    {
+      "id": "wterm",
+      "version": "0.5.10",
+      "passed": 18,
+      "tested": 18,
+      "total": 18,
+      "failed": [],
+      "cases": {
+        "cup-overwrite": {
+          "pass": true,
+          "detail": "\"    WOLLO\""
+        },
+        "erase-line-display": {
+          "pass": true,
+          "detail": "[\"1234\",\"second\",\"AFTER\",\"\"]"
+        },
+        "ich-dch": {
+          "pass": true,
+          "detail": "\"BXYCDEF\""
+        },
+        "il-dl": {
+          "pass": true,
+          "detail": "[\"R1\",\"INS\",\"R2\",\"R4\"]"
+        },
+        "scroll-region": {
+          "pass": true,
+          "detail": "[\"HDR\",\"B\",\"C\",\"D\",\"FTR\"]"
+        },
+        "pending-wrap": {
+          "pass": true,
+          "detail": "r0.len=120 r0[0]=\"X\" r1=\"\""
+        },
+        "alt-screen-1049": {
+          "pass": true,
+          "detail": "\"MAIN-LINE\""
+        },
+        "decsc-decrc": {
+          "pass": true,
+          "detail": "[\"TOP\",\"     HERE\"]"
+        },
+        "sync-output-2026": {
+          "pass": true,
+          "detail": "\"SYNC-OK\""
+        },
+        "dec-line-drawing": {
+          "pass": true,
+          "detail": "\"┌───┐-ok\""
+        },
+        "cjk-wide": {
+          "pass": true,
+          "detail": "\"日本語!\""
+        },
+        "combining-marks": {
+          "pass": true,
+          "detail": "\"é!\""
+        },
+        "emoji-utf8": {
+          "pass": true,
+          "detail": "\"café 🚀 ok\""
+        },
+        "dsr-cpr-6n": {
+          "pass": true,
+          "detail": "\"\\u001b[3;7R\""
+        },
+        "da1-primary": {
+          "pass": true,
+          "detail": "\"\\u001b[?1;2c\""
+        },
+        "dsr-status-5n": {
+          "pass": true,
+          "detail": "\"\\u001b[0n\""
+        },
+        "resize-reflow": {
+          "pass": true,
+          "detail": "len=100 tail=\"xxxxxxxx-END\""
+        },
+        "tab-stops": {
+          "pass": true,
+          "detail": "[\"a       b\",\"1   2\"]"
+        }
+      }
+    },
+    {
+      "id": "wterm-webgl",
+      "version": "0.5.10 (webgl)",
+      "passed": 18,
+      "tested": 18,
+      "total": 18,
+      "failed": [],
+      "cases": {
+        "cup-overwrite": {
+          "pass": true,
+          "detail": "\"    WOLLO\""
+        },
+        "erase-line-display": {
+          "pass": true,
+          "detail": "[\"1234\",\"second\",\"AFTER\",\"\"]"
+        },
+        "ich-dch": {
+          "pass": true,
+          "detail": "\"BXYCDEF\""
+        },
+        "il-dl": {
+          "pass": true,
+          "detail": "[\"R1\",\"INS\",\"R2\",\"R4\"]"
+        },
+        "scroll-region": {
+          "pass": true,
+          "detail": "[\"HDR\",\"B\",\"C\",\"D\",\"FTR\"]"
+        },
+        "pending-wrap": {
+          "pass": true,
+          "detail": "r0.len=120 r0[0]=\"X\" r1=\"\""
+        },
+        "alt-screen-1049": {
+          "pass": true,
+          "detail": "\"MAIN-LINE\""
+        },
+        "decsc-decrc": {
+          "pass": true,
+          "detail": "[\"TOP\",\"     HERE\"]"
+        },
+        "sync-output-2026": {
+          "pass": true,
+          "detail": "\"SYNC-OK\""
+        },
+        "dec-line-drawing": {
+          "pass": true,
+          "detail": "\"┌───┐-ok\""
+        },
+        "cjk-wide": {
+          "pass": true,
+          "detail": "\"日本語!\""
+        },
+        "combining-marks": {
+          "pass": true,
+          "detail": "\"é!\""
+        },
+        "emoji-utf8": {
+          "pass": true,
+          "detail": "\"café 🚀 ok\""
+        },
+        "dsr-cpr-6n": {
+          "pass": true,
+          "detail": "\"\\u001b[3;7R\""
+        },
+        "da1-primary": {
+          "pass": true,
+          "detail": "\"\\u001b[?1;2c\""
+        },
+        "dsr-status-5n": {
+          "pass": true,
+          "detail": "\"\\u001b[0n\""
+        },
+        "resize-reflow": {
+          "pass": true,
+          "detail": "len=100 tail=\"xxxxxxxx-END\""
+        },
+        "tab-stops": {
+          "pass": true,
+          "detail": "[\"a       b\",\"1   2\"]"
+        }
+      }
+    },
+    {
+      "id": "ghostty-web",
+      "version": "0.4.0",
+      "passed": 16,
+      "tested": 18,
+      "total": 18,
+      "failed": [
+        "combining-marks",
+        "da1-primary"
+      ],
+      "cases": {
+        "cup-overwrite": {
+          "pass": true,
+          "detail": "\"    WOLLO\""
+        },
+        "erase-line-display": {
+          "pass": true,
+          "detail": "[\"1234\",\"second\",\"AFTER\",\"\"]"
+        },
+        "ich-dch": {
+          "pass": true,
+          "detail": "\"BXYCDEF\""
+        },
+        "il-dl": {
+          "pass": true,
+          "detail": "[\"R1\",\"INS\",\"R2\",\"R4\"]"
+        },
+        "scroll-region": {
+          "pass": true,
+          "detail": "[\"HDR\",\"B\",\"C\",\"D\",\"FTR\"]"
+        },
+        "pending-wrap": {
+          "pass": true,
+          "detail": "r0.len=120 r0[0]=\"X\" r1=\"\""
+        },
+        "alt-screen-1049": {
+          "pass": true,
+          "detail": "\"MAIN-LINE\""
+        },
+        "decsc-decrc": {
+          "pass": true,
+          "detail": "[\"TOP\",\"     HERE\"]"
+        },
+        "sync-output-2026": {
+          "pass": true,
+          "detail": "\"SYNC-OK\""
+        },
+        "dec-line-drawing": {
+          "pass": true,
+          "detail": "\"┌───┐-ok\""
+        },
+        "cjk-wide": {
+          "pass": true,
+          "detail": "\"日本語!\""
+        },
+        "combining-marks": {
+          "pass": false,
+          "detail": "\"e!\""
+        },
+        "emoji-utf8": {
+          "pass": true,
+          "detail": "\"café 🚀 ok\""
+        },
+        "dsr-cpr-6n": {
+          "pass": true,
+          "detail": "\"\\u001b[3;7R\""
+        },
+        "da1-primary": {
+          "pass": false,
+          "detail": "\"\""
+        },
+        "dsr-status-5n": {
+          "pass": true,
+          "detail": "\"\\u001b[0n\""
+        },
+        "resize-reflow": {
+          "pass": true,
+          "detail": "len=100 tail=\"xxxxxxxx-END\""
+        },
+        "tab-stops": {
+          "pass": true,
+          "detail": "[\"a       b\",\"1   2\"]"
+        }
+      }
+    },
+    {
+      "id": "xterm-dom-beta",
+      "version": "6.1.0-beta.337",
+      "passed": 18,
+      "tested": 18,
+      "total": 18,
+      "failed": [],
+      "cases": {
+        "cup-overwrite": {
+          "pass": true,
+          "detail": "\"    WOLLO\""
+        },
+        "erase-line-display": {
+          "pass": true,
+          "detail": "[\"1234\",\"second\",\"AFTER\",\"\"]"
+        },
+        "ich-dch": {
+          "pass": true,
+          "detail": "\"BXYCDEF\""
+        },
+        "il-dl": {
+          "pass": true,
+          "detail": "[\"R1\",\"INS\",\"R2\",\"R4\"]"
+        },
+        "scroll-region": {
+          "pass": true,
+          "detail": "[\"HDR\",\"B\",\"C\",\"D\",\"FTR\"]"
+        },
+        "pending-wrap": {
+          "pass": true,
+          "detail": "r0.len=120 r0[0]=\"X\" r1=\"\""
+        },
+        "alt-screen-1049": {
+          "pass": true,
+          "detail": "\"MAIN-LINE\""
+        },
+        "decsc-decrc": {
+          "pass": true,
+          "detail": "[\"TOP\",\"     HERE\"]"
+        },
+        "sync-output-2026": {
+          "pass": true,
+          "detail": "\"SYNC-OK\""
+        },
+        "dec-line-drawing": {
+          "pass": true,
+          "detail": "\"┌───┐-ok\""
+        },
+        "cjk-wide": {
+          "pass": true,
+          "detail": "\"日本語!\""
+        },
+        "combining-marks": {
+          "pass": true,
+          "detail": "\"é!\""
+        },
+        "emoji-utf8": {
+          "pass": true,
+          "detail": "\"café 🚀 ok\""
+        },
+        "dsr-cpr-6n": {
+          "pass": true,
+          "detail": "\"\\u001b[3;7R\""
+        },
+        "da1-primary": {
+          "pass": true,
+          "detail": "\"\\u001b[?1;2c\""
+        },
+        "dsr-status-5n": {
+          "pass": true,
+          "detail": "\"\\u001b[0n\""
+        },
+        "resize-reflow": {
+          "pass": true,
+          "detail": "len=100 tail=\"xxxxxxxx-END\""
+        },
+        "tab-stops": {
+          "pass": true,
+          "detail": "[\"a       b\",\"1   2\"]"
+        }
+      }
+    },
+    {
+      "id": "restty",
+      "version": "0.3.0",
+      "passed": 0,
+      "tested": 3,
+      "total": 18,
+      "failed": [
+        "dsr-cpr-6n",
+        "da1-primary",
+        "dsr-status-5n"
+      ],
+      "cases": {
+        "cup-overwrite": {
+          "pass": null,
+          "detail": "no screen API"
+        },
+        "erase-line-display": {
+          "pass": null,
+          "detail": "no screen API"
+        },
+        "ich-dch": {
+          "pass": null,
+          "detail": "no screen API"
+        },
+        "il-dl": {
+          "pass": null,
+          "detail": "no screen API"
+        },
+        "scroll-region": {
+          "pass": null,
+          "detail": "no screen API"
+        },
+        "pending-wrap": {
+          "pass": null,
+          "detail": "no screen API"
+        },
+        "alt-screen-1049": {
+          "pass": null,
+          "detail": "no screen API"
+        },
+        "decsc-decrc": {
+          "pass": null,
+          "detail": "no screen API"
+        },
+        "sync-output-2026": {
+          "pass": null,
+          "detail": "no screen API"
+        },
+        "dec-line-drawing": {
+          "pass": null,
+          "detail": "no screen API"
+        },
+        "cjk-wide": {
+          "pass": null,
+          "detail": "no screen API"
+        },
+        "combining-marks": {
+          "pass": null,
+          "detail": "no screen API"
+        },
+        "emoji-utf8": {
+          "pass": null,
+          "detail": "no screen API"
+        },
+        "dsr-cpr-6n": {
+          "pass": false,
+          "detail": "\"\""
+        },
+        "da1-primary": {
+          "pass": false,
+          "detail": "\"\""
+        },
+        "dsr-status-5n": {
+          "pass": false,
+          "detail": "\"\""
+        },
+        "resize-reflow": {
+          "pass": null,
+          "detail": "no screen API"
+        },
+        "tab-stops": {
+          "pass": null,
+          "detail": "no screen API"
+        }
+      }
+    },
+    {
+      "id": "ferroterm",
+      "version": "0.8.0",
+      "passed": 15,
+      "tested": 18,
+      "total": 18,
+      "failed": [
+        "dec-line-drawing",
+        "combining-marks",
+        "tab-stops"
+      ],
+      "cases": {
+        "cup-overwrite": {
+          "pass": true,
+          "detail": "\"    WOLLO\""
+        },
+        "erase-line-display": {
+          "pass": true,
+          "detail": "[\"1234\",\"second\",\"AFTER\",\"\"]"
+        },
+        "ich-dch": {
+          "pass": true,
+          "detail": "\"BXYCDEF\""
+        },
+        "il-dl": {
+          "pass": true,
+          "detail": "[\"R1\",\"INS\",\"R2\",\"R4\"]"
+        },
+        "scroll-region": {
+          "pass": true,
+          "detail": "[\"HDR\",\"B\",\"C\",\"D\",\"FTR\"]"
+        },
+        "pending-wrap": {
+          "pass": true,
+          "detail": "r0.len=120 r0[0]=\"X\" r1=\"\""
+        },
+        "alt-screen-1049": {
+          "pass": true,
+          "detail": "\"MAIN-LINE\""
+        },
+        "decsc-decrc": {
+          "pass": true,
+          "detail": "[\"TOP\",\"     HERE\"]"
+        },
+        "sync-output-2026": {
+          "pass": true,
+          "detail": "\"SYNC-OK\""
+        },
+        "dec-line-drawing": {
+          "pass": false,
+          "detail": "\"lqqqk-ok\""
+        },
+        "cjk-wide": {
+          "pass": true,
+          "detail": "\"日本語!\""
+        },
+        "combining-marks": {
+          "pass": false,
+          "detail": "\"e!\""
+        },
+        "emoji-utf8": {
+          "pass": true,
+          "detail": "\"café 🚀 ok\""
+        },
+        "dsr-cpr-6n": {
+          "pass": true,
+          "detail": "\"\\u001b[3;7R\""
+        },
+        "da1-primary": {
+          "pass": true,
+          "detail": "\"\\u001b[?1;2c\""
+        },
+        "dsr-status-5n": {
+          "pass": true,
+          "detail": "\"\\u001b[0n\""
+        },
+        "resize-reflow": {
+          "pass": true,
+          "detail": "len=100 tail=\"xxxxxxxx-END\""
+        },
+        "tab-stops": {
+          "pass": false,
+          "detail": "[\"a       b\",\"1       2\"]"
+        }
+      }
+    },
+    {
+      "id": "t3code-ghostty",
+      "version": "t3code faa8ad6 (libghostty-vt wasm)",
+      "passed": 18,
+      "tested": 18,
+      "total": 18,
+      "failed": [],
+      "cases": {
+        "cup-overwrite": {
+          "pass": true,
+          "detail": "\"    WOLLO\""
+        },
+        "erase-line-display": {
+          "pass": true,
+          "detail": "[\"1234\",\"second\",\"AFTER\",\"\"]"
+        },
+        "ich-dch": {
+          "pass": true,
+          "detail": "\"BXYCDEF\""
+        },
+        "il-dl": {
+          "pass": true,
+          "detail": "[\"R1\",\"INS\",\"R2\",\"R4\"]"
+        },
+        "scroll-region": {
+          "pass": true,
+          "detail": "[\"HDR\",\"B\",\"C\",\"D\",\"FTR\"]"
+        },
+        "pending-wrap": {
+          "pass": true,
+          "detail": "r0.len=120 r0[0]=\"X\" r1=\"\""
+        },
+        "alt-screen-1049": {
+          "pass": true,
+          "detail": "\"MAIN-LINE\""
+        },
+        "decsc-decrc": {
+          "pass": true,
+          "detail": "[\"TOP\",\"     HERE\"]"
+        },
+        "sync-output-2026": {
+          "pass": true,
+          "detail": "\"SYNC-OK\""
+        },
+        "dec-line-drawing": {
+          "pass": true,
+          "detail": "\"┌───┐-ok\""
+        },
+        "cjk-wide": {
+          "pass": true,
+          "detail": "\"日本語!\""
+        },
+        "combining-marks": {
+          "pass": true,
+          "detail": "\"é!\""
+        },
+        "emoji-utf8": {
+          "pass": true,
+          "detail": "\"café 🚀 ok\""
+        },
+        "dsr-cpr-6n": {
+          "pass": true,
+          "detail": "\"\\u001b[3;7R\""
+        },
+        "da1-primary": {
+          "pass": true,
+          "detail": "\"\\u001b[?62;22c\""
+        },
+        "dsr-status-5n": {
+          "pass": true,
+          "detail": "\"\\u001b[0n\""
+        },
+        "resize-reflow": {
+          "pass": true,
+          "detail": "len=100 tail=\"xxxxxxxx-END\""
+        },
+        "tab-stops": {
+          "pass": true,
+          "detail": "[\"a       b\",\"1   2\"]"
+        }
+      }
+    },
+    {
+      "id": "auterm",
+      "version": "0.1.0",
+      "passed": 14,
+      "tested": 18,
+      "total": 18,
+      "failed": [
+        "dec-line-drawing",
+        "cjk-wide",
+        "combining-marks",
+        "dsr-status-5n"
+      ],
+      "cases": {
+        "cup-overwrite": {
+          "pass": true,
+          "detail": "\"    WOLLO\""
+        },
+        "erase-line-display": {
+          "pass": true,
+          "detail": "[\"1234\",\"second\",\"AFTER\",\"\"]"
+        },
+        "ich-dch": {
+          "pass": true,
+          "detail": "\"BXYCDEF\""
+        },
+        "il-dl": {
+          "pass": true,
+          "detail": "[\"R1\",\"INS\",\"R2\",\"R4\"]"
+        },
+        "scroll-region": {
+          "pass": true,
+          "detail": "[\"HDR\",\"B\",\"C\",\"D\",\"FTR\"]"
+        },
+        "pending-wrap": {
+          "pass": true,
+          "detail": "r0.len=120 r0[0]=\"X\" r1=\"\""
+        },
+        "alt-screen-1049": {
+          "pass": true,
+          "detail": "\"MAIN-LINE\""
+        },
+        "decsc-decrc": {
+          "pass": true,
+          "detail": "[\"TOP\",\"     HERE\"]"
+        },
+        "sync-output-2026": {
+          "pass": true,
+          "detail": "\"SYNC-OK\""
+        },
+        "dec-line-drawing": {
+          "pass": false,
+          "detail": "\"lqqqk-ok\""
+        },
+        "cjk-wide": {
+          "pass": false,
+          "detail": "\"日 本 語 !\""
+        },
+        "combining-marks": {
+          "pass": false,
+          "detail": "\"e!\""
+        },
+        "emoji-utf8": {
+          "pass": true,
+          "detail": "\"café 🚀  ok\""
+        },
+        "dsr-cpr-6n": {
+          "pass": true,
+          "detail": "\"\\u001b[3;7R\""
+        },
+        "da1-primary": {
+          "pass": true,
+          "detail": "\"\\u001b[?1;2c\""
+        },
+        "dsr-status-5n": {
+          "pass": false,
+          "detail": "\"\""
+        },
+        "resize-reflow": {
+          "pass": true,
+          "detail": "len=100 tail=\"xxxxxxxx-END\""
+        },
+        "tab-stops": {
+          "pass": true,
+          "detail": "[\"a       b\",\"1   2\"]"
+        }
+      }
+    },
+    {
+      "id": "hterm-upstream",
+      "version": "1.92.1 (libapps HEAD)",
+      "passed": 16,
+      "tested": 18,
+      "total": 18,
+      "failed": [
+        "dec-line-drawing",
+        "dsr-status-5n"
+      ],
+      "cases": {
+        "cup-overwrite": {
+          "pass": true,
+          "detail": "\"    WOLLO\""
+        },
+        "erase-line-display": {
+          "pass": true,
+          "detail": "[\"1234\",\"second\",\"AFTER\",\"\"]"
+        },
+        "ich-dch": {
+          "pass": true,
+          "detail": "\"BXYCDEF\""
+        },
+        "il-dl": {
+          "pass": true,
+          "detail": "[\"R1\",\"INS\",\"R2\",\"R4\"]"
+        },
+        "scroll-region": {
+          "pass": true,
+          "detail": "[\"HDR\",\"B\",\"C\",\"D\",\"FTR\"]"
+        },
+        "pending-wrap": {
+          "pass": true,
+          "detail": "r0.len=120 r0[0]=\"X\" r1=\"\""
+        },
+        "alt-screen-1049": {
+          "pass": true,
+          "detail": "\"MAIN-LINE\""
+        },
+        "decsc-decrc": {
+          "pass": true,
+          "detail": "[\"TOP\",\"     HERE\"]"
+        },
+        "sync-output-2026": {
+          "pass": true,
+          "detail": "\"SYNC-OK\""
+        },
+        "dec-line-drawing": {
+          "pass": false,
+          "detail": "\"lqqqk-ok\""
+        },
+        "cjk-wide": {
+          "pass": true,
+          "detail": "\"日本語!\""
+        },
+        "combining-marks": {
+          "pass": true,
+          "detail": "\"é!\""
+        },
+        "emoji-utf8": {
+          "pass": true,
+          "detail": "\"café 🚀 ok\""
+        },
+        "dsr-cpr-6n": {
+          "pass": true,
+          "detail": "\"\\u001b[3;7R\""
+        },
+        "da1-primary": {
+          "pass": true,
+          "detail": "\"\\u001b[?1;2c\""
+        },
+        "dsr-status-5n": {
+          "pass": false,
+          "detail": "\"\\u001b0n\""
+        },
+        "resize-reflow": {
+          "pass": true,
+          "detail": "len=100 tail=\"xxxxxxxx-END\""
+        },
+        "tab-stops": {
+          "pass": true,
+          "detail": "[\"a       b\",\"1   2\"]"
+        }
+      }
+    },
+    {
+      "id": "hterm",
+      "version": "1.4.1",
+      "passed": 16,
+      "tested": 18,
+      "total": 18,
+      "failed": [
+        "dec-line-drawing",
+        "dsr-status-5n"
+      ],
+      "cases": {
+        "cup-overwrite": {
+          "pass": true,
+          "detail": "\"    WOLLO\""
+        },
+        "erase-line-display": {
+          "pass": true,
+          "detail": "[\"1234\",\"second\",\"AFTER\",\"\"]"
+        },
+        "ich-dch": {
+          "pass": true,
+          "detail": "\"BXYCDEF\""
+        },
+        "il-dl": {
+          "pass": true,
+          "detail": "[\"R1\",\"INS\",\"R2\",\"R4\"]"
+        },
+        "scroll-region": {
+          "pass": true,
+          "detail": "[\"HDR\",\"B\",\"C\",\"D\",\"FTR\"]"
+        },
+        "pending-wrap": {
+          "pass": true,
+          "detail": "r0.len=120 r0[0]=\"X\" r1=\"\""
+        },
+        "alt-screen-1049": {
+          "pass": true,
+          "detail": "\"MAIN-LINE\""
+        },
+        "decsc-decrc": {
+          "pass": true,
+          "detail": "[\"TOP\",\"     HERE\"]"
+        },
+        "sync-output-2026": {
+          "pass": true,
+          "detail": "\"SYNC-OK\""
+        },
+        "dec-line-drawing": {
+          "pass": false,
+          "detail": "\"lqqqk-ok\""
+        },
+        "cjk-wide": {
+          "pass": true,
+          "detail": "\"日本語!\""
+        },
+        "combining-marks": {
+          "pass": true,
+          "detail": "\"é!\""
+        },
+        "emoji-utf8": {
+          "pass": true,
+          "detail": "\"café 🚀 ok\""
+        },
+        "dsr-cpr-6n": {
+          "pass": true,
+          "detail": "\"\\u001b[3;7R\""
+        },
+        "da1-primary": {
+          "pass": true,
+          "detail": "\"\\u001b[?1;2c\""
+        },
+        "dsr-status-5n": {
+          "pass": false,
+          "detail": "\"\\u001b0n\""
+        },
+        "resize-reflow": {
+          "pass": true,
+          "detail": "len=100 tail=\"xxxxxxxx-END\""
+        },
+        "tab-stops": {
+          "pass": true,
+          "detail": "[\"a       b\",\"1   2\"]"
+        }
+      }
+    }
+  ]
+}

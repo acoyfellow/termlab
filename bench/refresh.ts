@@ -81,6 +81,11 @@ function updateSources(): void {
     const [hash, date] = run("git", ["-C", join(root, "vendor/.work", vendor.dir), "log", "-1", "--format=%h %cs"], true).split(" ");
     const row = new RegExp(`^(\\| ${escapeRegExp(vendor.label)}[^\\n]*?\\| )[0-9a-f]{7,} \\([0-9-]+\\)`, "m");
     text = text.replace(row, `$1${hash!.slice(0, 7)} (${date})`);
+    if (vendor.dir === "t3code") {
+      const adapterPath = join(root, "src/lib/adapters/t3code-ghostty.ts");
+      const adapterText = readFileSync(adapterPath, "utf8").replace(new RegExp("source at [0-9a-f]{7,}\\."), `source at ${hash!.slice(0, 7)}.`);
+      writeFileSync(adapterPath, adapterText);
+    }
   }
   writeFileSync(path, text);
 }
@@ -94,12 +99,13 @@ run("bash", ["vendor/build.sh"]);
 updateSources();
 run("bun", ["install"]);
 run("bun", ["bench/run.ts", rounds]);
+run("bun", ["bench/conformance.ts"]);
 run("bun", ["bench/ax.ts"]);
 if (withAdopt) run("bun", ["bench/adopt.ts"]);
 run("bun", ["run", "build"]);
 
-const results = ["src/lib/bench-results.json", "src/lib/ax-results.json", ...(withAdopt ? ["src/lib/adopt-results.json"] : [])];
-run("git", ["add", "package.json", "bun.lock", "vite.config.ts", "svelte.config.js", "README.md", "bench/refresh.ts", "vendor/build.sh", "vendor/build-t3code.ts", "vendor/SOURCES.md", "vendor/t3code-ghostty", ...results]);
+const results = ["src/lib/bench-results.json", "src/lib/conformance-results.json", "src/lib/ax-results.json", ...(withAdopt ? ["src/lib/adopt-results.json"] : [])];
+run("git", ["add", "package.json", "bun.lock", "vite.config.ts", "svelte.config.js", "README.md", "bench/refresh.ts", "src/lib/adapters/t3code-ghostty.ts", "vendor/build.sh", "vendor/build-t3code.ts", "vendor/SOURCES.md", "vendor/t3code-ghostty", ...results]);
 if (!run("git", ["diff", "--cached", "--name-only"], true)) {
   console.log("[refresh] nothing changed");
   process.exit(0);

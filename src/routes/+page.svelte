@@ -21,7 +21,7 @@
   <BenchResults />
 
   <section class="live" aria-labelledby="live-title">
-    <h2 id="live-title"><span>7</span> Live comparison</h2>
+    <h2 id="live-title"><span>8</span> Live comparison</h2>
     <p>Each terminal below receives output from the same in-browser fake shell. No network or backend is used for the shell.</p>
     <GlobalControls />
     <BenchMatrix liveMeasurements={live} />

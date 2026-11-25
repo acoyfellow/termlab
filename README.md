@@ -34,11 +34,13 @@ This is that bench. No WebSockets, no backend, no auth. Type in any terminal, or
 - **Emoji + CJK button.** Are wide characters the right width?
 - **Mount time.** Noted in each header — how long each adapter took to initialize.
 
-## Throughput benchmark
+## Throughput and conformance benchmarks
 
-`bun run bench 5` runs three workloads (100k-line scroll flood, 1,500 full-screen redraws, 100k SGR runs) against every terminal in fresh headless Chromium processes, alternating order each round. It writes `src/lib/bench-results.json`, which the page renders. It needs Playwright's `chromium_headless_shell` in `~/Library/Caches/ms-playwright` (`bunx playwright install chromium-headless-shell`). WebGL runs on SwiftShader there, so the WebGL row understates a real GPU.
+`bun run bench 5` runs seven workloads (scroll flood, full redraw, multi-palette SGR tokens, alt-screen TUI session with `?2026`, Unicode + truecolor, resize + reflow, and 60-frame paced streaming) against every terminal on an equalized 120×40 grid with 10,000-line scrollback in fresh headless Chromium processes, alternating order each round. It ranks by traced main-thread CPU (parse + layout + paint through 2 settle frames) and writes `src/lib/bench-results.json`. Hardware GPU (ANGLE Metal) is used by default; set `BENCH_GPU=software` for SwiftShader.
 
-`bun run refresh` updates every npm terminal to its latest version (build tools in devDependencies stay within their current major version) and every vendored terminal to its upstream HEAD, rebuilds, reruns the throughput and accessibility benchmarks, builds the site and commits the results. Add `--adopt` to also rerun the adoption test, and `--publish` to push to main, which deploys. `REFRESH_ROUNDS` sets the rounds (default 5).
+`bun run conformance` runs an 18-case VT100/xterm/Unicode/query/reflow suite in isolated headless Chromium pages per test and writes `src/lib/conformance-results.json`.
+
+`bun run refresh` updates every npm terminal to its latest version (build tools in devDependencies stay within their current major version) and every vendored terminal to its upstream HEAD, rebuilds, reruns throughput, conformance and accessibility benchmarks, builds the site and commits the results. Add `--adopt` to also rerun the adoption test, and `--publish` to push to main, which deploys. `REFRESH_ROUNDS` sets the rounds (default 5).
 
 `bun bench/flame.ts --diff <cloudtermA> <cloudtermB> sgr-tokens` profiles both builds on the same workloads and ranks per-function self-time changes. It reliably detects changes of about 3 ms per run or more. Smaller changes are within run-to-run noise (garbage collection alone varies by about 0.6 ms) and are not reported reliably.
 

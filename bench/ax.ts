@@ -64,6 +64,7 @@ const script = (adapter: Adapter) => `import '@xterm/xterm/css/xterm.css';
 const host = document.getElementById('host');
 const nextFrame = () => new Promise((r) => requestAnimationFrame(() => r(undefined)));
 function bufferText(t) { const b = t.buffer?.active; if (!b) return ''; let s = ''; for (let i = Math.max(0, b.length - 45); i < b.length; i++) s += (b.getLine(i)?.translateToString(true) ?? '') + '\\n'; return s; }
+function bufferScreen(t) { const b = t.buffer?.active; if (!b) return []; const out = []; for (let i = 0; i < t.rows; i++) out.push(b.getLine(b.baseY + i)?.translateToString(true) ?? ''); return out; }
 async function make(): Promise<any> { ${adapter.setup} }
 let received = '';
 (window as any).__axInput = (d) => { received += String(d); };
