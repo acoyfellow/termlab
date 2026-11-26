@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-25T10:31:10.320Z",
+  "generatedAt": "2026-11-26T18:45:07.189Z",
   "screen": {
     "input": [
       "\u001b[1;32muser@box\u001b[0m:\u001b[1;34m~/proj\u001b[0m$ ls -la",
@@ -65,20 +65,20 @@
   "terminals": [
     {
       "id": "cloudterm",
-      "version": "0.0.16",
+      "version": "0.0.17",
       "canvas": false,
-      "domNodes": 109,
-      "htmlChars": 10280,
-      "innerTextSample": "\"scrollback line 0\\nscrollback line 1\\nscrollback line 2\\nscrollback line 3\\nscrollback line 4\\nscrollback line 5\\nscrollback line 6\\nscrollback line 7\\nscrollback line 8\\nscrollback line 9\\nscrollback line 10\\nscrollback line 11\\nscrollback line 12\\nscrollback line 13\\nscrollback line 14\\nscrollback line 15\\nscroll\"",
-      "readableDomMs": 26.9,
-      "readableApiMs": 26.9,
+      "domNodes": 108,
+      "htmlChars": 5760,
+      "innerTextSample": "\"scrollback line 1\\nscrollback line 2\\nscrollback line 3\\nscrollback line 4\\nscrollback line 5\\nscrollback line 6\\nscrollback line 7\\nscrollback line 8\\nscrollback line 9\\nscrollback line 10\\nscrollback line 11\\nscrollback line 12\\nscrollback line 13\\nscrollback line 14\\nscrollback line 15\\nscrollback line 16\\nscrol\"",
+      "readableDomMs": 24.7,
+      "readableApiMs": 24.7,
       "reads": {
         "innerText": {
           "matched": 11,
           "total": 11,
           "missing": [],
-          "tokens": 231,
-          "chars": 907
+          "tokens": 226,
+          "chars": 889
         },
         "accessibility": {
           "matched": 10,
@@ -86,15 +86,15 @@
           "missing": [
             "wide: 日本語テキスト and emoji: ok"
           ],
-          "tokens": 232,
-          "chars": 914
+          "tokens": 228,
+          "chars": 896
         },
         "api": {
           "matched": 11,
           "total": 11,
           "missing": [],
-          "tokens": 231,
-          "chars": 907
+          "tokens": 226,
+          "chars": 890
         }
       },
       "focusTarget": "textarea.cloudterm-input@1,1",
@@ -153,8 +153,8 @@
       "domNodes": 117,
       "htmlChars": 62553,
       "innerTextSample": "\"scrollback line 1\\nscrollback line 2\\nscrollback line 3\\nscrollback line 4\\nscrollback line 5\\nscrollback line 6\\nscrollback line 7\\nscrollback line 8\\nscrollback line 9\\nscrollback line 10\\nscrollback line 11\\nscrollback line 12\\nscrollback line 13\\nscrollback line 14\\nscrollback line 15\\nscrollback line 16\\nscrol\"",
-      "readableDomMs": 25.5,
-      "readableApiMs": 2,
+      "readableDomMs": 25.2,
+      "readableApiMs": 1.7,
       "reads": {
         "innerText": {
           "matched": 11,
@@ -247,7 +247,7 @@
       "htmlChars": 1852,
       "innerTextSample": "\"\"",
       "readableDomMs": null,
-      "readableApiMs": 1.6,
+      "readableApiMs": 1.7,
       "reads": {
         "innerText": {
           "matched": 0,
@@ -346,13 +346,13 @@
     },
     {
       "id": "wterm",
-      "version": "0.5.10",
+      "version": "0.6.0",
       "canvas": true,
       "domNodes": 119,
       "htmlChars": 11047,
       "innerTextSample": "\"scrollback line 0                                                                                                       \\nscrollback line 1                                                                                                       \\nscrollback line 2                                         \"",
-      "readableDomMs": 202.5,
-      "readableApiMs": 202.5,
+      "readableDomMs": 30.4,
+      "readableApiMs": 30.4,
       "reads": {
         "innerText": {
           "matched": 11,
@@ -435,13 +435,13 @@
     },
     {
       "id": "wterm-webgl",
-      "version": "0.5.10 (webgl)",
+      "version": "0.6.0 (webgl)",
       "canvas": true,
       "domNodes": 120,
       "htmlChars": 11222,
       "innerTextSample": "\"scrollback line 0                                                                                                       \\nscrollback line 1                                                                                                       \\nscrollback line 2                                         \"",
-      "readableDomMs": 191.1,
-      "readableApiMs": 1.5,
+      "readableDomMs": 190.3,
+      "readableApiMs": 1.7,
       "reads": {
         "innerText": {
           "matched": 11,
@@ -530,7 +530,7 @@
       "htmlChars": 496,
       "innerTextSample": "\"\"",
       "readableDomMs": null,
-      "readableApiMs": 27.4,
+      "readableApiMs": 28.2,
       "reads": {
         "innerText": {
           "matched": 0,
@@ -631,13 +631,13 @@
     },
     {
       "id": "xterm-dom-beta",
-      "version": "6.1.0-beta.337",
+      "version": "6.1.0-beta.339",
       "canvas": false,
       "domNodes": 116,
       "htmlChars": 63198,
       "innerTextSample": "\"scrollback line 1\\nscrollback line 2\\nscrollback line 3\\nscrollback line 4\\nscrollback line 5\\nscrollback line 6\\nscrollback line 7\\nscrollback line 8\\nscrollback line 9\\nscrollback line 10\\nscrollback line 11\\nscrollback line 12\\nscrollback line 13\\nscrollback line 14\\nscrollback line 15\\nscrollback line 16\\nscrol\"",
-      "readableDomMs": 24.4,
-      "readableApiMs": 2.2,
+      "readableDomMs": 25,
+      "readableApiMs": 1.7,
       "reads": {
         "innerText": {
           "matched": 11,
@@ -847,7 +847,7 @@
       "htmlChars": 671,
       "innerTextSample": "\"\"",
       "readableDomMs": null,
-      "readableApiMs": 0.8,
+      "readableApiMs": 0.9,
       "reads": {
         "innerText": {
           "matched": 0,
@@ -946,7 +946,7 @@
     },
     {
       "id": "t3code-ghostty",
-      "version": "t3code faa8ad6 (libghostty-vt wasm)",
+      "version": "t3code 38f3bdb (libghostty-vt wasm)",
       "canvas": true,
       "domNodes": 4,
       "htmlChars": 1015,
@@ -1002,7 +1002,7 @@
           "chars": 896
         }
       },
-      "focusTarget": "textarea.t3-ghostty-input@98,443",
+      "focusTarget": "textarea.t3-ghostty-input@98,450",
       "input": {
         "passed": 8,
         "total": 8,
@@ -1164,7 +1164,7 @@
       "htmlChars": 319,
       "innerTextSample": "\"\"",
       "readableDomMs": null,
-      "readableApiMs": 6.5,
+      "readableApiMs": 6.1,
       "reads": {
         "innerText": {
           "matched": 0,
@@ -1269,7 +1269,7 @@
       "htmlChars": 244,
       "innerTextSample": "\"\"",
       "readableDomMs": null,
-      "readableApiMs": 2,
+      "readableApiMs": 2.1,
       "reads": {
         "innerText": {
           "matched": 0,

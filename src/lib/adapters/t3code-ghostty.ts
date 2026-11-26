@@ -2,7 +2,7 @@ import type { TerminalAdapter } from '../terminal-adapter';
 export const t3codeGhosttyAdapter: TerminalAdapter = {
     id: 't3code-ghostty',
     label: 'T3 Code terminal (libghostty-vt WASM + Canvas 2D)',
-    description: 'The terminal inside pingdotgg/t3code: the official libghostty-vt C ABI compiled to WASM, with its own Canvas 2D renderer and input surface. Not on npm: built from the MIT source at faa8ad6.',
+    description: 'The terminal inside pingdotgg/t3code: the official libghostty-vt C ABI compiled to WASM, with its own Canvas 2D renderer and input surface. Not on npm: built from the MIT source at 38f3bdb.',
     bundleHint: '~25KB gz + 616KB WASM',
     async mount(element, shell) {
         const [{ default: vt }, { default: pty }, { default: font }] = await Promise.all([

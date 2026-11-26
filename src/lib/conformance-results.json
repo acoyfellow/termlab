@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-25T10:29:36.387Z",
+  "generatedAt": "2026-11-26T18:38:42.884Z",
   "browser": "Google Chrome for Testing 159.0.8154.6",
   "cases": [
     {
@@ -114,18 +114,11 @@
   "terminals": [
     {
       "id": "cloudterm",
-      "version": "0.0.16",
-      "passed": 12,
+      "version": "0.0.17",
+      "passed": 18,
       "tested": 18,
       "total": 18,
-      "failed": [
-        "dec-line-drawing",
-        "dsr-cpr-6n",
-        "da1-primary",
-        "dsr-status-5n",
-        "resize-reflow",
-        "tab-stops"
-      ],
+      "failed": [],
       "cases": {
         "cup-overwrite": {
           "pass": true,
@@ -164,8 +157,8 @@
           "detail": "\"SYNC-OK\""
         },
         "dec-line-drawing": {
-          "pass": false,
-          "detail": "\"lqqqk-ok\""
+          "pass": true,
+          "detail": "\"┌───┐-ok\""
         },
         "cjk-wide": {
           "pass": true,
@@ -180,24 +173,24 @@
           "detail": "\"café 🚀 ok\""
         },
         "dsr-cpr-6n": {
-          "pass": false,
-          "detail": "\"\""
+          "pass": true,
+          "detail": "\"\\u001b[3;7R\""
         },
         "da1-primary": {
-          "pass": false,
-          "detail": "\"\""
+          "pass": true,
+          "detail": "\"\\u001b[?1;2c\""
         },
         "dsr-status-5n": {
-          "pass": false,
-          "detail": "\"\""
+          "pass": true,
+          "detail": "\"\\u001b[0n\""
         },
         "resize-reflow": {
-          "pass": false,
-          "detail": "len=60 tail=\"xxxxxxxxxxxx\""
+          "pass": true,
+          "detail": "len=100 tail=\"xxxxxxxx-END\""
         },
         "tab-stops": {
-          "pass": false,
-          "detail": "[\"a       b\",\"1       2\"]"
+          "pass": true,
+          "detail": "[\"a       b\",\"1   2\"]"
         }
       }
     },
@@ -367,7 +360,7 @@
     },
     {
       "id": "wterm",
-      "version": "0.5.10",
+      "version": "0.6.0",
       "passed": 18,
       "tested": 18,
       "total": 18,
@@ -449,7 +442,7 @@
     },
     {
       "id": "wterm-webgl",
-      "version": "0.5.10 (webgl)",
+      "version": "0.6.0 (webgl)",
       "passed": 18,
       "tested": 18,
       "total": 18,
@@ -616,7 +609,7 @@
     },
     {
       "id": "xterm-dom-beta",
-      "version": "6.1.0-beta.337",
+      "version": "6.1.0-beta.339",
       "passed": 18,
       "tested": 18,
       "total": 18,
@@ -870,11 +863,15 @@
     },
     {
       "id": "t3code-ghostty",
-      "version": "t3code faa8ad6 (libghostty-vt wasm)",
-      "passed": 18,
+      "version": "t3code 38f3bdb (libghostty-vt wasm)",
+      "passed": 15,
       "tested": 18,
       "total": 18,
-      "failed": [],
+      "failed": [
+        "dsr-cpr-6n",
+        "da1-primary",
+        "dsr-status-5n"
+      ],
       "cases": {
         "cup-overwrite": {
           "pass": true,
@@ -929,16 +926,16 @@
           "detail": "\"café 🚀 ok\""
         },
         "dsr-cpr-6n": {
-          "pass": true,
-          "detail": "\"\\u001b[3;7R\""
+          "pass": false,
+          "detail": "\"\""
         },
         "da1-primary": {
-          "pass": true,
-          "detail": "\"\\u001b[?62;22c\""
+          "pass": false,
+          "detail": "\"\""
         },
         "dsr-status-5n": {
-          "pass": true,
-          "detail": "\"\\u001b[0n\""
+          "pass": false,
+          "detail": "\"\""
         },
         "resize-reflow": {
           "pass": true,

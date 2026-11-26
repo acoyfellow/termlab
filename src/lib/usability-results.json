@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-25T17:50:17.424Z",
+  "generatedAt": "2026-11-26T18:39:32.114Z",
   "browser": "Google Chrome for Testing 159.0.8154.6",
   "cases": [
     {
@@ -46,35 +46,29 @@
   "terminals": [
     {
       "id": "cloudterm",
-      "version": "0.0.16",
-      "passed": 5,
+      "version": "0.0.17",
+      "passed": 10,
       "total": 10,
-      "failed": [
-        "single-key-no-ghost",
-        "typing-and-backspace",
-        "duplicate-keydown-input",
-        "ime-composition",
-        "space-and-punctuation"
-      ],
+      "failed": [],
       "cases": {
         "single-key-no-ghost": {
-          "pass": false,
-          "detail": "line=\"$ h\" preds=1"
+          "pass": true,
+          "detail": "line=\"$ h\" preds=0"
         },
         "typing-and-backspace": {
-          "pass": false,
-          "detail": "line=\"$ hello\" preds=1"
+          "pass": true,
+          "detail": "line=\"$ hello\" preds=0"
         },
         "duplicate-keydown-input": {
-          "pass": false,
-          "detail": "\"aa\""
+          "pass": true,
+          "detail": "\"a\""
         },
         "ime-composition": {
-          "pass": false,
-          "detail": "\"n日\""
+          "pass": true,
+          "detail": "\"日\""
         },
         "space-and-punctuation": {
-          "pass": false,
+          "pass": true,
           "detail": "\"$ a b.c/d-e\""
         },
         "paste-once": {
@@ -91,7 +85,7 @@
         },
         "scrollback-stay": {
           "pass": true,
-          "detail": "top 4697->4297 vpY null->null last \"scroll-row-299\"->\"scroll-row-219\""
+          "detail": "top 4697->4297 vpY null->null last \"scroll-row-299\"->\"scroll-row-257\""
         },
         "click-focus-ctrl-c": {
           "pass": true,
@@ -205,7 +199,7 @@
     },
     {
       "id": "wterm",
-      "version": "0.5.10",
+      "version": "0.6.0",
       "passed": 9,
       "total": 10,
       "failed": [
@@ -256,7 +250,7 @@
     },
     {
       "id": "wterm-webgl",
-      "version": "0.5.10 (webgl)",
+      "version": "0.6.0 (webgl)",
       "passed": 8,
       "total": 10,
       "failed": [
@@ -360,7 +354,7 @@
     },
     {
       "id": "xterm-dom-beta",
-      "version": "6.1.0-beta.337",
+      "version": "6.1.0-beta.339",
       "passed": 8,
       "total": 10,
       "failed": [
@@ -520,7 +514,7 @@
     },
     {
       "id": "t3code-ghostty",
-      "version": "t3code faa8ad6 (libghostty-vt wasm)",
+      "version": "t3code 38f3bdb (libghostty-vt wasm)",
       "passed": 8,
       "total": 10,
       "failed": [

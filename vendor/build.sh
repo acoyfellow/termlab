@@ -25,11 +25,11 @@ rm -rf "$here/auterm/dist/test"
 find "$here/auterm/dist" -name "*.map" -delete
 for pkg in ferroterm auterm; do node -e "const f=process.argv[1],p=require(f);for(const k of ['scripts','devDependencies','files'])delete p[k];if(p.name==='auterm')p.types='dist/index.d.ts';require('fs').writeFileSync(f,JSON.stringify(p,null,2)+'\\n')" "$here/$pkg/package.json"; done
 
-fetch https://chromium.googlesource.com/apps/libapps libapps 8fe95d29adf17d304e36faf70e441c304b376fb2
+fetch https://chromium.googlesource.com/apps/libapps libapps 5ecc78cc5de91cb05cba570d55e6373a0028b19d
 (cd "$work/libapps" && npm install --ignore-scripts --no-audit --no-fund >>"$log" 2>&1 && (cd libdot && ../node_modules/.bin/rollup -c >>"$log" 2>&1) && (cd hterm && ../node_modules/.bin/rollup -c >>"$log" 2>&1))
 rm -rf "$here/hterm-upstream" && mkdir -p "$here/hterm-upstream"
 cp "$work/libapps/hterm/dist/js/hterm.js" "$work/libapps/LICENSE" "$here/hterm-upstream/"
 printf '{ "name": "hterm-upstream", "version": "%s", "type": "module", "main": "hterm.js", "module": "hterm.js", "license": "BSD-3-Clause" }\n' "$(node -p "require('$work/libapps/hterm/package.json').version")" > "$here/hterm-upstream/package.json"
 
-fetch https://github.com/pingdotgg/t3code t3code faa8ad681861430740c5adfc225540eaf3e46272
+fetch https://github.com/pingdotgg/t3code t3code 38f3bdb7f922f181b3e4a074bd4381c241cb20c3
 (cd "$here" && bun build-t3code.ts "$work/t3code" >>"$log" 2>&1)

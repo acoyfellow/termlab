@@ -98,36 +98,53 @@ const routes: Record<string, unknown> = {};
 for (const a of adapters) routes[`/${a.id}`] = (await import(join(out, `page-${a.id}.html`))).default;
 const server = Bun.serve({ port: 0, hostname: "127.0.0.1", development: false, routes: routes as any });
 
-async function sample(adapter: Adapter, workload: string, port: number, traced: boolean) {
+async function sampleOnce(adapter: Adapter, workload: string, port: number, traced: boolean) {
   const chrome = spawn(binary, [`--remote-debugging-port=${port}`, "--enable-precise-memory-info", "--js-flags=--expose-gc", ...gpuFlags, "--window-size=1600,1100", "about:blank"], { stdio: "ignore" });
+  const deadline = setTimeout(() => { chrome.kill("SIGKILL"); }, 65000);
   try {
     let ws = "";
     for (let i = 0; i < 80 && !ws; i++) {
       try { ws = ((await (await fetch(`http://127.0.0.1:${port}/json`)).json()) as any[]).find((t) => t.type === "page")?.webSocketDebuggerUrl ?? ""; } catch {}
       if (!ws) await Bun.sleep(100);
     }
+    if (!ws) return { ok: false, ms: NaN, error: "chrome debugger never opened", errors: [] };
     const sock = new WebSocket(ws);
-    await new Promise((r) => sock.addEventListener("open", r, { once: true }));
+    await new Promise<void>((resolve, reject) => {
+      sock.addEventListener("open", () => resolve(), { once: true });
+      sock.addEventListener("error", () => reject(new Error("websocket open failed")), { once: true });
+      sock.addEventListener("close", () => reject(new Error("websocket closed before open")), { once: true });
+    });
     let id = 0;
     const waiting = new Map<number, (v: any) => void>();
     const errors: string[] = [];
     const trace: any[] = [];
     let traceComplete: (() => void) | undefined;
+    sock.addEventListener("close", () => {
+      for (const resolve of waiting.values()) resolve({ error: { message: "chrome closed" } });
+      waiting.clear();
+      traceComplete?.();
+    });
     sock.addEventListener("message", (e) => {
       const m = JSON.parse(String(e.data));
       if (m.method === "Runtime.consoleAPICalled" && m.params.type === "error") errors.push(m.params.args.map((a: any) => a.value ?? a.description).join(" ").slice(0, 300));
-      if (m.id) waiting.get(m.id)?.(m);
+      if (m.id) { waiting.get(m.id)?.(m); waiting.delete(m.id); }
       if (m.method === "Runtime.exceptionThrown") errors.push(m.params.exceptionDetails.exception?.description ?? m.params.exceptionDetails.text);
       if (m.method === "Tracing.dataCollected") trace.push(...m.params.value);
       if (m.method === "Tracing.tracingComplete") traceComplete?.();
     });
-    const send = (method: string, params: object = {}) => new Promise<any>((r) => { const i = ++id; waiting.set(i, r); sock.send(JSON.stringify({ id: i, method, params })); });
+    const send = (method: string, params: object = {}) => new Promise<any>((r) => {
+      if (sock.readyState !== WebSocket.OPEN) { r({ error: { message: "socket not open" } }); return; }
+      const i = ++id;
+      waiting.set(i, r);
+      sock.send(JSON.stringify({ id: i, method, params }));
+    });
     await send("Runtime.enable");
     await send("Page.enable");
     await send("Page.navigate", { url: `http://127.0.0.1:${server.port}/${adapter.id}` });
     let ready = false;
     for (let i = 0; i < 150 && !ready; i++) {
       const r = await send("Runtime.evaluate", { expression: "window.ready === true", returnByValue: true });
+      if (r.error) break;
       ready = r.result?.result?.value === true;
       if (!ready) await Bun.sleep(100);
     }
@@ -141,7 +158,7 @@ async function sample(adapter: Adapter, workload: string, port: number, traced: 
     }
     const complete = new Promise<void>((resolve) => { traceComplete = resolve; });
     await send("Tracing.end");
-    await complete;
+    await Promise.race([complete, Bun.sleep(15000)]);
     const metrics = traceMetrics(trace);
     if (value.ok && (metrics.cpuMs <= 0 || metrics.cpuMs > value.ms + 15)) {
       value.ok = false;
@@ -149,9 +166,18 @@ async function sample(adapter: Adapter, workload: string, port: number, traced: 
     }
     sock.close();
     return { ...value, ...metrics, errors };
+  } catch (error) {
+    return { ok: false, ms: NaN, error: String(error), errors: [] };
   } finally {
+    clearTimeout(deadline);
     chrome.kill("SIGKILL");
   }
+}
+
+async function sample(adapter: Adapter, workload: string, port: number, traced: boolean) {
+  const first = await sampleOnce(adapter, workload, port, traced);
+  if (first.ok) return first;
+  return await sampleOnce(adapter, workload, freePort(), traced);
 }
 
 const traceMetrics = (events: any[]) => {

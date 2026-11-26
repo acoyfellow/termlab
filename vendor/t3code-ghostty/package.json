@@ -1,6 +1,6 @@
 {
   "name": "t3code-ghostty",
-  "version": "0.0.0-faa8ad6",
+  "version": "0.0.0-38f3bdb",
   "type": "module",
   "main": "index.js",
   "module": "index.js",

@@ -1,30 +1,30 @@
 {
-  "generatedAt": "2026-11-25T21:34:43.791Z",
+  "generatedAt": "2026-11-26T18:43:28.403Z",
   "browser": "Google Chrome for Testing 159.0.8154.6",
   "keysPerMode": 20,
   "terminals": [
     {
       "id": "cloudterm",
-      "version": "0.0.16",
+      "version": "0.0.17",
       "probe": "dom",
       "unverifiedTiming": null,
       "clean": {
         "samples": 20,
         "failures": 0,
-        "readyMedianMs": 1.5,
-        "keyCpuMedianMs": 1.31,
-        "keyCpuP95Ms": 2.43,
-        "displayMedianMs": 15.67,
-        "displayP95Ms": 26.76
+        "readyMedianMs": 5.9,
+        "keyCpuMedianMs": 1.27,
+        "keyCpuP95Ms": 2.1,
+        "displayMedianMs": 22.51,
+        "displayP95Ms": 34.14
       },
       "scrollback5k": {
         "samples": 20,
         "failures": 0,
-        "readyMedianMs": 2.2,
-        "keyCpuMedianMs": 1.39,
-        "keyCpuP95Ms": 2.98,
-        "displayMedianMs": 16.96,
-        "displayP95Ms": 32.98
+        "readyMedianMs": 1.4,
+        "keyCpuMedianMs": 1.48,
+        "keyCpuP95Ms": 1.99,
+        "displayMedianMs": 17.32,
+        "displayP95Ms": 31.93
       }
     },
     {
@@ -35,20 +35,20 @@
       "clean": {
         "samples": 20,
         "failures": 0,
-        "readyMedianMs": 1.3,
-        "keyCpuMedianMs": 1.33,
-        "keyCpuP95Ms": 1.83,
-        "displayMedianMs": 11.89,
-        "displayP95Ms": 33.13
+        "readyMedianMs": 1.9,
+        "keyCpuMedianMs": 1.89,
+        "keyCpuP95Ms": 2.45,
+        "displayMedianMs": 16.95,
+        "displayP95Ms": 32.13
       },
       "scrollback5k": {
         "samples": 20,
         "failures": 0,
-        "readyMedianMs": 5.3,
-        "keyCpuMedianMs": 1.4,
-        "keyCpuP95Ms": 2.37,
-        "displayMedianMs": 21.01,
-        "displayP95Ms": 33.21
+        "readyMedianMs": 2.3,
+        "keyCpuMedianMs": 1.39,
+        "keyCpuP95Ms": 2.21,
+        "displayMedianMs": 17.02,
+        "displayP95Ms": 32.65
       }
     },
     {
@@ -59,68 +59,68 @@
       "clean": {
         "samples": 20,
         "failures": 0,
-        "readyMedianMs": 1.2,
-        "keyCpuMedianMs": 1.15,
-        "keyCpuP95Ms": 1.67,
-        "displayMedianMs": 11.19,
-        "displayP95Ms": 32.76
+        "readyMedianMs": 1.1,
+        "keyCpuMedianMs": 1.16,
+        "keyCpuP95Ms": 2.09,
+        "displayMedianMs": 11.53,
+        "displayP95Ms": 32.77
       },
       "scrollback5k": {
         "samples": 20,
         "failures": 0,
-        "readyMedianMs": 1.8,
-        "keyCpuMedianMs": 1.43,
-        "keyCpuP95Ms": 2.47,
-        "displayMedianMs": 16.81,
-        "displayP95Ms": 31.78
+        "readyMedianMs": 1.1,
+        "keyCpuMedianMs": 1.07,
+        "keyCpuP95Ms": 1.65,
+        "displayMedianMs": 16.28,
+        "displayP95Ms": 32.51
       }
     },
     {
       "id": "wterm",
-      "version": "0.5.10",
+      "version": "0.6.0",
       "probe": "dom",
       "unverifiedTiming": null,
       "clean": {
         "samples": 20,
         "failures": 0,
-        "readyMedianMs": 1.9,
-        "keyCpuMedianMs": 1.38,
-        "keyCpuP95Ms": 1.94,
-        "displayMedianMs": 18.52,
-        "displayP95Ms": 32.94
+        "readyMedianMs": 2.3,
+        "keyCpuMedianMs": 1.23,
+        "keyCpuP95Ms": 2.47,
+        "displayMedianMs": 17.48,
+        "displayP95Ms": 33.07
       },
       "scrollback5k": {
         "samples": 20,
         "failures": 0,
-        "readyMedianMs": 6.4,
-        "keyCpuMedianMs": 1.76,
-        "keyCpuP95Ms": 2.51,
-        "displayMedianMs": 22.07,
-        "displayP95Ms": 33.13
+        "readyMedianMs": 5.6,
+        "keyCpuMedianMs": 1.5,
+        "keyCpuP95Ms": 2.25,
+        "displayMedianMs": 21.11,
+        "displayP95Ms": 32.19
       }
     },
     {
       "id": "wterm-webgl",
-      "version": "0.5.10 (webgl)",
+      "version": "0.6.0 (webgl)",
       "probe": "buffer",
       "unverifiedTiming": null,
       "clean": {
         "samples": 20,
         "failures": 0,
-        "readyMedianMs": 1.5,
-        "keyCpuMedianMs": 1.42,
-        "keyCpuP95Ms": 3.19,
-        "displayMedianMs": 12.97,
-        "displayP95Ms": 32.3
+        "readyMedianMs": 5.8,
+        "keyCpuMedianMs": 1.58,
+        "keyCpuP95Ms": 3.29,
+        "displayMedianMs": 21.94,
+        "displayP95Ms": 33.83
       },
       "scrollback5k": {
         "samples": 20,
         "failures": 0,
-        "readyMedianMs": 5.7,
-        "keyCpuMedianMs": 1.74,
-        "keyCpuP95Ms": 2.95,
-        "displayMedianMs": 21.35,
-        "displayP95Ms": 32.44
+        "readyMedianMs": 5.6,
+        "keyCpuMedianMs": 1.36,
+        "keyCpuP95Ms": 2.87,
+        "displayMedianMs": 22.03,
+        "displayP95Ms": 32.07
       }
     },
     {
@@ -131,44 +131,44 @@
       "clean": {
         "samples": 20,
         "failures": 0,
-        "readyMedianMs": 13.1,
-        "keyCpuMedianMs": 4.53,
-        "keyCpuP95Ms": 5.64,
-        "displayMedianMs": 25.54,
-        "displayP95Ms": 34.22
+        "readyMedianMs": 10.7,
+        "keyCpuMedianMs": 3.11,
+        "keyCpuP95Ms": 5.09,
+        "displayMedianMs": 24.61,
+        "displayP95Ms": 32.29
       },
       "scrollback5k": {
         "samples": 20,
         "failures": 0,
-        "readyMedianMs": 10.5,
-        "keyCpuMedianMs": 4.12,
-        "keyCpuP95Ms": 5.22,
-        "displayMedianMs": 25.4,
-        "displayP95Ms": 33.71
+        "readyMedianMs": 12.8,
+        "keyCpuMedianMs": 5.57,
+        "keyCpuP95Ms": 6.33,
+        "displayMedianMs": 25.16,
+        "displayP95Ms": 33.98
       }
     },
     {
       "id": "xterm-dom-beta",
-      "version": "6.1.0-beta.337",
+      "version": "6.1.0-beta.339",
       "probe": "buffer",
       "unverifiedTiming": null,
       "clean": {
         "samples": 20,
         "failures": 0,
-        "readyMedianMs": 5.5,
-        "keyCpuMedianMs": 1.61,
-        "keyCpuP95Ms": 2.88,
-        "displayMedianMs": 21.57,
-        "displayP95Ms": 33.84
+        "readyMedianMs": 3.2,
+        "keyCpuMedianMs": 2.11,
+        "keyCpuP95Ms": 3.84,
+        "displayMedianMs": 17.08,
+        "displayP95Ms": 32.14
       },
       "scrollback5k": {
         "samples": 20,
         "failures": 0,
-        "readyMedianMs": 5.3,
-        "keyCpuMedianMs": 1.43,
-        "keyCpuP95Ms": 2.59,
-        "displayMedianMs": 22.45,
-        "displayP95Ms": 32.8
+        "readyMedianMs": 2.2,
+        "keyCpuMedianMs": 1.92,
+        "keyCpuP95Ms": 3.12,
+        "displayMedianMs": 16.95,
+        "displayP95Ms": 32.35
       }
     },
     {
@@ -180,8 +180,8 @@
         "samples": 20,
         "failures": 20,
         "readyMedianMs": null,
-        "keyCpuMedianMs": 36.17,
-        "keyCpuP95Ms": 45.47,
+        "keyCpuMedianMs": 37.67,
+        "keyCpuP95Ms": 72.09,
         "displayMedianMs": null,
         "displayP95Ms": null
       },
@@ -189,8 +189,8 @@
         "samples": 20,
         "failures": 20,
         "readyMedianMs": null,
-        "keyCpuMedianMs": 40.83,
-        "keyCpuP95Ms": 46.97,
+        "keyCpuMedianMs": 41.97,
+        "keyCpuP95Ms": 55.08,
         "displayMedianMs": null,
         "displayP95Ms": null
       }
@@ -203,44 +203,44 @@
       "clean": {
         "samples": 20,
         "failures": 0,
-        "readyMedianMs": 9,
-        "keyCpuMedianMs": 1.12,
-        "keyCpuP95Ms": 1.88,
-        "displayMedianMs": 25.05,
-        "displayP95Ms": 33.87
+        "readyMedianMs": 1.4,
+        "keyCpuMedianMs": 1.13,
+        "keyCpuP95Ms": 2.11,
+        "displayMedianMs": 11.15,
+        "displayP95Ms": 32.62
       },
       "scrollback5k": {
         "samples": 20,
         "failures": 0,
-        "readyMedianMs": 1.5,
-        "keyCpuMedianMs": 0.89,
-        "keyCpuP95Ms": 1.56,
-        "displayMedianMs": 10.04,
-        "displayP95Ms": 32.93
+        "readyMedianMs": 1.2,
+        "keyCpuMedianMs": 1.23,
+        "keyCpuP95Ms": 1.97,
+        "displayMedianMs": 10.29,
+        "displayP95Ms": 33.51
       }
     },
     {
       "id": "t3code-ghostty",
-      "version": "t3code faa8ad6 (libghostty-vt wasm)",
+      "version": "t3code 38f3bdb (libghostty-vt wasm)",
       "probe": "snapshot",
       "unverifiedTiming": null,
       "clean": {
         "samples": 20,
         "failures": 0,
-        "readyMedianMs": 2.3,
-        "keyCpuMedianMs": 1.34,
-        "keyCpuP95Ms": 2.71,
-        "displayMedianMs": 17.91,
-        "displayP95Ms": 32.83
+        "readyMedianMs": 6.2,
+        "keyCpuMedianMs": 1.86,
+        "keyCpuP95Ms": 2.88,
+        "displayMedianMs": 21.67,
+        "displayP95Ms": 33.48
       },
       "scrollback5k": {
         "samples": 20,
         "failures": 0,
-        "readyMedianMs": 1.5,
-        "keyCpuMedianMs": 1.52,
-        "keyCpuP95Ms": 3.27,
-        "displayMedianMs": 17.58,
-        "displayP95Ms": 33.24
+        "readyMedianMs": 5.8,
+        "keyCpuMedianMs": 1.36,
+        "keyCpuP95Ms": 2.11,
+        "displayMedianMs": 21.98,
+        "displayP95Ms": 32.95
       }
     },
     {
@@ -251,20 +251,20 @@
       "clean": {
         "samples": 20,
         "failures": 0,
-        "readyMedianMs": 2.3,
-        "keyCpuMedianMs": 2.39,
-        "keyCpuP95Ms": 4.44,
-        "displayMedianMs": 14.42,
-        "displayP95Ms": 34.95
+        "readyMedianMs": 6.3,
+        "keyCpuMedianMs": 2.31,
+        "keyCpuP95Ms": 6.47,
+        "displayMedianMs": 21.38,
+        "displayP95Ms": 32.42
       },
       "scrollback5k": {
         "samples": 20,
         "failures": 0,
-        "readyMedianMs": 9.5,
-        "keyCpuMedianMs": 4.51,
-        "keyCpuP95Ms": 9.94,
-        "displayMedianMs": 20.92,
-        "displayP95Ms": 32.93
+        "readyMedianMs": 7.4,
+        "keyCpuMedianMs": 4.54,
+        "keyCpuP95Ms": 10.79,
+        "displayMedianMs": 20.58,
+        "displayP95Ms": 32.98
       }
     },
     {
@@ -275,7 +275,7 @@
       "clean": {
         "samples": 20,
         "failures": 0,
-        "readyMedianMs": 1099.6,
+        "readyMedianMs": 1084.9,
         "keyCpuMedianMs": null,
         "keyCpuP95Ms": null,
         "displayMedianMs": null,
@@ -299,7 +299,7 @@
       "clean": {
         "samples": 20,
         "failures": 0,
-        "readyMedianMs": 1374,
+        "readyMedianMs": 1072.9,
         "keyCpuMedianMs": null,
         "keyCpuP95Ms": null,
         "displayMedianMs": null,
