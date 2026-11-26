@@ -129,7 +129,7 @@ export type StaticGradeMap = Partial<
 
 export const STATIC_GRADES: Record<string, StaticGradeMap> = {
   cloudterm: {
-    'bundle-size': { result: 'pass', note: '28KB gz incl. pretext' },
+    'bundle-size': { result: 'pass', note: '31KB gz incl. pretext' },
     'cmd-find': { result: 'pass' },
     selection: { result: 'pass' },
     a11y: { result: 'pass' },
@@ -137,8 +137,8 @@ export const STATIC_GRADES: Record<string, StaticGradeMap> = {
     'ansi-256': { result: 'pass' },
     'box-align': { result: 'pass', note: 'pretext-measured monospace' },
     'emoji-width': { result: 'pass', note: 'wcwidth tables, grapheme clusters' },
-    'resize-robust': { result: 'partial', note: 'ResizeObserver; truncates/pads on resize, no line reflow' },
-    maintenance: { result: 'partial', note: 'v0.0.16, single maintainer (acoyfellow/cloudterm)' },
+    'resize-robust': { result: 'pass', note: 'ResizeObserver with main-buffer line reflow' },
+    maintenance: { result: 'partial', note: 'v0.0.17, single maintainer (acoyfellow/cloudterm)' },
     license: { result: 'pass', note: 'MIT' },
   },
   'xterm-dom': {
